@@ -1,6 +1,6 @@
 def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchName,def trigrammeAppli){
-docker.withRegistry(${dockerRegistryUrl}) {
-    docker.image({$dockerImageName}).inside {
+docker.withRegistry('${dockerRegistryUrl}') {
+    docker.image('{$dockerImageName}').inside {
       stage('Build') {
         sh 'npm ci --unsafe-perm'
       }
