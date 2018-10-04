@@ -10,7 +10,7 @@ def call() {
 			userRemoteConfigs: scm.userRemoteConfigs,
 			])
 		def gitUrl = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
-		gitProjectName = sh(returnStdout: true, script: "echo '$url' | awk -F'/si2m/' '{print \$2}' |  awk -F'.git' '{print \$1}'").trim()
+		gitProjectName = sh(returnStdout: true, script: "echo '$gitUrl' | awk -F'/si2m/' '{print \$2}' |  awk -F'.git' '{print \$1}'").trim()
 		trigrammeAppli = sh(returnStdout: true, script: "echo '$gitProjectName' | awk -F'_' '{print \$1}'").trim()
 		codeAppli = sh(returnStdout: true, script: "echo '$gitProjectName' | awk -F'_' '{print \$2}'").trim()
 		projectName = sh(returnStdout: true, script: "echo '$gitProjectName' | awk -F'_' '{print \$3}'").trim()
