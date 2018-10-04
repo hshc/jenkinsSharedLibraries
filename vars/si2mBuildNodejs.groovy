@@ -1,7 +1,7 @@
 def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchName,def trigrammeAppli){
 echo dockerRegistryUrl
-docker.withRegistry('${dockerRegistryUrl}') {
-    docker.image('{$dockerImageName}').inside {
+docker.withRegistry(dockerRegistryUrl) {
+    docker.image(dockerImageName).inside {
       stage('Build') {
         sh 'npm ci --unsafe-perm'
       }
@@ -15,12 +15,12 @@ docker.withRegistry('${dockerRegistryUrl}') {
           }
         )
       }
-      if (${gitBranchName} == 'master' || ${gitBranchName} == 'develop') {
+      if (gitBranchName == 'master' || gitBranchName == 'develop') {
         stage('NPM Pack') {
           sh ('npm pack')
         }
 
-        if(${gitBranchName} == 'master' && ${trigrammeAppli} == 'BPP') {
+        if(gitBranchName == 'master' && trigrammeAppli == 'BPP') {
           stage('Publish Nexus') {
             sh ('npm publish --registry ${nexusRepo}')
           }
