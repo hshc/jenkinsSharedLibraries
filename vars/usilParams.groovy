@@ -1,4 +1,4 @@
-class params {
+class usilParams {
 	def trigrammeAppli
 	def codeAppli
 	def projectName
