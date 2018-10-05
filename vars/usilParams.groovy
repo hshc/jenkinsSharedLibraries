@@ -6,7 +6,6 @@ def call() {
 	def gitBranchName
 	def gitTag
 	def dockerRegistryRepoAppli
-	def dockerRegistryRepoAppli
 	def dockerRegistryUrl='https://dtr.docker.si2m.tec'
 	def dockerRegistryImageBuild='test-store/si2m-npm10-build'
 	def dockerRegistryRepo='repo-store'
