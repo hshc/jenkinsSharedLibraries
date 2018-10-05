@@ -1,6 +1,6 @@
 def call(def dockerRegistryUrl,def userDockerRegistry, def dockerRegistryRepoAppli){
     stage('Build Docker & push DTR'){
-      withCredentials([usernamePassword( credentialsId: userDockerRegistry, usernameVariable: 'userName', passwordVariable: 'password')]) {
+      withCredentials([usernamePassword( credentialsId: dockerRegistryUser , usernameVariable: 'userName', passwordVariable: 'password')]) {
         docker.withRegistry(dockerRegistryUrl) {
 			sh "docker login -u ${userName} -p ${password} ${dockerRegistryUrl}"
 			def imageDocker= docker.build("${dockerRegistryRepoAppli}",'--no-cache --rm .')
