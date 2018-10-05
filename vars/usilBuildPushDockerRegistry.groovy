@@ -1,4 +1,4 @@
-def call(def dockerRegistryUrl,def userDockerRegistry, def dockerRegistryRepoAppli){
+def call(def dockerRegistryUrl,def dockerRegistryUser, def dockerRegistryRepoAppli){
     stage('Build Docker & push DTR'){
       withCredentials([usernamePassword( credentialsId: dockerRegistryUser , usernameVariable: 'userName', passwordVariable: 'password')]) {
         docker.withRegistry(dockerRegistryUrl) {
