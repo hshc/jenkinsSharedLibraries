@@ -1,11 +1,11 @@
-def call(Closure context) {
-    // création d'un map
-    def params = [:]
-    // affecter la map en tant que delegate de la closure
-    context.resolveStrategy = Closure.DELEGATE_FIRST
-    context.delegate = params
-    // appeler la closure
-    context()
+def call() {
+	def trigrammeAppli
+	def codeAppli
+	def projectName
+	def gitProjectName
+	def gitBranchName
+	def gitTag
+	def dockerRegistryRepoAppli
 	def dockerRegistryRepoAppli
 	def dockerRegistryUrl='https://dtr.docker.si2m.tec'
 	def dockerRegistryImageBuild='test-store/si2m-npm10-build'
