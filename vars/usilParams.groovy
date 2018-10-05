@@ -1,11 +1,4 @@
 class usilParams {
-	def trigrammeAppli
-	def codeAppli
-	def projectName
-	def gitProjectName
-	def gitBranchName
-	def gitTag
-	def dockerRegistryRepoAppli
 	def dockerRegistryUrl = 'https://dtr.docker.si2m.tec'
 	def dockerRegistryImageBuild='test-store/si2m-npm10-build'
 	def dockerRegistryRepo='repo-store'
