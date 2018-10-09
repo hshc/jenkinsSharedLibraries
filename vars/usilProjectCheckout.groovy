@@ -16,7 +16,6 @@ def call() {
 		projectName = sh(returnStdout: true, script: "echo '$gitProjectName' | awk -F'_' '{print \$3}'").trim()
 		gitTag = sh(returnStdout: true, script: "git tag -l | sort -V | tail -n 1 | cut -c 2-").trim()
 		echo env.BRANCH_NAME
-		echo gitBranchName
 		gitBranchName=env.BRANCH_NAME
 	}
 }
