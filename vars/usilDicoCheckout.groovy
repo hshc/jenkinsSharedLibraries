@@ -3,7 +3,6 @@ def call(def gitBitbucketUrl,def codeEnv, def gitProjectDico) {
       sh ("rm -f -r ${codeEnv}")
       checkout([$class: 'GitSCM', branches: [[name: "*/${codeEnv}"]],
       doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${codeEnv}"]],
-      submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'bitbucket-cloud', url: "${gitProjectDico}",refspec: "+refs/heads/${codeEnv}:refs/remotes/origin/${codeEnv}"]]])
+      submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'bitbucket-cloud', url: "${gitBitbucketUrl}${gitProjectDico}",refspec: "+refs/heads/${codeEnv}:refs/remotes/origin/${codeEnv}"]]])
     }
 }
-	
