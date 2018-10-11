@@ -1,17 +1,19 @@
 def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	// gestion des certificats pour connexion UCP
 	stage ("Deploiement UCP Docker ${codeEnv}") {
+		def dockerCertPath
+		def dockerUcp
 		if (codeEnv == 'e0') {
-			def dockerUcp="tcp://ucp.docker.si2m.tec:443"
-			def dockerCertPath="${JENKINS_HOME}/docker_ucp_prod"
+			dockerUcp="tcp://ucp.docker.si2m.tec:443"
+			dockerCertPath="${JENKINS_HOME}/docker_ucp_prod"
 			}
 		else if (codeEnv == 'e1') {
-			def dockerUcp="tcp://ucp.pprod.docker.si2m.tec:443"
-			def dockerCertPath="${JENKINS_HOME}/docker_ucp_pprod/"
+			dockerUcp="tcp://ucp.pprod.docker.si2m.tec:443"
+			dockerCertPath="${JENKINS_HOME}/docker_ucp_pprod/"
 			}
 		else {
-			def dockerUcp="tcp://ucp.recf.docker.si2m.tec:443"
-			def dockerCertPath="${JENKINS_HOME}/docker_ucp_recf/"
+			dockerUcp="tcp://ucp.recf.docker.si2m.tec:443"
+			dockerCertPath="${JENKINS_HOME}/docker_ucp_recf/"
 		}
 		echo 'DOCKER_TLS_VERIFY=1'
 		echo "DOCKER_CERT_PATH='${dockerCertPath}'"
