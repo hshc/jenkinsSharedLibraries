@@ -13,7 +13,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 		def dockerCertPath="$JENKINS_HOME/docker_ucp_recf"
 	}
     stage ("Deploiement UCP Docker ${codeEnv}") {
-		withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=$dockerCertPath","DOCKER_HOST=${dockerCertPath}"]) {
+		withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerCertPath}"]) {
 			sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
 			sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}"
 		}
