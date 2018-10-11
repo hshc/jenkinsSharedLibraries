@@ -1,6 +1,6 @@
 def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	// gestion des certificats pour connexion UCP
-	stage ("Deploiement UCP Docker ${codeEnv}") {
+	stage ("Deploiement UCP Docker env:${codeEnv}") {
 		def dockerCertPath
 		def dockerUcp
 		if (codeEnv == 'e0') {
