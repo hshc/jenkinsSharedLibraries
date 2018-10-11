@@ -9,6 +9,8 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 		def dockerCertPath="$JENKINS_HOME/docker_ucp_pprod"
 		}
 	else {
+	    echo 'test'
+		echo codeEnv
 		def dockerUcp='tcp://ucp.recf.docker.si2m.tec:443'
 		def dockerCertPath="$JENKINS_HOME/docker_ucp_recf"
 	}
