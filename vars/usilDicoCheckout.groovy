@@ -1,5 +1,5 @@
 def call(def gitBitbucketUrl,def codeEnv, def gitProjectDico) {
-	stage("Checkout Dico ${codeEnv}"){
+	stage("Checkout Dico env:${codeEnv}"){
       sh ("rm -f -r ${codeEnv}")
       checkout([$class: 'GitSCM', branches: [[name: "*/${codeEnv}"]],
       doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${codeEnv}"]],
