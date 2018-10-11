@@ -13,11 +13,12 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			def dockerUcp="tcp://ucp.recf.docker.si2m.tec:443"
 			def dockerCertPath="${JENKINS_HOME}/docker_ucp_recf/"
 		}
+		echo 'DOCKER_TLS_VERIFY=1'
+		echo "DOCKER_CERT_PATH=${dockerCertPath}"
+		echo "DOCKER_HOST=${dockerUcp}"
+		
 		 withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 		{
-		    echo 'DOCKER_TLS_VERIFY=1'
-			echo "DOCKER_CERT_PATH=${dockerCertPath}"
-			echo "DOCKER_HOST=${dockerUcp}"
 			//sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
 			//sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}"
 		}
