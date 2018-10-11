@@ -14,7 +14,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			def dockerCertPath="${JENKINS_HOME}/docker_ucp_recf/"
 		}
 		echo 'DOCKER_TLS_VERIFY=1'
-		echo 'DOCKER_CERT_PATH='"${dockerCertPath}"
+		echo "DOCKER_CERT_PATH='${dockerCertPath}'"
 		//echo "DOCKER_HOST=${dockerUcp}"
 		
 		// withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
