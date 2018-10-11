@@ -12,6 +12,8 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 		def dockerUcp='tcp://ucp.recf.docker.si2m.tec:443'
 		def dockerCertPath="$JENKINS_HOME/docker_ucp_recf"
 	}
+	echo 'dockerCertPath'
+	echo dockerCertPath
     stage ("Deploiement UCP Docker ${codeEnv}") {
 		withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerCertPath}"]) {
 			sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
