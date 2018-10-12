@@ -1,7 +1,20 @@
 def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	// gestion des certificats pour connexion UCP
-	    def dockerUcp='tcp://ucp.recf.docker.si2m.tec:443'
-	    def dockerCertPath='$JENKINS_HOME/docker_ucp_recf'
+    stage ("Deploiement UCP Docker E2E env:${codeEnv}") {
+        def dockerCertPath
+		def dockerUcp
+		if (codeEnv == 'e0') {
+			dockerUcp="tcp://ucp.docker.si2m.tec:443"
+			dockerCertPath="${JENKINS_HOME_SLAVE}/docker_ucp_prod"
+			}
+		else if (codeEnv == 'e1') {
+			dockerUcp="tcp://ucp.pprod.docker.si2m.tec:443"
+			dockerCertPath="${JENKINS_HOME_SLAVE}/docker_ucp_pprod/"
+			}
+		else {
+			dockerUcp="tcp://ucp.recf.docker.si2m.tec:443"
+			dockerCertPath="${JENKINS_HOME_SLAVE}/docker_ucp_recf/"
+		}
         
         echo 'chargement du fichier'
         //Properties properties = new Properties()
@@ -9,18 +22,14 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
         def urlRecf=props.URL;
         echo urlRecf
         def prefixeUrl = sh(returnStdout: true, script: "echo '$urlRecf' | awk -F'http://' '{print \$2}' |  awk -F'.int.c-cloud' '{print \$1}'").trim()
-    //    def urlE2e = "${prefixeUrl}-e2e.recf.cloud.si2m.tec"
-     //   def amap=['URL':"${urlE2e}"']
-     //   writeYaml file: "${codeEnv}/.env", data :amap
         
         
         sh "sed -i 's/${prefixeUrl}.int.c-cloud/${prefixeUrl}-e2e.int.c-cloud/g' ${codeEnv}/.env"
-        
-        
-    stage ('Deploiement UCP Docker ${codeEnv}') {
-		withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=$dockerCertPath","DOCKER_HOST=${dockerCertPath}"]) {
+   
+	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
+	    	{
 			sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
 			sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}-e2e"
-		}
-    }
+	    	}
+    }    
 }
