@@ -4,7 +4,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	    def dockerCertPath='$JENKINS_HOME/docker_ucp_recf'
         
         echo 'chargement du fichier'
-        Properties properties = new Properties()
+        //Properties properties = new Properties()
         def props = readProperties interpolate: true, file: "${codeEnv}/.env"
         def urlE2e=props.URL;
         echo urlE2e
