@@ -8,7 +8,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
         def props = readProperties interpolate: false, file: "${codeEnv}/.env"
         def urlRecf=props.URL;
         echo urlRecf
-        def prefixeUrl = sh(returnStdout: true, script: "echo '$urlRecf' | awk -F'http://' '{print \$2}' |  awk -F'.recf.cloud' '{print \$1}'").trim()
+        def prefixeUrl = sh(returnStdout: true, script: "echo '$urlRecf' | awk -F'http://' '{print \$2}' |  awk -F'.int.c-cloud' '{print \$1}'").trim()
         echo prefixeUrl
         
    // stage ('Deploiement UCP Docker ${codeEnv}') {
