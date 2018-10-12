@@ -3,6 +3,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	    def dockerUcp='tcp://ucp.recf.docker.si2m.tec:443'
 	    def dockerCertPath='$JENKINS_HOME/docker_ucp_recf'
         
+        echo 'chargement du fichier'
         Properties properties = new Properties()
         File propertiesFile = new File('${JENKINS_HOME_SLAVE}\.env')
         propertiesFile.withInputStream {
