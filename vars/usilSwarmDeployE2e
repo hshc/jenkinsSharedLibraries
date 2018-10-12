@@ -9,7 +9,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
             properties.load(it)
             }
         def urlE2e=properties.URL;
-        
+        echo urlE2e
         
    // stage ('Deploiement UCP Docker ${codeEnv}') {
 	//	withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=$dockerCertPath","DOCKER_HOST=${dockerCertPath}"]) {
