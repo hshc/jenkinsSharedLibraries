@@ -5,7 +5,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
         
         echo 'chargement du fichier'
         //Properties properties = new Properties()
-        def props = readProperties interpolate: true, file: "${codeEnv}/.env"
+        def props = readProperties interpolate: false, file: "${codeEnv}/.env"
         def urlE2e=props.URL;
         echo urlE2e
         
