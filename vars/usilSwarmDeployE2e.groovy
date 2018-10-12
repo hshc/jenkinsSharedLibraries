@@ -5,7 +5,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
         
         echo 'chargement du fichier'
         Properties properties = new Properties()
-        File propertiesFile = new File("${WORKSPACE}/${codeEnv}/.env")
+        File propertiesFile = new File("${WORKSPACE}/${codeEnv}/README.md")
         propertiesFile.withInputStream {
             properties.load(it)
             }
