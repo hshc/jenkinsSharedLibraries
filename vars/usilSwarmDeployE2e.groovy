@@ -6,8 +6,10 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
         echo 'chargement du fichier'
         //Properties properties = new Properties()
         def props = readProperties interpolate: false, file: "${codeEnv}/.env"
-        def urlE2e=props.URL;
-        echo urlE2e
+        def urlRecf=props.URL;
+        echo urlRecf
+        def prefixeUrl = sh(returnStdout: true, script: "echo '$urlRecf' | awk -F'http://' '{print \$2}' |  awk -F'.recf.cloud' '{print \$1}'").trim()
+        echo prefixeUrl
         
    // stage ('Deploiement UCP Docker ${codeEnv}') {
 	//	withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=$dockerCertPath","DOCKER_HOST=${dockerCertPath}"]) {
