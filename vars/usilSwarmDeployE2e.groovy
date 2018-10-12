@@ -5,7 +5,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
         
         echo 'chargement du fichier'
         Properties properties = new Properties()
-        File propertiesFile = new File('${JENKINS_HOME_SLAVE}/.env')
+        File propertiesFile = new File("${JENKINS_HOME_SLAVE}/.env")
         propertiesFile.withInputStream {
             properties.load(it)
             }
