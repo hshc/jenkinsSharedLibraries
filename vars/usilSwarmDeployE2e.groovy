@@ -14,14 +14,13 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
      //   writeYaml file: "${codeEnv}/.env", data :amap
         
         
-        echo "sed -i 's/${prefixeUrl}.int.c-cloud/${prefixeUrl}-e2e.int.c-cloud/g' ${codeEnv}/.env"
+        sh "sed -i 's/${prefixeUrl}.int.c-cloud/${prefixeUrl}-e2e.int.c-cloud/g' ${codeEnv}/.env"
         
-      //  ant.replace(file: "${codeEnv}/.env", token: "http://${prefixeUrl}", value: "http://${prefixeUrl}-e2e")
         
-    //stage ('Deploiement UCP Docker ${codeEnv}') {
-	//	withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=$dockerCertPath","DOCKER_HOST=${dockerCertPath}"]) {
-	//		sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config -e URL=${urlE2e} > docker-compose-deploy.yml"
-	//		sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}"
-	//	}
-    //}
+    stage ('Deploiement UCP Docker ${codeEnv}') {
+		withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=$dockerCertPath","DOCKER_HOST=${dockerCertPath}"]) {
+			sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
+			sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}-e2e"
+		}
+    }
 }
