@@ -10,7 +10,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
         echo urlRecf
         def prefixeUrl = sh(returnStdout: true, script: "echo '$urlRecf' | awk -F'http://' '{print \$2}' |  awk -F'.int.c-cloud' '{print \$1}'").trim()
         def urlE2e = "${prefixeUrl}-e2e.recf.cloud.si2m.tec"
-        def amap=['URL'='"${urlE2e}"']
+        def amap=['URL':"${urlE2e}"']
         writeYaml file: "${codeEnv}/.env", data :amap
         
     //stage ('Deploiement UCP Docker ${codeEnv}') {
