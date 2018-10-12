@@ -5,11 +5,8 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
         
         echo 'chargement du fichier'
         Properties properties = new Properties()
-        File propertiesFile = new File("${WORKSPACE}/${codeEnv}/README.md")
-        propertiesFile.withInputStream {
-            properties.load(it)
-            }
-        def urlE2e=properties.URL;
+        def props = readProperties interpolate: true, file: "${codeEnv}/.env"
+        def urlE2e=props.URL;
         echo urlE2e
         
    // stage ('Deploiement UCP Docker ${codeEnv}') {
