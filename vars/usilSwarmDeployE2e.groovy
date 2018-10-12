@@ -14,7 +14,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
      //   writeYaml file: "${codeEnv}/.env", data :amap
         
         
-        sh "sed -i s/${prefixeUrl}.int.c-cloud/${prefixeUrl}-e2e.int.c-cloud/g' ${codeEnv}/.env"
+        echo "sed -i 's/${prefixeUrl}.int.c-cloud/${prefixeUrl}-e2e.int.c-cloud/g' ${codeEnv}/.env"
         
       //  ant.replace(file: "${codeEnv}/.env", token: "http://${prefixeUrl}", value: "http://${prefixeUrl}-e2e")
         
