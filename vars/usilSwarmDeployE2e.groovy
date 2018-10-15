@@ -14,18 +14,12 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 		else {
 			dockerUcp="tcp://ucp.recf.docker.si2m.tec:443"
 			dockerCertPath="${JENKINS_HOME_SLAVE}/docker_ucp_recf/"
-		}
-        
-        echo 'chargement du fichier'
-        //Properties properties = new Properties()
+		}   
+        //Chargement du fichier dico
         def props = readProperties interpolate: false, file: "${codeEnv}/.env"
         def urlRecf=props.URL;
-        echo urlRecf
-        def prefixeUrl = sh(returnStdout: true, script: "echo '$urlRecf' | awk -F'http://' '{print \$2}' |  awk -F'.int.c-cloud' '{print \$1}'").trim()
-        
-        
-        sh "sed -i 's/${prefixeUrl}.int.c-cloud/${prefixeUrl}-e2e.int.c-cloud/g' ${codeEnv}/.env"
-   
+        def prefixeUrl = sh(returnStdout: true, script: "echo '$urlRecf' | awk -F'http://' '{print \$2}' |  awk -F'.int.c-cloud' '{print \$1}'").trim()       
+        sh "sed -i 's/${prefixeUrl}.recf.c-cloud/${prefixeUrl}-e2e.recf.c-cloud/g' ${codeEnv}/.env"
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
 			sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
