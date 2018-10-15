@@ -1,5 +1,5 @@
 def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchName,def trigrammeAppli){
-echo dockerRegistryUrl
+//echo dockerRegistryUrl
 docker.withRegistry(dockerRegistryUrl) {
     docker.image(dockerImageName).inside {
       stage('Build') {
