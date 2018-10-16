@@ -4,7 +4,7 @@ docker.withRegistry(dockerRegistryUrl) {
     docker.image(dockerImageName).inside {
       stage('Build') {
         sh 'npm ci'
-        if isBuildRun {
+        if (isBuildRun == true) {
           sh 'npm run build'
         }
       }
