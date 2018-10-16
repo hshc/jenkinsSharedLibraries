@@ -1,6 +1,8 @@
 class usilParams {
 	def dockerRegistryUrl = 'https://dtr.docker.si2m.tec'
 	def dockerRegistryImageBuild='test-store/si2m-npm10-build'
+	def dockerRegistryImageNodeBuild='test-store/si2m-npm10-build'
+	def dockerRegistryImageMavenBuild='test-store/si2m-maven-java10-build'
 	def dockerRegistryRepo='repo-store'
 	def dockerRegistryRepoProd='app-store'
 	def dockerRegistryUser='DockerDTR'
