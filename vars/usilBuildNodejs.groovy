@@ -1,9 +1,12 @@
-def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchName,def trigrammeAppli){
+def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchName,def trigrammeAppli,def isBuildRun=false){
 //echo dockerRegistryUrl
 docker.withRegistry(dockerRegistryUrl) {
     docker.image(dockerImageName).inside {
       stage('Build') {
-        sh 'npm ci --unsafe-perm'
+        sh 'npm ci'
+        if isBuildRun {
+          sh 'npm run build'
+        }
       }
       stage('Qualimetry') {
         parallel(
