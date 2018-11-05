@@ -1,6 +1,6 @@
 def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchName,def trigrammeAppli){
 docker.withRegistry(dockerRegistryUrl) {
-    docker.image(dockerImageName).inside {
+    docker.image(dockerImageName).inside('-v /appli/jenkins/settings.xml:/usr/share/maven/ref/settings.xml -v /appli/jenkins/mavenrepo:/root/.m2' ) {
 		stage('MVN install') {
             sh 'mvn install -Dconsole'
 			}
