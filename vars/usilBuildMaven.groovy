@@ -7,11 +7,11 @@ docker.withRegistry(dockerRegistryUrl) {
 		stage('Test Junit Maven') {
 			parallel(
 				"JUnit test": {
-					sh ('mvn test')
+					sh ('mvn test -Duser.home=/var/maven')
 					},
 				"Sonar":{
 					withSonarQubeEnv('SONARQUBE_USIL3') {
-					sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName}"
+					sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven"
 					}
                 }
 			)
