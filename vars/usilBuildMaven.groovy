@@ -11,7 +11,7 @@ docker.withRegistry(dockerRegistryUrl) {
 					},
 				"Sonar":{
 					withSonarQubeEnv('SONARQUBE_USIL3') {
-					sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName}"
+					sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven"
 					}
                 }
 			)
