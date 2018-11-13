@@ -23,10 +23,10 @@ docker.withRegistry(dockerRegistryUrl) {
 				}
             }	
 		stage('Maven Pack') {
-            sh ('mvn clean package -DskipTests=true -Duser.home=/var/maven')
+            sh ('mvn clean package -DskipTests=true -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml -X')
             }
         stage('Publish Nexus') {
-            sh ('mvn deploy -Duser.home=/var/maven')	
+            sh ('mvn deploy -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml -X')	
 			}
 		}
 	}
