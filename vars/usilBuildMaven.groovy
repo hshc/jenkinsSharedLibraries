@@ -26,7 +26,7 @@ docker.withRegistry(dockerRegistryUrl) {
             sh ('mvn clean package -DskipTests=true -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml')
             }
         stage('Publish Nexus') {
-            sh ('mvn deploy -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml -X')	
+            sh ('mvn deploy -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml')	
 			}
 		}
 	}
