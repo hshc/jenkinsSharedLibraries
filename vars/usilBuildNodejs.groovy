@@ -5,7 +5,7 @@ docker.withRegistry(dockerRegistryUrl) {
       stage('Build') {
        // sh 'mkdir -p /home/siddharthsaha/tmp'
        // sh 'npm cache clear'
-        sh 'export CHROME_BIN=/usr/bin/chromium'
+       // sh 'export CHROME_BIN=/usr/bin/chromium'
         sh 'npm ci'
         if (isBuildRun == true) {
           sh 'npm run build'
