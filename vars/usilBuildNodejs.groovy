@@ -5,6 +5,8 @@ docker.withRegistry(dockerRegistryUrl) {
       stage('Build') {
         sh 'npm ci'
         if (isBuildRun == true) {
+          sh 'mkdir -p /home/siddharthsaha/tmp'
+          sh 'npm cache clear'
           sh 'npm run build'
         }
       }
