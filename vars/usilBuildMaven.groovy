@@ -11,7 +11,7 @@ docker.withRegistry(dockerRegistryUrl) {
 					},
 				"Sonar":{
 					withSonarQubeEnv('SONARQUBE_USIL3') {
-					sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -X"
+					sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml"
 					}
                 }
 			)
@@ -23,10 +23,10 @@ docker.withRegistry(dockerRegistryUrl) {
 				}
             }	
 		stage('Maven Pack') {
-            sh ('mvn clean package -DskipTests=true')
+            sh ('mvn clean package -DskipTests=true -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml')
             }
         stage('Publish Nexus') {
-            sh ('mvn deploy')	
+            sh ('mvn deploy -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml')	
 			}
 		}
 	}
