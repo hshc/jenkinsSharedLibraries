@@ -8,7 +8,7 @@ docker.withRegistry(dockerRegistryUrl) {
        // sh 'export CHROME_BIN=/usr/bin/chromium'
         sh 'npm ci'
         if (isBuildRun == true) {
-          sh 'npm run build'
+          sh 'npm run build:prod'
         }
       }
       stage('Qualimetry') {
