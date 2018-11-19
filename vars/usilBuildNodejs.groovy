@@ -1,11 +1,10 @@
 def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchName,def trigrammeAppli,def isBuildRun=false){
-//echo dockerRegistryUrl
 docker.withRegistry(dockerRegistryUrl) {
-    docker.image(dockerImageName).inside {
+    docker.image(dockerImageName).inside("--entrypoint=''") {
       stage('Build') {
         sh 'npm ci'
         if (isBuildRun == true) {
-          sh 'npm run build'
+          sh 'npm run build:prod'
         }
       }
       stage('Qualimetry') {
