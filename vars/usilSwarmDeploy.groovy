@@ -19,6 +19,13 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	    	{
 			sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
 			sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}_${codeEnv}"
+			def check = sh(returnStdout: true, script: "docker stack services cms_sr_backend --format '{{.Replicas}}'").trim()
+			sleep(time:10,unit:"SECONDS")
+			if (check =~ /0\/)
+				{
+				echo '[FAILURE] Erreur de déploiement du conteneur'
+        		currentBuild.result = 'FAILURE'
+				}
 	    	}
     }
 }
