@@ -1,8 +1,8 @@
 def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchName,def trigrammeAppli){
 docker.withRegistry(dockerRegistryUrl) {
     docker.image(dockerImageName).inside('-e MAVEN_CONFIG=/var/maven/.m2 -v /appli/jenkins/settings.xml:/usr/share/maven/ref/settings.xml -v /appli/jenkins/mavenrepo:/var/maven/.m2:rw') {
-		stage('MVN install') {
-            sh 'mvn install -Dconsole -Duser.home=/var/maven'
+		stage('MVN compile') {
+            sh 'mvn clean compile -DskipTests -Dconsole -Duser.home=/var/maven'
 			}
 		stage('Test Junit Maven') {
 			parallel(
@@ -22,8 +22,8 @@ docker.withRegistry(dockerRegistryUrl) {
 				error "Pipeline aborted due to quality gate failure: ${qg.status}"
 				}
             }	
-		stage('Maven Pack') {
-            sh ('mvn clean package -DskipTests=true -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml')
+		stage('Maven Install') {
+            sh ('mvn install -DskipTests -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml')
             }
         stage('Publish Nexus') {
             sh ('mvn deploy -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml')	
