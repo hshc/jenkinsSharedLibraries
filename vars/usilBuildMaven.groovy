@@ -19,7 +19,7 @@ docker.withRegistry(dockerRegistryUrl) {
 			}
 		}	
 		stage('Publish Nexus') {
-			sh "mvn deploy ${mvnOptionnalArgs} -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml'"
+			sh "mvn deploy ${mvnOptionnalArgs} -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml"
 		}
 	}
 }
