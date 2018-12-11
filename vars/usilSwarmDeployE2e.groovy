@@ -1,20 +1,9 @@
-def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
+def call(def dockerRegistryRepoAppli,def gitProjectName) {
 	// gestion des certificats pour connexion UCP
-    stage ("Deploiement UCP Docker E2E env:${codeEnv}") {
-        def dockerCertPath
-		def dockerUcp
-		if (codeEnv == 'e0') {
-			dockerUcp="tcp://ucp.docker.si2m.tec:443"
-			dockerCertPath="${JENKINS_HOME_SLAVE}/docker_ucp_prod"
-			}
-		else if (codeEnv == 'e1') {
-			dockerUcp="tcp://ucp.pprod.docker.si2m.tec:443"
-			dockerCertPath="${JENKINS_HOME_SLAVE}/docker_ucp_pprod/"
-			}
-		else {
-			dockerUcp="tcp://ucp.recf.docker.si2m.tec:443"
-			dockerCertPath="${JENKINS_HOME_SLAVE}/docker_ucp_recf/"
-		}   
+	codeEnv='e2'
+    stage ("Deploiement UCP Docker E2E") {
+        def dockerCertPath="tcp://ucp.recf.docker.si2m.tec:443"
+		def dockerUcp="${JENKINS_HOME_SLAVE}/docker_ucp_recf/" 
         //Chargement du fichier dico
         def props = readProperties interpolate: false, file: "${codeEnv}/.env"
         def urlRecf=props.URL;
