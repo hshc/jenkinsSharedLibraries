@@ -14,7 +14,10 @@ def call() {
 		env.trigrammeAppli = sh(returnStdout: true, script: "echo '$env.gitProjectName' | awk -F'_' '{print \$1}'").trim()
 		env.codeAppli = sh(returnStdout: true, script: "echo '$env.gitProjectName' | awk -F'_' '{print \$2}'").trim()
 		env.projectName = sh(returnStdout: true, script: "echo '$env.gitProjectName' | awk -F'_' '{print \$3}'").trim()
-		env.gitTag = sh(returnStdout: true, script: "git tag -l | sort -V | tail -n 1 | cut -c 2-").trim()
+		env.gitTag = sh(returnStdout: true, script: "git tag -l | sort -V | tail -n 1").trim()
+		if (env.gitTag=~'V' || env.gitTag=~'v') {
+			env.gitTag=env.gitTag.drop(1)
+		}
 		env.gitBranchName=env.BRANCH_NAME
 	}
 }
