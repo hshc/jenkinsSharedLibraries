@@ -20,9 +20,9 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
 			sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}_${codeEnv}"
 			sleep(time:10,unit:"SECONDS")
-			def check = sh(returnStdout: true, script: "docker stack services '${gitProjectName}' --format '{{.Replicas}}'").trim()
-			echo check
-			if (check =~ /0\/)
+			def checkService = sh(returnStdout: true, script: "docker stack service '${gitProjectName}' --format '{{.Replicas}}'").trim()
+			echo checkService
+			if (checkService =~ /0\/)
 				{
 				echo '[FAILURE] Erreur de d�ploiement du conteneur'
         		currentBuild.result = 'FAILURE'
