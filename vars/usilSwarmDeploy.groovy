@@ -24,7 +24,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			echo checkService
 			
 			//println !('$checkService' ==~ /0\//)
-			println ('$checkService' ==~ /0\//)
+			println ('$checkService' =~ /^0\//)
 
 	    	}
     }
