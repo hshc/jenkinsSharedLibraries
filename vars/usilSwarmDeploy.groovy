@@ -23,11 +23,11 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			def checkService = "0/1"
 			//sh(returnStdout: true, script: "docker stack services '${gitProjectName}' --format '{{.Replicas}}'").trim()
 			echo checkService
-			if (checkService =~ /0\/)
-				{
-				echo '[FAILURE] Erreur de d�ploiement du conteneur'
-        		currentBuild.result = 'FAILURE'
-				}
+			//if (checkService =~ /0\/)
+			//	{
+			//	echo '[FAILURE] Erreur de d�ploiement du conteneur'
+        	//	currentBuild.result = 'FAILURE'
+			//	}
 	    	}
     }
 }
