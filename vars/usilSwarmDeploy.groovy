@@ -24,12 +24,12 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			checkService='1/1'
 			echo checkService
 			println (checkService)
-			println (checkService ==~ /0\//)
-			println (checkService =~ /^0\//)
+			println (checkService ==~ /^0\/.*$/)
+			println (checkService =~ /^0\/.*$/)
 			checkService='0/1'
 			echo checkService
-			println (checkService ==~ /0\//)
-			println (checkService =~ /^0\//)
+			println (checkService ==~ /^0\/.*$/)
+			println (checkService =~ /^0\/.*$/)
 
 	    	}
     }
