@@ -22,11 +22,13 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			sleep(time:30,unit:"SECONDS")
 			def checkService = sh(returnStdout: true, script: "docker stack services '${gitProjectName}'_'${codeEnv}' --format '{{.Replicas}}'").trim()
 			echo checkService
-			//if (checkService =~ /0\/)
-			//	{
-			//	echo '[FAILURE] Erreur de d�ploiement du conteneur'
-        	//	currentBuild.result = 'FAILURE'
-			//	}
+			def regexCheck = /^somedata(:somedata)*$/
+			def testMatch = ( "$checkService" =~ regexCheck )
+			if testMatch.matches()
+				{
+				echo '[FAILURE] Erreur de d�ploiement du conteneur'
+        		currentBuild.result = 'FAILURE'
+				}
 	    	}
     }
 }
