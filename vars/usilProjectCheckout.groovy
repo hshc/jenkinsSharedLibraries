@@ -15,11 +15,9 @@ def call() {
 		env.codeAppli = sh(returnStdout: true, script: "echo '$env.gitProjectName' | awk -F'_' '{print \$2}'").trim()
 		env.projectName = sh(returnStdout: true, script: "echo '$env.gitProjectName' | awk -F'_' '{print \$3}'").trim()
 		env.gitTag = sh(returnStdout: true, script: "git tag -l | sort -V | tail -n 1").trim()
-		echo env.gitTag
 		if (env.gitTag=~'V' || env.gitTag=~'v') {
 			env.gitTag=env.gitTag.drop(1)
 		}
-		echo env.gitTag
 		env.gitBranchName=env.BRANCH_NAME
 	}
 }
