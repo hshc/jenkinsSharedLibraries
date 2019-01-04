@@ -23,7 +23,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			def checkService = sh(returnStdout: true, script: "docker stack services '${gitProjectName}'_'${codeEnv}' --format '{{.Replicas}}'").trim()
 			echo checkService
 			
-			println !('$checkService' ==~ /0\/)
+			println !('$checkService' ==~ /0\//)
 
 	    	}
     }
