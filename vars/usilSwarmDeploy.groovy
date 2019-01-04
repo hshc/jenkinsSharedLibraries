@@ -24,7 +24,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			echo checkService
 			def regexCheck = /0\/
 			def testMatch = ( "$checkService" =~ regexCheck )
-			if testMatch.matches()
+			if (testMatch.matches())
 				{
 				echo '[FAILURE] Erreur de d�ploiement du conteneur'
         		currentBuild.result = 'FAILURE'
