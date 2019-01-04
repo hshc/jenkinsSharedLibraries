@@ -21,11 +21,13 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}_${codeEnv}"
 			sleep(time:5,unit:"SECONDS")
 			def checkService = sh(returnStdout: true, script: "docker stack services '${gitProjectName}'_'${codeEnv}' --format '{{.Replicas}}'").trim()
+			checkService='1/1'
 			echo checkService
+			println ('$checkService' ==~ /0\//)
+			println ('$checkService' =~ /^0\//)
 			checkService='0/1'
 			echo checkService
-			
-			//println !('$checkService' ==~ /0\//)
+			println ('$checkService' ==~ /0\//)
 			println ('$checkService' =~ /^0\//)
 
 	    	}
