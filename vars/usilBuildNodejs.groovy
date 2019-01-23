@@ -2,7 +2,6 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 docker.withRegistry(dockerRegistryUrl) {
     docker.image(dockerImageName).inside("--entrypoint=''") {
       stage('Build') {
-        echo env.nexusRepoNpm
         sh "npm ci --registry ${usilParams.nexusRepoNpm}"
         if (isBuildRun == true) {
           sh 'npm run build:prod'
