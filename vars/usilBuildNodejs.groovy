@@ -2,7 +2,8 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 docker.withRegistry(dockerRegistryUrl) {
     docker.image(dockerImageName).inside("--entrypoint=''") {
       stage('Build') {
-        sh "npm ci --registry '${env.nexusRepoNpm}'"
+        echo env.nexusRepoNpm
+        sh "npm ci --registry ${usilParams.nexusRepoNpm}"
         if (isBuildRun == true) {
           sh 'npm run build:prod'
         }
@@ -24,7 +25,7 @@ docker.withRegistry(dockerRegistryUrl) {
 
         if(gitBranchName == 'master' && trigrammeAppli == 'BPP') {
           stage('Publish Nexus') {
-            sh ("npm publish --registry '${env.nexusRepoNpmPublish}'")
+            sh ("npm publish --registry ${usilParams.nexusRepoNpmPublish}")
           }
         }
       }
