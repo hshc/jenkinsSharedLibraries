@@ -7,7 +7,7 @@ class usilParams {
 	def dockerRegistryRepoProd='app-store'
 	def dockerRegistryUser='DockerDTR'
 	def nexusRepoNpmPublish='http://vlionxu001.si2m.tec:8081/nexus/content/groups/public-npm'
-	def nexusRepoNpm='http://vlionxu001.si2m.tec:8081/nexus/content/repositories/Npm-si'
+	def nexusRepoNpm='http://vlionxu001.si2m.tec:8081/nexus/content/repositories/Npm-si2m'
 	def nexusRepo='http://vlc3inf013:8081/repository/npm-si2m'
 	def nexusRepoMaven=''
 	def gitBitbucketUrl='https://bitbucket.org/si2m/'
