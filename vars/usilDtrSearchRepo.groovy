@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurper
 def call(def trigramme) { 	
 		script {
 			def response = httpRequest authentication: 'DockerDTR', url: "https://dtr.docker.si2m.tec/api/v0/index/dockersearch?q=${trigramme}", ignoreSslErrors:true
