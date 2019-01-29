@@ -8,7 +8,7 @@ def call(def trigramme) {
                     listRepo.add(result.name)
 			        }
                 }
-			if listRepo.isEmpty()
+			if (listRepo.isEmpty())
 				{
 				return 'noRepo'
 				}
