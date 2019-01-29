@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurper
 def call(def repo) { 	
 		script {
 			def response = httpRequest authentication: 'DockerDTR', url: "https://dtr.docker.si2m.tec/api/v0/repositories/${repo}/tags", ignoreSslErrors:true
