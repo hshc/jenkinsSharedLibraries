@@ -11,7 +11,7 @@ def call(def trigramme) {
                 }
 			if (listRepo.isEmpty())
 				{
-				return 'noRepo'
+				return 'Pas de repo disponible'
 				}
 			else
 				{
