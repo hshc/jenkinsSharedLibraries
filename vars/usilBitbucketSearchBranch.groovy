@@ -6,6 +6,9 @@ def call(def repo) {
 			println('Response: '+response.content)
 			if (response.status=='404')
 				{
+				echo '*******************'
+				echo '404'
+				echo '*******************'
 				return '404'
 				}
 			else {
