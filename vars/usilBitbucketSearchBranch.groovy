@@ -4,7 +4,7 @@ def call(def repo) {
 			def response = httpRequest authentication: 'jenkins-bitbucket-common-creds', url: "https://api.bitbucket.org/2.0/repositories/si2m/${repo}_dico/refs/branches", ignoreSslErrors:true, validResponseCodes: '200:404'
 			println('Status: '+response.status)
 			println('Response: '+response.content)
-			if (response.status=='404')
+			if (response.status.string()=='404')
 				{
 				echo '*******************'
 				echo '404'
