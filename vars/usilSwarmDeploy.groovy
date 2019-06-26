@@ -63,8 +63,8 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 
 			 // println mydata.services.appli.image
 			 // println mydata.services.appli.deploy.labels
-			 println mydata.services[0]
-			 println mydata.services[1]
+			 println mydata.['services']
+			 println mydata.services
 			 
 			 def arrayLabels=mydata.services.appli.deploy.labels as String[]
 			 
