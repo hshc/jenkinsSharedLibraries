@@ -18,15 +18,19 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			dockerUcp="tcp://ucp.recf.docker.si2m.tec:443"
 			dockerCertPath="${JENKINS_HOME_SLAVE}/docker_ucp_recf/"
 		}
+		
+		Yaml parser = new Yaml()
+
+  		map = parser.load( new File("${env.WORKSPACE}/${codeEnv}/docker-compose.yml").text )
+        println map[args[0]]
+
+
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
 
 
 			 
-  			  Yaml parser = new Yaml()
 
-  			 map = parser.load( new File("${env.WORKSPACE}/${codeEnv}/docker-compose.yml").text )
-             println map[args[0]]
 			 // mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
     		  //modify
 
