@@ -27,18 +27,19 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  // println (mydata.services =~ /(?<=\{)(.*?)(?=\{image)/)
 			  //(?<={)(.*)(?=\={image)
 			  
-			  def nomService = (mydata.services.String =~ /(?<=\{)(.*?)(?=\{image)/)
+			  def nomService = (mydata.services =~ /(?<=\{)(.*?)(?=\{image)/)
+			  assert nomService instanceof java.util.regex.Matcher
 			  println "nom du Service"
 			  println nomService
 			  
 			 // println mydata.services.appli.image
-			 println mydata.services.appli.deploy.labels
+			 // println mydata.services.appli.deploy.labels
 			 def arrayLabels=mydata.services.appli.deploy.labels as String[]
 			 
-			 println arrayLabels.length
+			 // println arrayLabels.length
 			 mydata.services.appli.deploy.labels[arrayLabels.length]="com.docker.lb.backend_mode=vip"
 
-			 println arrayLabels.length
+			 // println arrayLabels.length
     		 writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
 
 
