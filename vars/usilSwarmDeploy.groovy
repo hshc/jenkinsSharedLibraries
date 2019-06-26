@@ -1,4 +1,6 @@
+@Grab('org.yaml:snakeyaml:1.17')
 import org.yaml.snakeyaml.Yaml
+
 def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	// gestion des certificats pour connexion UCP
 	stage ("Deploiement UCP Docker env:${codeEnv}") {
@@ -18,16 +20,24 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 		}
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
-			  mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
+
+
+			 
+  			  Yaml parser = new Yaml()
+
+  			 map = parser.load( new File("${env.WORKSPACE}/${codeEnv}/docker-compose.yml").text )
+             println map[args[0]]
+			 // mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
     		  //modify
-			  println mydata
+
+			  //println mydata
 			  // println mydata.version
 			  // println mydata.services
 			  // println (mydata.services =~ /(?<=\{)(.*?)(?={image)/ )
 			  // println (mydata.services =~ /(?<=\{)(.*?)(?=\{image)/)
 			  //(?<={)(.*)(?=\={image)
 			  
-			  def regexPattern = /(?<=\{)(.*)(?=\{image)/
+			  //def regexPattern = /(?<=\{)(.*)(?=\{image)/
 			  //def nomService = mydata.services =~/(?<=\{)(.*?)(?=\{image)/
 			  //def nomService = mydata.service as String
 			 
@@ -64,15 +74,18 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 // println mydata.services.appli.image
 			 // println mydata.services.appli.deploy.labels
 			
-			 println mydata.services.[0]
+			// println mydata.services.key
+
+			 //println mydata.services.key.value
+
 			 
-			 def arrayLabels=mydata.services.appli.deploy.labels as String[]
+		//	 def arrayLabels=mydata.services.appli.deploy.labels as String[]
 			 
 			 // println arrayLabels.length
-			 mydata.services.appli.deploy.labels[arrayLabels.length]="com.docker.lb.backend_mode=vip"
+		//	 mydata.services.appli.deploy.labels[arrayLabels.length]="com.docker.lb.backend_mode=vip"
 
 			 // println arrayLabels.length
-    		 writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
+    	//	 writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
 
 
 		
