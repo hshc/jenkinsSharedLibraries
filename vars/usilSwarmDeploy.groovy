@@ -36,21 +36,29 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			// s = "This is a simple string 234 something else here as well 4334"
 			//regexPattern = /([0-9]{3})/
 			//def matcher = ( nomService =~ regexPattern )
-			def matcher = (mydata.services =~ regexPattern)
+			//def p = "[hello],[1,2],[(1,2),(2,4)]"
+			def nomService = mydata.services.findAll(/(?<=\{)(.*)(?=\{image)/){match, group -> group }
+			println nomService[0]
+		    
+
+
+
+
+			// def matcher = (mydata.services =~ regexPattern)
 			 println "TEST !!!"
-			 println matcher
-			 println matcher.count
-			 println mydata.services
+			// println matcher
+			 //println matcher.count
+			 //println mydata.services
 
 
-			if (matcher.matches()) {
-    			println(matcher.getCount()+ " occurrence of the regular expression was found in the string.");
+			//if (matcher.matches()) {
+    		//	println(matcher.getCount()+ " occurrence of the regular expression was found in the string.");
     			//println(matcher[0][1] + " found!")
-			}
-			else
-			{
-				println "marche pas !!! "
-			}
+			//}
+			//else
+			//{
+			//	println "marche pas !!! "
+			//}
 
 
 			 // println mydata.services.appli.image
@@ -58,7 +66,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 def arrayLabels=mydata.services.appli.deploy.labels as String[]
 			 
 			 // println arrayLabels.length
-			 mydata.services.appli.deploy.labels[arrayLabels.length]="com.docker.lb.backend_mode=vip"
+			 mydata.services[0].deploy.labels[arrayLabels.length]="com.docker.lb.backend_mode=vip"
 
 			 // println arrayLabels.length
     		 writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
