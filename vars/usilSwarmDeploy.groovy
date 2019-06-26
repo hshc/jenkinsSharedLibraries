@@ -37,8 +37,8 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			//regexPattern = /([0-9]{3})/
 			//def matcher = ( nomService =~ regexPattern )
 			//def p = "[hello],[1,2],[(1,2),(2,4)]"
-			def nomService = mydata.services.findAll(/(?<=\{)(.*)(?=\{image)/){match, group -> group }
-			println nomService[0]
+			//def nomService = mydata.services.findAll(/(?<=\{)(.*)(?=\{image)/){match, group -> group }
+			// println nomService[0]
 		    
 
 
