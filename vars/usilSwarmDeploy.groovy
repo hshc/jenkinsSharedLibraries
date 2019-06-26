@@ -27,7 +27,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 def nomService = mydata.services.keySet()			 
 			 def arrayLabels=mydata.services.get(nomService[0]).deploy.labels as String[]
 			 
-			for (item in mydata.services.get(nomService[0]).deploy.labels)
+			for (item in mydata.services.get(nomService[0]).deploy.labels) {
 				 println item
 			 }
 			 
