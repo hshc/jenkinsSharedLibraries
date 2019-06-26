@@ -32,12 +32,13 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  
 			 // println mydata.services.appli.image
 			 println mydata.services.appli.deploy.labels
-			 arrayLength=mydata.services.appli.deploy.labels[].length 
-			 mydata.services.appli.deploy.labels[arrayLength]='- com.docker.lb.backend_mode=vip'
+			 arrayLength=mydata.services.appli.deploy.labels as String[]
+			 println arrayLength
+			 //mydata.services.appli.deploy.labels[arrayLength]='- com.docker.lb.backend_mode=vip'
 			 // echo "essai : $mydata.services.deploy.labels 
 			  //echo "essai $mydata.label"
 			  //mydata.info = "b"
-    		  writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
+    		  //writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
 
 
 		
