@@ -26,18 +26,18 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  println mydata.version
 			  println mydata.services
 			  
-			  def nomService = (mydata.services =~ /(?<=\{)(.*?)(?={image)/)
-			  println "nom du Service"
-			  println nomService
+			  //def nomService = (mydata.services =~ /(?<=\{)(.*?)(?={image)/ )
+			  //println "nom du Service"
+			  //println nomService
 			  
 			 // println mydata.services.appli.image
-			 // println mydata.services.appli.deploy.labels 
-			  
+			 println mydata.services.appli.deploy.labels 
+			 mydata.services.appli.deploy.labels[1]='toto'
 			 // echo "essai : $mydata.services.deploy.labels"
 			  
 			  //echo "essai $mydata.label"
 			  //mydata.info = "b"
-    		  //writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
+    		  writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
 
 
 		
