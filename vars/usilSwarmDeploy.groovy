@@ -32,8 +32,9 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  
 			 // println mydata.services.appli.image
 			 println mydata.services.appli.deploy.labels
-			 arrayLength=mydata.services.appli.deploy.labels as String[]
-			 println arrayLength
+			 def arrayLength=mydata.services.appli.deploy as String[]
+			 println arrayLength.length
+
 			 //mydata.services.appli.deploy.labels[arrayLength]='- com.docker.lb.backend_mode=vip'
 			 // echo "essai : $mydata.services.deploy.labels 
 			  //echo "essai $mydata.label"
