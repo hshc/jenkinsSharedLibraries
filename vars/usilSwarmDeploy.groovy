@@ -29,14 +29,16 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  
 			  def regexPattern = /(?<=\{)(.*?)(?=\{image)/
 			  //def nomService = mydata.services =~/(?<=\{)(.*?)(?=\{image)/
-			  //assert nomService instanceof java.util.regex.Matcher
-			  println "nom du Service"
+			  def nomService = mydata.service
+			 
   			//	println nomService[0]
 			 
-			s = "This is a simple string 234 something else here as well 4334"
+			// s = "This is a simple string 234 something else here as well 4334"
 			//regexPattern = /([0-9]{3})/
 
-			def matcher = ( mydata.services =~ regexPattern )
+			def matcher = ( nomService =~ regexPattern )
+
+			 println "TEST !!!"
 
 			if (matcher.matches()) {
     			println(matcher.getCount()+ " occurrence of the regular expression was found in the string.");
