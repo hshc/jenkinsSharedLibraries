@@ -29,7 +29,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 def mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
 		     
 			 println mydata.getClass()
-			 println mydata.getClass().declaredFields
+			 println mydata.services.get()
 			 
 
     		  //modify
