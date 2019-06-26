@@ -34,7 +34,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 println mydata.services.keySet()
 			 def nomService = mydata.services.keySet()
 
-			 println "key" + nomService
+			 println "key" + nomService[0]
 			
              println mydata.services.get(nomService)
 
