@@ -29,16 +29,18 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  
 			  def regexPattern = /(?<=\{)(.*?)(?=\{image)/
 			  //def nomService = mydata.services =~/(?<=\{)(.*?)(?=\{image)/
-			  def nomService = mydata.service
+			  def nomService = mydata.service as String
 			 
   			//	println nomService[0]
 			 
 			// s = "This is a simple string 234 something else here as well 4334"
 			//regexPattern = /([0-9]{3})/
-
 			def matcher = ( nomService =~ regexPattern )
 
 			 println "TEST !!!"
+			 println matcher
+			 println nomService
+
 
 			if (matcher.matches()) {
     			println(matcher.getCount()+ " occurrence of the regular expression was found in the string.");
@@ -49,18 +51,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 				println "marche pas !!! "
 			}
 
-if (matcher.matches()) {
-    println(matcher.getCount()+ " occurrence of the regular expression was found in the string.");
-    println(matcher[0][1] + " found!")
-}
 
-
-
-
-
-
-
-			
 			 // println mydata.services.appli.image
 			 // println mydata.services.appli.deploy.labels
 			 def arrayLabels=mydata.services.appli.deploy.labels as String[]
