@@ -22,12 +22,15 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
 
     		  //modify
-			  echo mydata.services.deploy.labels
-			  echo "essai : $mydata.services.deploy.labels"
+			  println mydata
 			  
-			  echo "essai $mydata.label"
-			  mydata.info = "b"
-    		  writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
+			  println mydata.map.version 
+			  
+			 // echo "essai : $mydata.services.deploy.labels"
+			  
+			  //echo "essai $mydata.label"
+			  //mydata.info = "b"
+    		  //writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
 
 
 		
