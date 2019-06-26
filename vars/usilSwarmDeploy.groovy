@@ -23,7 +23,8 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  println mydata
 			  println mydata.version
 			  println mydata.services
-			  println (mydata.services =~ /(?<=\{)(.*?)(?={image)/ )
+			  // println (mydata.services =~ /(?<=\{)(.*?)(?={image)/ )
+			  println (mydata.services =~ /(?<={)(.*?)(?={image)/)
 			  
 			  //def nomService = (mydata.services =~ /(?<=\{)(.*?)(?={image)/ )
 			  //println "nom du Service"
