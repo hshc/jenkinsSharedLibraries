@@ -23,8 +23,9 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 
     		  //modify
 			  println mydata
-			  
-			  println mydata.labels 
+			  println mydata.version
+			  println mydata.services.appli.images
+			  println mydata.services.appli.deploy.labels 
 			  
 			 // echo "essai : $mydata.services.deploy.labels"
 			  
