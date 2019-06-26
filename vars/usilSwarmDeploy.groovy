@@ -18,9 +18,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 		}
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
-			sh "cd ${codeEnv}"
 			  mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
-
     		  //modify
 			  println mydata
 			  println mydata.version
@@ -32,14 +30,14 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  
 			 // println mydata.services.appli.image
 			 println mydata.services.appli.deploy.labels
-			 def arrayLength=mydata.services.appli.deploy as String[]
+			 def arrayLabels=mydata.services.appli.deploy.labels as String[]
 			 println arrayLength.length
-
-			 //mydata.services.appli.deploy.labels[arrayLength]='- com.docker.lb.backend_mode=vip'
+			 mydata.services.appli.deploy.labels[arrayLabels.length]='- com.docker.lb.backend_mode=vip'
 			 // echo "essai : $mydata.services.deploy.labels 
 			  //echo "essai $mydata.label"
 			  //mydata.info = "b"
-    		  //writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
+			 println arrayLength.length
+    		 writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
 
 
 		
