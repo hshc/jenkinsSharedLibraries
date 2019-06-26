@@ -28,8 +28,9 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 def nomService = mydata.services.keySet()			 
 			 def arrayLabels=mydata.services.get(nomService[0]).deploy.labels as String[]		 
 			for (labelUcp in mydata.services.get(nomService[0]).deploy.labels) {
-				 if (labelUcp = "com.docker.lb.backend_mode=vip") {
+				 if (labelUcp.replaceAll("\\s+","") == "com.docker.lb.backend_mode=vip") {
 					vipLabel=true;
+					println "docker compose déjà prêt pour l ucp v3"
 				 }
 			 }
 			 if (vipLabel==false) {
