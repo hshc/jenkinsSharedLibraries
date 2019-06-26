@@ -27,7 +27,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 def nomService = mydata.services.keySet()			 
 			 def arrayLabels=mydata.services.get(nomService[0]).deploy.labels as String[]
 			 mydata.services.get(nomService[0]).deploy.labels[arrayLabels.length]="com.docker.lb.backend_mode=vip"
-    		 sh ("rm -f ${codeEnv}\docker-compose.yml")
+    		 sh ("rm -f ${env.WORKSPACE}/${codeEnv}/docker-compose.yml")
 			 writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yaml", data: mydata
 
 			// sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
