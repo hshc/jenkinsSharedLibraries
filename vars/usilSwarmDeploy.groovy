@@ -19,11 +19,11 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
 			sh "cd ${codeEnv}"
-			  mydata = readYaml file: "docker-compose.yml"
+			  mydata = readYaml file: "${codeEnv}/docker-compose.yml"
 
     		  //modify
     		  mydata.info = "b"
-    		  writeYaml file: 'docker-compose-modif.yaml', data: mydata
+    		  writeYaml file: "${codeEnv}/docker-compose-modif.yaml", data: mydata
 
 
 		
