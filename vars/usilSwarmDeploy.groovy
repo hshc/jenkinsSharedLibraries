@@ -26,10 +26,12 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 
 
 			 
-		     Yaml parser = new Yaml()
 			 def mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
-			 def map = parser.mydata.text
-			 println map[args[0]]
+		     
+			 println mydata.getClass()
+			 println mydata.getClass().declaredFields
+			 
+
     		  //modify
 
 			  //println mydata
