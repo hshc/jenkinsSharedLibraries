@@ -22,6 +22,22 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			Yaml parser = new Yaml()
 			List docker-compose = parser.load(("docker-compose.yaml" as File).text)
 			docker-compose.each{println it.subject}
+			
+			//int readFileLineByLine(String filePath) {
+    		File file = new File('docker-compose.yaml')
+    		def line, noOfLines = 0;
+    		file.withReader { reader ->
+        			while ((line = reader.readLine()) != null) {
+            		println "${line}"
+            		noOfLines++
+        		}
+    		}
+    	//return noOfLines
+		//}
+
+
+
+
 
 
 			// sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
