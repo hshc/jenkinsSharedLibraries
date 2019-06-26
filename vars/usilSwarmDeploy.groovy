@@ -32,11 +32,12 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 println mydata.services.getClass()
 			 println mydata.services
 			 println mydata.services.keySet()
+			 println mydata.services.keySet().toArray()[0]
 			 def nomService = mydata.services.keySet()
 
 			 println "key    " + nomService[0]
 			
-             println mydata.services.nomService[0]
+             // println mydata.services.nomService.toArray()[0]
 			 
 
 			//.deploy.labels
