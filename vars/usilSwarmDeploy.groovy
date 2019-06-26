@@ -31,9 +31,11 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  def nomService = mydata.services =~/(?<=\{)(.*?)(?=\{image)/
 			  //assert nomService instanceof java.util.regex.Matcher
 			  println "nom du Service"
-			  println nomService[0]
-			  println nomService[0][1]
+  				println nomService[0]
 			 
+
+
+			
 			 // println mydata.services.appli.image
 			 // println mydata.services.appli.deploy.labels
 			 def arrayLabels=mydata.services.appli.deploy.labels as String[]
