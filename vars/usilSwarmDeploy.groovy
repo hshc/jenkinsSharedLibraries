@@ -33,6 +33,29 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  println "nom du Service"
   				println nomService[0]
 			 
+			s = "This is a simple string 234 something else here as well 4334"
+			regexPattern = /([0-9]{3})/
+
+			matcher = ( mydata.services =~ regexPattern )
+
+			if (matcher.matches()) {
+    			println(matcher.getCount()+ " occurrence of the regular expression was found in the string.");
+    			println(matcher[0][1] + " found!")
+			}
+			else
+			{
+				println "marche pas !!! "
+			}
+
+if (matcher.matches()) {
+    println(matcher.getCount()+ " occurrence of the regular expression was found in the string.");
+    println(matcher[0][1] + " found!")
+}
+
+
+
+
+
 
 
 			
