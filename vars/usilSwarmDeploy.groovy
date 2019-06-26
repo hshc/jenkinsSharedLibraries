@@ -32,7 +32,8 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 println mydata.services.getClass()
 			 println mydata.services
 			 println mydata.services.keySet()
-			 String nomService = mydata.services.keySet().value
+			String nomService : mydata.services.keySet()
+
 			 println "key" + nomService
 			
              println mydata.services.get(nomService)
