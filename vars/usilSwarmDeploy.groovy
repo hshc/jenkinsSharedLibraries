@@ -20,7 +20,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 		}
 		
 		Yaml parser = new Yaml()
-
+        sleep(time:5,unit:"SECONDS")
   		map = parser.load( new File("${env.WORKSPACE}/${codeEnv}/docker-compose.yml").text )
         println map[args[0]]
 
