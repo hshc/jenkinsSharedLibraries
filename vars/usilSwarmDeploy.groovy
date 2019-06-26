@@ -27,8 +27,9 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  // println (mydata.services =~ /(?<=\{)(.*?)(?=\{image)/)
 			  //(?<={)(.*)(?=\={image)
 			  
-			  def nomService = (mydata.services =~ /(?<=\{)(.*?)(?=\{image)/)
-			  assert nomService instanceof java.util.regex.Matcher
+			  //def regexPattern = 
+			  def nomService = (mydata.services = ~/(?<=\{)(.*?)(?=\{image)/)
+			  //assert nomService instanceof java.util.regex.Matcher
 			  println "nom du Service"
 			  println nomService
 			  
