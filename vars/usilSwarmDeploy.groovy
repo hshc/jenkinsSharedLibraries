@@ -25,6 +25,10 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  println mydata
 			  println mydata.version
 			  println mydata.services
+			  
+			  def nomService = (mydata.services =~ /(?<=\{)(.*?)(?=\={image/)
+			  println nomService
+			  
 			  println mydata.services.appli.image
 			  println mydata.services.appli.deploy.labels 
 			  
