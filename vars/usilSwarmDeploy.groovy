@@ -39,7 +39,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 
 			 println "TEST !!!"
 			 println matcher
-			 println nomService
+			 println "nomService: $nomService"
 
 
 			if (matcher.matches()) {
