@@ -1,6 +1,3 @@
-@Grab('org.yaml:snakeyaml:1.17')
-import org.yaml.snakeyaml.Yaml
-
 def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	// gestion des certificats pour connexion UCP
 	stage ("Deploiement UCP Docker env:${codeEnv}") {
