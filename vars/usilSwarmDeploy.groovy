@@ -26,11 +26,17 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 def mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
 			 def nomService = mydata.services.keySet()			 
 			 def arrayLabels=mydata.services.get(nomService[0]).deploy.labels as String[]
+			 
+			for (String key : mydata.services.get(nomService[0]).deploy.labels.keySet()) {
+				 println(key +"   clé  " + mydata.services.get(nomService[0]).deploy.labels(key))
+			 }
+			 
+			 
 			 mydata.services.get(nomService[0]).deploy.labels[arrayLabels.length]="com.docker.lb.backend_mode=vip"
     		 sh ("rm -f ${env.WORKSPACE}/${codeEnv}/docker-compose.yml")
 			 writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yaml", data: mydata
 
-			 sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
+			/* sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
 			 sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}_${codeEnv}"
 			 sleep(time:60,unit:"SECONDS")
 			 def checkService = sh(returnStdout: true, script: "docker stack services '${gitProjectName}'_'${codeEnv}' --format '{{.Replicas}}'").trim()
@@ -40,6 +46,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 				echo '[FAILURE] Erreur de deploiement du service ou conteneur'
         		currentBuild.result = 'FAILURE'
 				}
+			*/
 	    	}
     }
 }
