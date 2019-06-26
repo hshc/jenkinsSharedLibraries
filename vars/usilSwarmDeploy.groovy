@@ -31,7 +31,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 println mydata.getClass()
 			 println mydata.services.getClass()
 			 println mydata.services
-			 println mydata.services
+			 println mydata.services.keySet()
 
 			 for (String key : mydata.services.keySet()) {
 				 println(key +"   clé  " + mydata.services.get(key))
