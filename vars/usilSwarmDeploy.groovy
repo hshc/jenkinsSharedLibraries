@@ -36,7 +36,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			// s = "This is a simple string 234 something else here as well 4334"
 			//regexPattern = /([0-9]{3})/
 			//def matcher = ( nomService =~ regexPattern )
-			def matcher = mydata.services =~ /(?<={)(.*)(?={image)/
+			def matcher = mydata.services =~ /(?<=\{)(.*)(?=\{image)/
 			 println "TEST !!!"
 			 println matcher
 			 println mydata.services
