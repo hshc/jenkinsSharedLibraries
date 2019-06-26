@@ -1,3 +1,4 @@
+import org.yaml.snakeyaml.Yaml
 def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	// gestion des certificats pour connexion UCP
 	stage ("Deploiement UCP Docker env:${codeEnv}") {
@@ -17,16 +18,22 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 		}
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
-			sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
-			sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}_${codeEnv}"
-			sleep(time:60,unit:"SECONDS")
-			def checkService = sh(returnStdout: true, script: "docker stack services '${gitProjectName}'_'${codeEnv}' --format '{{.Replicas}}'").trim()
-			echo "Deploiement de la stack ${gitProjectName}_${codeEnv}: ${checkService}"
-			if (checkService ==~ /^0\/.*$/)
-				{
-				echo '[FAILURE] Erreur de deploiement du service ou conteneur'
-        		currentBuild.result = 'FAILURE'
-				}
+			sh "cd ${codeEnv}"
+			Yaml parser = new Yaml()
+			List docker-compose = parser.load(("docker-compose.yaml" as File).text)
+			docker-compose.each{println it.subject}
+
+
+			// sh "export DTRIMAGE=${dockerRegistryRepoAppli} && cd ${codeEnv} && docker-compose config > docker-compose-deploy.yml"
+			// sh "docker stack deploy --prune --compose-file=${codeEnv}/docker-compose-deploy.yml ${gitProjectName}_${codeEnv}"
+			// sleep(time:60,unit:"SECONDS")
+			// def checkService = sh(returnStdout: true, script: "docker stack services '${gitProjectName}'_'${codeEnv}' --format '{{.Replicas}}'").trim()
+			// echo "Deploiement de la stack ${gitProjectName}_${codeEnv}: ${checkService}"
+			// if (checkService ==~ /^0\/.*$/)
+			// 	{
+			//	echo '[FAILURE] Erreur de deploiement du service ou conteneur'
+        	//	currentBuild.result = 'FAILURE'
+			//	}
 
 	    	}
     }
