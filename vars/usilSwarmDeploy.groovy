@@ -23,6 +23,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  println mydata
 			  println mydata.version
 			  println mydata.services
+			  println (mydata.services =~ /(?<=\{)(.*?)(?={image)/ )
 			  
 			  //def nomService = (mydata.services =~ /(?<=\{)(.*?)(?={image)/ )
 			  //println "nom du Service"
@@ -30,16 +31,11 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  
 			 // println mydata.services.appli.image
 			 println mydata.services.appli.deploy.labels
-			 //def arrayLabels=mydata.services.appli.deploy.labels as String[]
-			 def arrayLabels=mydata.services.appli.deploy as String[]
+			 def arrayLabels=mydata.services.appli.deploy.labels as String[]
 			 
 			 println arrayLabels.length
-			 //mydata.services.appli.deploy.labels[arrayLabels.length]="com.docker.lb.backend_mode=vip"
-			 mydata.services.appli.deploy[arrayLabels.length]="com.docker.lb.backend_mode=vip"
-			 
-			 // echo "essai : $mydata.services.deploy.labels 
-			  //echo "essai $mydata.label"
-			  //mydata.info = "b"
+			 mydata.services.appli.deploy.labels[arrayLabels.length]="com.docker.lb.backend_mode=vip"
+
 			 println arrayLabels.length
     		 writeYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-modif.yaml", data: mydata
 
