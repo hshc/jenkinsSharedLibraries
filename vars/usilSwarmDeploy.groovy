@@ -19,19 +19,14 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
 			sh "cd ${codeEnv}"
-			Yaml parser = new Yaml()
-			List docker-compose = parser.load(("docker-compose.yaml" as File).text)
-			docker-compose.each{println it.subject}
-			
-			//int readFileLineByLine(String filePath) {
-    		File file = new File('docker-compose.yaml')
-    		def line, noOfLines = 0;
-    		file.withReader { reader ->
-        			while ((line = reader.readLine()) != null) {
-            		println "${line}"
-            		noOfLines++
-        		}
-    		}
+			  mydata = readYaml file: "docker-compose.yml"
+
+    		  //modify
+    		  mydata.info = "b"
+    		  writeYaml file: 'docker-compose-modif.yaml', data: mydata
+
+
+		
     	//return noOfLines
 		//}
 
