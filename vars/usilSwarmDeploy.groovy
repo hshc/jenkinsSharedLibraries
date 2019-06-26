@@ -21,13 +21,13 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			  mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
     		  //modify
 			  println mydata
-			  println mydata.version
-			  println mydata.services
+			  // println mydata.version
+			  // println mydata.services
 			  // println (mydata.services =~ /(?<=\{)(.*?)(?={image)/ )
 			  // println (mydata.services =~ /(?<=\{)(.*?)(?=\{image)/)
 			  //(?<={)(.*)(?=\={image)
 			  
-			  //def regexPattern = /(?<=\{)(.*?)(?=\{image)/
+			  def regexPattern = /(?<=\{)(.*)(?=\{image)/
 			  //def nomService = mydata.services =~/(?<=\{)(.*?)(?=\{image)/
 			  //def nomService = mydata.service as String
 			 
@@ -36,9 +36,10 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			// s = "This is a simple string 234 something else here as well 4334"
 			//regexPattern = /([0-9]{3})/
 			//def matcher = ( nomService =~ regexPattern )
-			def matcher = mydata.services =~ /(?<=\{)(.*)(?=\{image)/
+			def matcher = (mydata.services =~ regexPattern)
 			 println "TEST !!!"
 			 println matcher
+			 println matcher.count
 			 println mydata.services
 
 
