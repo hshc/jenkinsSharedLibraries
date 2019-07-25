@@ -9,10 +9,12 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 			}
 			stage('Sonar (large)') {
 				withSonarQubeEnv('SONARQUBE_USIL3') {
-					sh 'echo ${MAVEN_OPTS}'
-                    sh 'export MAVEN_OPTS="-Xmx3000m"'
-					sh 'echo ${MAVEN_OPTS}'
-                    sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -X"
+					sh '''
+                    echo "MAVEN_OPTS = ${MAVEN_OPTS}"
+                    export MAVEN_OPTS="-Xmx3000m"
+					echo "MAVEN_OPTS = ${MAVEN_OPTS}"
+                    '''
+                    sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -DargLine='-Xmx3000m' -X"
 				}
 			}
 			stage('Quality Gate') {
