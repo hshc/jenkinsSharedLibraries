@@ -7,22 +7,22 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 			stage('Test Junit') {
 				sh "mvn test ${mvnOptionnalArgs} -Duser.home=/var/maven"
 			}
-			stage('Sonar (large)') {
-				withSonarQubeEnv('SONARQUBE_USIL3') {
-					sh '''
-                    echo "MAVEN_OPTS = ${MAVEN_OPTS}"
-                    export MAVEN_OPTS="-Xmx3000m"
-					echo "MAVEN_OPTS = ${MAVEN_OPTS}"
-                    '''
-                    sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -DargLine='-Xmx3000m' -X"
-				}
-			}
-			stage('Quality Gate') {
-				def qg = waitForQualityGate()
-				if (qg.status != 'OK') {
-					error "Pipeline aborted due to quality gate failure: ${qg.status}"
-				}
-			}
+			// stage('Sonar (large)') {
+			// 	withSonarQubeEnv('SONARQUBE_USIL3') {
+			// 		sh '''
+            //         echo "MAVEN_OPTS = ${MAVEN_OPTS}"
+            //         export MAVEN_OPTS="-Xmx3000m"
+			// 		echo "MAVEN_OPTS = ${MAVEN_OPTS}"
+            //         '''
+            //         sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -DargLine='-Xmx3000m' -X"
+			// 	}
+			// }
+			// stage('Quality Gate') {
+			// 	def qg = waitForQualityGate()
+			// 	if (qg.status != 'OK') {
+			// 		error "Pipeline aborted due to quality gate failure: ${qg.status}"
+			// 	}
+			// }
 			stage('Publish Nexus') {
 				sh "mvn deploy ${mvnOptionnalArgs} -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml"
 			}
