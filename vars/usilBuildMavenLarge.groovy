@@ -12,7 +12,7 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 					sh """
 					export MAVEN_BATCH_ECHO=on
 					export MAVEN_OPTS='-Xmx2048m -Xms1024m -XX:MaxPermSize=256m'
-					echo MAVEN_OPTS=${MAVEN_OPTS}
+					echo MAVEN_OPTS=$MAVEN_OPTS
 					mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml
 					"""
 					// sh """
