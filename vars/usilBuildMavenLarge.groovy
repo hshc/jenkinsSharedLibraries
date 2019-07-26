@@ -7,22 +7,22 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 			stage('Test Junit') {
 				sh "mvn test ${mvnOptionnalArgs} -Duser.home=/var/maven"
 			}
-			stage('Sonar (Memory)') {
-				withSonarQubeEnv('SONARQUBE_USIL3') {
-					sh """
-					echo "MAVEN_OPTS = ${env.MAVEN_OPTS}"
-					export MAVEN_OPTS="-Xmx2048m -Xms1024m -XX:MaxPermSize=512m"
-					echo "MAVEN_OPTS = ${env.MAVEN_OPTS}"
-					mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -X
-					"""
-				}
-			}
-			stage('Quality Gate') {
-				def qg = waitForQualityGate()
-				if (qg.status != 'OK') {
-					error "Pipeline aborted due to quality gate failure: ${qg.status}"
-				}
-			}
+			// stage('Sonar (Memory)') {
+			// 	withSonarQubeEnv('SONARQUBE_USIL3') {
+			// 		sh """
+			// 		echo "MAVEN_OPTS = ${env.MAVEN_OPTS}"
+			// 		export MAVEN_OPTS="-Xmx2048m -Xms1024m -XX:MaxPermSize=512m"
+			// 		echo "MAVEN_OPTS = ${env.MAVEN_OPTS}"
+			// 		mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -X
+			// 		"""
+			// 	}
+			// }
+			// stage('Quality Gate') {
+			// 	def qg = waitForQualityGate()
+			// 	if (qg.status != 'OK') {
+			// 		error "Pipeline aborted due to quality gate failure: ${qg.status}"
+			// 	}
+			// }
 			stage('Publish Nexus') {
 				sh "mvn deploy ${mvnOptionnalArgs} -Duser.home=/var/maven -s /usr/share/maven/ref/settings.xml"
 			}
