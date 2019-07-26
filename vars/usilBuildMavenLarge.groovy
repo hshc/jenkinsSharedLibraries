@@ -11,15 +11,9 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 				withSonarQubeEnv('SONARQUBE_USIL3') {
 					sh """
 					export MAVEN_BATCH_ECHO=on
-					export MAVEN_OPTS='-Xmx4096m -Xms2048m -XX:MaxPermSize=256m'
+					echo '-Xmx4096m -Xms2048m -XX:MaxPermSize=256m' > .mvn/jvm.config
 					mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -e
 					"""
-					// sh """
-					// echo MAVEN_OPTS = ${env.MAVEN_OPTS}
-					// export env.MAVEN_OPTS="-Xmx2048m -Xms1024m -XX:MaxPermSize=512m"
-					// echo MAVEN_OPTS = ${env.MAVEN_OPTS}
-					// mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -X
-					// """
 				}
 			}
 			stage('Quality Gate') {
