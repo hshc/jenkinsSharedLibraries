@@ -7,12 +7,12 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 			stage('Test Junit') {
 				sh "mvn test ${mvnOptionnalArgs} -Duser.home=/var/maven"
 			}
-			stage('Sonar (LargeMemory)') {
+			stage('Sonar (Memory)') {
 				withSonarQubeEnv('SONARQUBE_USIL3') {
 					sh """
-					echo "MAVEN_OPTS = ${MAVEN_OPTS}"
+					echo "MAVEN_OPTS = ${env.MAVEN_OPTS}"
 					export MAVEN_OPTS="-Xmx2048m -Xms1024m -XX:MaxPermSize=512m"
-					echo "MAVEN_OPTS = ${MAVEN_OPTS}"
+					echo "MAVEN_OPTS = ${env.MAVEN_OPTS}"
 					mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml -X
 					"""
 				}
