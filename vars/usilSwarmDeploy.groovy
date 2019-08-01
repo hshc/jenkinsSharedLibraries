@@ -15,9 +15,6 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			dockerUcp="tcp://ucp.recf.docker.si2m.tec:443"
 			dockerCertPath="${JENKINS_HOME_SLAVE}/docker_ucp_recf/"
 		}
-		
-	
-
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
 			 def vipLabel=false
@@ -25,11 +22,8 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 def nomService = mydata.services.keySet()			 
 			 def arrayLabels=mydata.services.get(nomService[0]).deploy.labels as String[]		 
 			for (labelUcp in mydata.services.get(nomService[0]).deploy.labels) {
-			    // problème rencontré avec cette regex 
-				
-				echo "labelUcp: ${labelUcp}"
-				if (labelUcp.replaceAll("\\s+","") == "com.docker.lb.backend_mode=vip") {
-				//if (labelUcp == "com.docker.lb.backend_mode=vip" || labelUcp == "com.docker.lb.backend_mode= vip" || labelUcp == "com.docker.lb.backend_mode:vip" || labelUcp == "com.docker.lb.backend_mode: vip" || labelUcp == "com.docker.lb.backend_mode : vip") {
+				// echo "labelUcp: ${labelUcp}"
+				if (labelUcp.toString().replaceAll("\\s+","") == "com.docker.lb.backend_mode=vip") {
 					vipLabel=true;
 					println "docker compose déjà prêt pour l ucp v3"
 				 }
