@@ -27,7 +27,8 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			for (labelUcp in mydata.services.get(nomService[0]).deploy.labels) {
 			    // problème rencontré avec cette regex 
 				// if (labelUcp.replaceAll("\\s+","") == "com.docker.lb.backend_mode=vip") {
-				if (labelUcp == "com.docker.lb.backend_mode= vip" || labelUcp == "com.docker.lb.backend_mode: vip") {
+				echo "labelUcp: ${labelUcp}"
+				if (labelUcp == "com.docker.lb.backend_mode= vip" || labelUcp == "com.docker.lb.backend_mode: vip" || labelUcp == "com.docker.lb.backend_mode : vip") {
 				    vipLabel=true;
 					println "docker compose déjà prêt pour l ucp v3"
 				 }
