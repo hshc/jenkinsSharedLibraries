@@ -7,7 +7,8 @@ def call(def dockerRegistryUrl,def dockerRegistryUser, def dockerRegistryRepoApp
 			imageDocker.push()
         }
       }
-    def urlRepo= "${dockerRegistryUrl}/${dockerRegistryRepoAppli.replaceAll(":.*$", "")}"
+    def repoAppliRemoveTag=dockerRegistryRepoAppli.replaceAll("/:.*$", "")
+    def urlRepo= "${dockerRegistryUrl}/${repoAppliRemoveTag}"
     println urlRepo
     def response = httpRequest authentication: 'DockerDTR', acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: '{"visibility": "public"}', url: urlRepo, ignoreSslErrors:true
     println response
