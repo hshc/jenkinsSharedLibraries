@@ -8,8 +8,6 @@ def call(def dockerRegistryUrl,def dockerRegistryUser, def dockerRegistryRepoApp
         }
       }
     def urlRepo= "${dockerRegistryUrl}/api/v0/repositories/${dockerRegistryRepoAppli.replaceAll(/:.*$/, "")}"
-    println urlRepo
     def response = httpRequest authentication: 'DockerDTR', acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: '{"visibility": "public"}', url: urlRepo, ignoreSslErrors:true
-    println response
     }
   }
