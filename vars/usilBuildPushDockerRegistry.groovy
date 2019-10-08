@@ -8,7 +8,7 @@ def call(def dockerRegistryUrl,def dockerRegistryUser, def dockerRegistryRepoApp
         }
       }
     def urlRepo= "${dockerRegistryUrl}+${dockerRegistryRepoAppli}"
-    def response = httpRequest authentication: 'DockerDTR', acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: '{"visibility": "public"}', url: $urlRepo, ignoreSslErrors:true
+    def response = httpRequest authentication: 'DockerDTR', acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: '{"visibility": "public"}', url: urlRepo, ignoreSslErrors:true
     println response
     }
   }
