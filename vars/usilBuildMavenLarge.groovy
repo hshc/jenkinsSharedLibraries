@@ -2,7 +2,7 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 	docker.withRegistry(dockerRegistryUrl) {
 		docker.image(dockerImageName).inside('-e MAVEN_CONFIG=/var/maven/.m2 -v /appli/jenkins/settings.xml:/usr/share/maven/ref/settings.xml -v /appli/jenkins/mavenrepo:/var/maven/.m2:rw') {
 			stage('MVN compile') {
-				sh "mvn clean compile ${mvnOptionnalArgs} -DskipTests -Dconsole -Duser.home=/var/maven"
+				sh "mvn clean compile ${mvnOptionnalArgs} -DskipTests -Dconsole -Duser.home=/var/maven -U"
 			}
 			stage('Test Junit') {
 				sh "mvn test ${mvnOptionnalArgs} -Duser.home=/var/maven"
