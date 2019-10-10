@@ -16,3 +16,4 @@ def call(def dockerRegistryUrl,def dockerRegistryUser, def dockerRegistryRepoApp
       currentBuild.result = 'FAILURE'
     }
   }
+}
