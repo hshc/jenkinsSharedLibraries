@@ -11,7 +11,7 @@ def call(def dockerRegistryUrl,def dockerRegistryUser, def dockerRegistryRepoApp
     def urlRepo= "${dockerRegistryUrl}/api/v0/repositories/${dockerRegistryRepoAppli.replaceAll(/:.*$/, "")}"
     def response = httpRequest authentication: 'DockerDTR', acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: '{"visibility": "public"}', url: urlRepo, ignoreSslErrors:true
     println response.status
-    if (response.status != 200) {
+    if (response.status != '200') {
       println "Repo sur la DTR inexistant"
       currentBuild.result = 'FAILURE'
     }
