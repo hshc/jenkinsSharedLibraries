@@ -14,6 +14,6 @@ def call(def dockerRegistryUrl,def dockerRegistryUser, def dockerRegistryRepoApp
     if (response.status != 200) {
       println "Repo sur la DTR inexistant"
       currentBuild.result = 'FAILURE'
+      }
     }
-  }
 }
