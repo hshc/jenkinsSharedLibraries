@@ -3,6 +3,7 @@ class usilParams {
 	//def dockerRegistryImageBuild='test-store/si2m-npm10-build'
 	def dockerRegistryImageNodeBuild='tools-store/usil-nodejs8.12.0-build:1.0.2'
 	def dockerRegistryImageMavenBuild='test-store/maven:3.5.4-jdk-8'
+	def dockerMavenJdk12='maven:3.6.2-jdk-12'
 	def dockerRegistryRepo='repo-store'
 	def dockerRegistryRepoProd='app-store'
 	def dockerRegistryUser='DockerDTR'
