@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 def call(def awsTechnicalAccount, def keytabFile, def kerberosConfigFile='krb5_conf') {
     withCredentials([
-        file(credentialsId: kerberosConfigFile, variable: 'krb5_conf')
+        file(credentialsId: kerberosConfigFile, variable: 'krb5_conf'),
         file(credentialsId: keytabFile ,variable: 'keytab'),
         usernamePassword(credentialsId: awsTechnicalAccount, passwordVariable: 'pwd', usernameVariable: 'user') 
     ]) {
