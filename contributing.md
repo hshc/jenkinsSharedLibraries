@@ -30,3 +30,6 @@ Lors de vos développement, si vous voulez tester votre version des sharedLibrai
 ```
 
 Une fois que votre développement vous semble OK, vous pouvez faire une pull request sur develop pour que les autres contributeurs puissent vérifier votre contribution avant de la merger dans develop.
+
+## Documentation
+Pensez à mettre à jour la documentation du README.md si besoin.
