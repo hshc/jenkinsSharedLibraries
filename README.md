@@ -1,6 +1,9 @@
 # Jenkins Shared Librairies 
 Repo dédié aux Shared Libraries de Jenkins
 
+## Comment contribuer
+Avant de contribuer au projet, merci de prendre connaissance de la documentation "contributing.md".
+
 ## usilAWSBuildPushDockerRegistry
 Cette librairie réalise un build docker puis pousse l'image produite sur la DTR
 ### Inputs :
