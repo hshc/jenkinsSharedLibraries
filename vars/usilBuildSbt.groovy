@@ -1,4 +1,4 @@
-def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchName,def trigrammeAppli, def sbtOptionnalArgs=''){
+def call(def dockerRegistryUrl, def dockerImageName, def sbtOptionnalArgs=''){
 	docker.withRegistry(dockerRegistryUrl) {
 		docker.image(dockerImageName).inside('-v /var/lib/jenkins/.sbt:/root/.sbt -v /var/lib/jenkins/.ivy2:/root/.ivy2 ') {
 			stage('SBT Compile Coverage Test') {
