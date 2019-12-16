@@ -4,6 +4,7 @@ class usilParams {
 	def dockerRegistryImageNodeBuild='tools-store/usil-nodejs8.12.0-build:1.0.2'
 	//def dockerRegistryImageMavenBuild='test-store/maven:3.5.4-jdk-8'
 	def dockerRegistryImageMavenBuild = 'tools-store/usil-java.8-maven.3.6:1.0.1'
+	def dockerRegistryImageSBTBuild='tools-store/usil-sbt-jdk8-build:1.3.4'
 	def dockerMavenJdk12='tools-store/usil-openjdk12-build:latest'
 	def dockerMavenJdk13='tools-store/usil-openjdk13-build:latest'
 	def dockerRegistryRepo='repo-store'
