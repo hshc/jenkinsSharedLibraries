@@ -1,4 +1,5 @@
-def buildAndUploadDocToCentral() {
+#!/usr/bin/env groovy
+def call buildAndUploadDocToCentral() {
     buildDoc()
     updateDocToCentral()
 }
