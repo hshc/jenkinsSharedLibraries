@@ -22,7 +22,7 @@ docker.withRegistry(dockerRegistryUrl) {
           sh ('npm pack')
         }
 
-        if(gitBranchName == 'master' && trigrammeAppli == 'BPP') {
+        if(gitBranchName == 'master' && (trigrammeAppli == 'BPP' || trigrammeAppli == 'LIB')) {
           stage('Publish Nexus') {
             sh ("npm publish --registry ${usilParams.nexusRepoNpmPublish}")
           }
