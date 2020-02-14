@@ -6,7 +6,7 @@ class usilParams {
 	def dockerMavenJdk12='maven:3.6.2-jdk-12'
 	def dockerRegistryRepo='repo-store'
 	def dockerRegistryRepoProd='app-store'
-	def dockerRegistryUser='dockerdtr'
+	def dockerRegistryUser='DockerDTR'
 	// def nexusRepoNpm='http://vlionxu001.si2m.tec:8081/nexus/content/groups/public-npm'
 	// def nexusRepoNpmPublish='http://vlionxu001.si2m.tec:8081/nexus/content/repositories/Npm-si2m'
 	def nexusRepoNpm='http://nexus.si2m.tec/repository/npm-public-group/'
