@@ -9,7 +9,7 @@ class usilParams {
 	def dockerMavenJdk13='tools-store/usil-openjdk13-build:latest'
 	def dockerRegistryRepo='repo-store'
 	def dockerRegistryRepoProd='app-store'
-	def dockerRegistryUser='DockerDTR'
+	def dockerRegistryUser='dockerdtr'
 	// def nexusRepoNpm='http://vlionxu001.si2m.tec:8081/nexus/content/groups/public-npm'
 	// def nexusRepoNpmPublish='http://vlionxu001.si2m.tec:8081/nexus/content/repositories/Npm-si2m'
 	def nexusRepoNpm='http://nexus.si2m.tec/repository/npm-public-group/'
