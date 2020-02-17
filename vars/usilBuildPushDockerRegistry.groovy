@@ -9,7 +9,7 @@ def call(def dockerRegistryUrl,def dockerRegistryUser, def dockerRegistryRepoApp
       }
     // connexion à la dtr via API pour changer la visibilité du repo : visibility public 
     def urlRepo= "${dockerRegistryUrl}/api/v0/repositories/${dockerRegistryRepoAppli.replaceAll(/:.*$/, "")}"
-    def response = httpRequest authentication: 'DockerDTR', acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: '{"visibility": "public","immutableTags": false}', url: urlRepo, ignoreSslErrors:true
+    def response = httpRequest authentication: 'DockerDTR', acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: '{"visibility": "public"}', url: urlRepo, ignoreSslErrors:true
     if (response.status != 200) {
       println response
       println "Repo sur la DTR inexistant"
