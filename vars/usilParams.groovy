@@ -1,7 +1,7 @@
 class usilParams {
 	def dockerRegistryUrl = 'https://dtr.docker.si2m.tec'
 	//def dockerRegistryImageBuild='test-store/si2m-npm10-build'
-	def dockerRegistryImageNodeBuild='tools-store/usil-nodejs8.12.0-build:1.0.2'
+	def dockerRegistryImageNodeBuild='tools-store/usil-nodejs10.13.0-build:1.0.0'
 	//def dockerRegistryImageMavenBuild='test-store/maven:3.5.4-jdk-8'
 	def dockerRegistryImageMavenBuild = 'tools-store/usil-java.8-maven.3.6:1.0.1'
 	def dockerRegistryImageSBTBuild='tools-store/usil-sbt-jdk8-build:1.3.4'
