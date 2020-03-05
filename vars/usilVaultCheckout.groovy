@@ -4,7 +4,7 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
        sh "rm -f ${vaultValue}"
        writeYaml file: "${env.WORKSPACE}/${vaultKey}", data: vaultValue
        sh "rm -f test.yaml"
-       writeFile file: "${env.WORKSPACE}/test.yaml", data: vaultValue
+       writeFile file: "${env.WORKSPACE}/test.yaml", text: vaultValue
     }
   }
 }
