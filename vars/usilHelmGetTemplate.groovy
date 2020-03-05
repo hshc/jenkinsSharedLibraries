@@ -1,4 +1,4 @@
-def call(def chartTemplateName,def gitBitbucketHelmChartUrl,def gitProjectName) {
+def call(def chartTemplateName,def gitBitbucketUrl) {
 	stage("Checkout Template Helm"){
       sh ("rm -f -r ${chartTemplateName}")
       checkout([$class: 'GitSCM', branches: [[name: "*/${chartTemplateName}"]],
