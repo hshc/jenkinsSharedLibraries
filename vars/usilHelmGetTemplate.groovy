@@ -3,6 +3,6 @@ def call(def chartTemplateName,def gitBitbucketUrl) {
       sh ("rm -f -r ${chartTemplateName}")
       checkout([$class: 'GitSCM', branches: [[name: "*/${chartTemplateName}"]],
       doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${chartTemplateName}"]],
-      submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-bitbucket-common-creds', url: "${gitBitbucketUrl}${chartTemplateName}",refspec: "+refs/heads/master:refs/remotes/origin/master"]]])
+      submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins-bitbucket-common-creds', url: "${gitBitbucketUrl}${chartTemplateName}"]]])
     }
 }
