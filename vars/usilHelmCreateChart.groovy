@@ -9,7 +9,7 @@ stage("Create Chart Helm"){
     }
   def list = findTemplate.readLines()
   println list.getClass()
-  println list.count
+  println list.size()
   println list[0]
   println list[1]
 
