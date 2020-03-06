@@ -1,25 +1,19 @@
 def call(def chartTemplateName,def gitProjectName) {
 stage("Create Chart Helm"){
   def findTemplate = sh ( script : "find ${chartTemplateName}/templates -maxdepth 1 -type f -name *.yaml",returnStdout: true).trim()       
-  println findTemplate
-  println findTemplate.getClass()
-  
-  //findTemplate.eachLine {
-  //  line, count ->  println "line $count: $line"  // Output: line 0: Groovy is closely related to Java,
-  //  }
   def listeFichierTemplate = findTemplate.readLines()
   def index=0
   listeFichierTemplate.each {
     contenuTemplateYaml = readFile it
-        println "index : ${index}  Number ${it} : ${contenuTemplateYaml}"
-   // contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', gitProjectName )
+    //    println "index : ${index}  Number ${it} : ${contenuTemplateYaml}"
+    contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', gitProjectName )
   //  println contenuTemplateYaml
-  //  def templateCible=listeFichierTemplate[index].replaceAll("${chartTemplateName}/templates/",'')
+    def templateCible=listeFichierTemplate[index].replaceAll("${chartTemplateName}/templates/",'')
   //  println templateCible
   //  println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
-  //  writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: contenuTemplateYaml
-      index++
-      }
+    writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: contenuTemplateYaml
+    index++
+    }
   /*
   println listeFichierTemplate.getClass()
   println listeFichierTemplate.size()
