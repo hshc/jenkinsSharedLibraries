@@ -1,6 +1,6 @@
 def call(def chartTemplateName,def gitProjectName) {
 stage("Create Chart Helm"){
-  def findTemplate = sh ( script : 'find ./chart_nodejs -maxdepth 1 -type f -name *.yaml',returnStdout: true).trim()       
+  def findTemplate = sh ( script : 'find chart_nodejs -maxdepth 1 -type f -name *.yaml',returnStdout: true).trim()       
   println findTemplate
   println findTemplate.getClass()
   
@@ -14,6 +14,10 @@ stage("Create Chart Helm"){
 
   def version = readFile list[0]
   println version
+  
+  // repécupération de la liste des fichiers template
+  // modification du contenu et creation du nouveau fichier correctement nommé avec la bonne variabilisation
+  
   }
 }
   
