@@ -9,11 +9,6 @@ stage("Create Chart Helm"){
   //  }
   def listeFichierTemplate = findTemplate.readLines()
 
-['Cat', 'Dog', 'Elephant'].eachWithIndex { animalName, index ->
-    println "${index}. Animal ${animalName}"
-}
-
-
  listeFichierTemplate.each {
     println "Number ${it}"
 
@@ -28,8 +23,8 @@ stage("Create Chart Helm"){
   //  println templateCible
   //  println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
   //  writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: contenuTemplateYaml
-    index++
-    }
+      index++
+      }
   /*
   println listeFichierTemplate.getClass()
   println listeFichierTemplate.size()
@@ -48,7 +43,7 @@ stage("Create Chart Helm"){
   println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
   writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: version
   */
+    }
   }
 }
-
   
