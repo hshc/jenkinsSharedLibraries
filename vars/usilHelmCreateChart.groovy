@@ -9,6 +9,8 @@ stage("Create Chart Helm"){
     }
   def list = findTemplate.readLines()
   println list.getClass()
+  println list[0]
+  println list[1]
   }
 }
   
