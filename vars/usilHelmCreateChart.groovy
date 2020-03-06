@@ -4,6 +4,7 @@ def call(def chartTemplateName,def gitProjectName) {
     // liste les fichiers yaml template
     def list = []
     def dir = new File("${env.WORKSPACE}/${chartTemplateName}")
+    println dir
     dir.eachFileRecurse (FileType.FILES) { file ->
       list << file
     } 
