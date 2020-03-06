@@ -1,4 +1,4 @@
-import groovy.io.FileType
+import groovy.io.FileType.FILES
 def call(def chartTemplateName,def gitProjectName) {
 stage("Create Chart Helm"){
   import static groovy.io.FileType.FILES
