@@ -11,6 +11,9 @@ stage("Create Chart Helm"){
   println list.getClass()
   println list[0]
   println list[1]
+
+  def version = readFile list[0]
+  println version
   }
 }
   
