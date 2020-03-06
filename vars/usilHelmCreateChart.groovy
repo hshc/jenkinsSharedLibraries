@@ -13,8 +13,13 @@ stage("Create Chart Helm"){
     println "${index}. Animal ${animalName}"
 }
 
-  listeFichierTemplate.eachWithIndex  {  it, index ->
-   // contenuTemplateYaml = readFile it
+
+ listeFichierTemplate.each {
+    println "Number ${it}"
+
+  def index=0
+  listeFichierTemplate.each {
+    contenuTemplateYaml = readFile it
         println "index : ${index}  Number ${it} "
   // : ${contenuTemplateYaml}"
    // contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', gitProjectName )
@@ -23,6 +28,7 @@ stage("Create Chart Helm"){
   //  println templateCible
   //  println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
   //  writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: contenuTemplateYaml
+    index++
     }
   /*
   println listeFichierTemplate.getClass()
