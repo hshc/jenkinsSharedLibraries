@@ -10,8 +10,8 @@ stage("Create Chart Helm"){
   def listeFichierTemplate = findTemplate.readLines()
   listeFichierTemplate.each {
     println "Number ${it}"
-    //version = readFile listeFichierTemplate[it]
-     //   println "Number ${it} : ${version}"
+    version = readFile it
+        println "Number ${it} : ${version}"
       }
   /*
   println listeFichierTemplate.getClass()
