@@ -4,9 +4,10 @@ println GroovySystem.version
 
 stage("Create Chart Helm"){
   new File('.').eachFileRecurse(FileType.FILES) {
-    file ->
-      list << file
-    println file
+  println it
+  //  file ->
+   //   list << file
+  //  println file
     //if(it.name.endsWith('*.yaml')) {
      //   println it
      //   }
