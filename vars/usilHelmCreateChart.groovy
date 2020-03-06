@@ -20,10 +20,10 @@ stage("Create Chart Helm"){
   // modification du contenu et creation du nouveau fichier correctement nommé avec la bonne variabilisation
   version = version.replaceAll( 'modelTemplate', gitProjectName )
   println version
-  def templateCible=list[0].replaceAll("${chartTemplateName}",'')
+  def templateCible=list[0].replaceAll("${chartTemplateName}/templates/",'')
   println templateCible
-  println "${gitProjectName}${templateCible}"
-  //writeFile file: "${gitProjectName}${templateCible}", text: "This file is useful, need to archive it."
+  println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
+  writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: version
   }
 }
   
