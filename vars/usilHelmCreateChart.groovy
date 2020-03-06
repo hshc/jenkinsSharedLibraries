@@ -4,26 +4,34 @@ stage("Create Chart Helm"){
   println findTemplate
   println findTemplate.getClass()
   
-  findTemplate.eachLine {
-    line, count ->  println "line $count: $line"  // Output: line 0: Groovy is closely related to Java,
-    }
-  def list = findTemplate.readLines()
-  println list.getClass()
-  println list.size()
-  println list[0]
-  println list[1]
+  //findTemplate.eachLine {
+  //  line, count ->  println "line $count: $line"  // Output: line 0: Groovy is closely related to Java,
+  //  }
+  def listeFichierTemplate = findTemplate.readLines()
+  listeFichierTemplate.each {
+    println "Number ${it}"
+    version = readFile listeFichierTemplate[it]
+        println "Number ${it} : ${version}"
+      }
+  /*
+  println listeFichierTemplate.getClass()
+  println listeFichierTemplate.size()
+  println listeFichierTemplate[0]
+  println listeFichierTemplate[1]
 
-  def version = readFile list[0]
+  def version = readFile listeFichierTemplate[0]
   println version
   
   // repécupération de la liste des fichiers template
   // modification du contenu et creation du nouveau fichier correctement nommé avec la bonne variabilisation
   version = version.replaceAll( 'modelTemplate', gitProjectName )
   println version
-  def templateCible=list[0].replaceAll("${chartTemplateName}/templates/",'')
+  def templateCible=listeFichierTemplate[0].replaceAll("${chartTemplateName}/templates/",'')
   println templateCible
   println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
   writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: version
+  */
   }
 }
+
   
