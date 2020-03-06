@@ -6,7 +6,9 @@ stage("Create Chart Helm"){
   
   findTemplate.eachLine {
     line, count ->  println "line $count: $line"  // Output: line 0: Groovy is closely related to Java,
+    }
+  def list = multiline.readLines()
+  println list.getClass()
   }
-}
 }
   
