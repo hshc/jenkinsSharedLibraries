@@ -1,37 +1,23 @@
 def call(def chartTemplateName,def gitProjectName) {
 stage("Create Chart Helm"){
+  // on liste les fichiers présent dans le repertoire ${chartTemplateName}/templates
   def findTemplate = sh ( script : "find ${chartTemplateName}/templates -maxdepth 1 -type f -name *.yaml",returnStdout: true).trim()       
+  // on créé une liste contenant la liste des fichiers avec leurs paths
   def listeFichierTemplate = findTemplate.readLines()
+  // la fonction eachWithIndex nétant pas disponible une variable d'index est instancié 
   def index=0
+  // fonctionne qui par la liste des fichiers
   listeFichierTemplate.each {
+    // lecture de du fichier récupéré sur la closure it dont le contenu est stocké dans contenuTemplateYaml
     contenuTemplateYaml = readFile it
-    //    println "index : ${index}  Number ${it} : ${contenuTemplateYaml}"
+    // on personnalise le contenu des variables du template modelTemplate par le nom du service (gitProjectName)
     contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', gitProjectName )
-  //  println contenuTemplateYaml
+    // on supprime le path 
     def templateCible=listeFichierTemplate[index].replaceAll("${chartTemplateName}/templates/",'')
-  //  println templateCible
-  //  println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
+    // on écrit le fichier dans le repertoire gitProjectName/templates/ et on préfixe les fichiers avec gitProjectName
     writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: contenuTemplateYaml
     index++
     }
-  /*
-  println listeFichierTemplate.getClass()
-  println listeFichierTemplate.size()
-  println listeFichierTemplate[0]
-  println listeFichierTemplate[1]
-
-  def version = readFile listeFichierTemplate[0]
-  println version
-  
-  // repécupération de la liste des fichiers template
-  // modification du contenu et creation du nouveau fichier correctement nommé avec la bonne variabilisation
-  version = version.replaceAll( 'modelTemplate', gitProjectName )
-  println version
-  def templateCible=listeFichierTemplate[0].replaceAll("${chartTemplateName}/templates/",'')
-  println templateCible
-  println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
-  writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: version
-  */
   }
 }
 
