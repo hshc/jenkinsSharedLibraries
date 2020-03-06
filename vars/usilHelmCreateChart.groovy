@@ -10,13 +10,13 @@ stage("Create Chart Helm"){
   def listeFichierTemplate = findTemplate.readLines()
   listeFichierTemplate.eachWithIndex  {
     contenuTemplateYaml = readFile it
-    //    println "Number ${it} : ${fileYaml}"
-    contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', gitProjectName )
-    println contenuTemplateYaml
-    def templateCible=listeFichierTemplate[index].replaceAll("${chartTemplateName}/templates/",'')
-    println templateCible
-    println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
-    writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: contenuTemplateYaml
+        println "index : ${index}  Number ${it} : ${contenuTemplateYaml}"
+   // contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', gitProjectName )
+  //  println contenuTemplateYaml
+  //  def templateCible=listeFichierTemplate[index].replaceAll("${chartTemplateName}/templates/",'')
+  //  println templateCible
+  //  println "${gitProjectName}/templates/${gitProjectName}-${templateCible}"
+  //  writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: contenuTemplateYaml
     }
   /*
   println listeFichierTemplate.getClass()
