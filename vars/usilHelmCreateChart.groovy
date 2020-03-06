@@ -3,7 +3,7 @@ def call(def chartTemplateName,def gitProjectName) {
 println GroovySystem.version
 
 stage("Create Chart Helm"){
-  new File('.').eachFileRecurse(FileType.FILES) {
+  new File(env.WORKSPACE).eachFileRecurse(FileType.FILES) {
   println it
   //  file ->
    //   list << file
