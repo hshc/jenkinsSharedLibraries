@@ -1,5 +1,5 @@
 def call(def chartTemplateName,def gitProjectName) {
-stage("Create Chart Helm"){
+stage("Create Chart Helm : ${gitProjectName} template: ${chartTemplateName}"){
   // on liste les fichiers présent dans le repertoire ${chartTemplateName}/templates
   def findTemplate = sh ( script : "find ${chartTemplateName}/templates -maxdepth 1 -type f -name *.yaml",returnStdout: true).trim()       
   // on créé une liste contenant la liste des fichiers avec leurs paths
@@ -19,6 +19,4 @@ stage("Create Chart Helm"){
     index++
     }
   }
-}
-
-  
+}  
