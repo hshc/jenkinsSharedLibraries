@@ -3,10 +3,13 @@ def call(def chartTemplateName,def gitProjectName) {
 println GroovySystem.version
 
 stage("Create Chart Helm"){
-  new File('chart_nodejs').eachFileRecurse(FileType.FILES) {
-    if(it.name.endsWith('*.yaml')) {
-        println it
-        }
+  new File('.').eachFileRecurse(FileType.FILES) {
+    file ->
+      list << file
+    println file
+    //if(it.name.endsWith('*.yaml')) {
+     //   println it
+     //   }
     }
   }
 }
