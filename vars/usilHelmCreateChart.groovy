@@ -8,9 +8,15 @@ stage("Create Chart Helm"){
   //  line, count ->  println "line $count: $line"  // Output: line 0: Groovy is closely related to Java,
   //  }
   def listeFichierTemplate = findTemplate.readLines()
+
+['Cat', 'Dog', 'Elephant'].eachWithIndex { animalName, index ->
+    println "${index}. Animal ${animalName}"
+}
+
   listeFichierTemplate.eachWithIndex  {  it, index ->
-    contenuTemplateYaml = readFile it
-        println "index : ${index}  Number ${it} : ${contenuTemplateYaml}"
+   // contenuTemplateYaml = readFile it
+        println "index : ${index}  Number ${it} "
+  // : ${contenuTemplateYaml}"
    // contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', gitProjectName )
   //  println contenuTemplateYaml
   //  def templateCible=listeFichierTemplate[index].replaceAll("${chartTemplateName}/templates/",'')
