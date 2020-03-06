@@ -18,7 +18,8 @@ stage("Create Chart Helm"){
   
   // repécupération de la liste des fichiers template
   // modification du contenu et creation du nouveau fichier correctement nommé avec la bonne variabilisation
-  
+  version = version.replaceAll( 'modelTemplate', gitProjectName )
+  println version
   }
 }
   
