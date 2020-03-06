@@ -14,6 +14,7 @@ stage("Create Chart Helm : ${gitProjectName} template: ${chartTemplateName}"){
     contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', gitProjectName )
     // on supprime le path 
     def templateCible=listeFichierTemplate[index].replaceAll("${chartTemplateName}/templates/",'')
+    println "Préparation pour le service ${gitProjectName} du composant Helm : ${templateCible}"
     // on écrit le fichier dans le repertoire gitProjectName/templates/ et on préfixe les fichiers avec gitProjectName
     writeFile file: "${gitProjectName}/templates/${gitProjectName}-${templateCible}", text: contenuTemplateYaml
     index++
