@@ -5,6 +5,6 @@ def call(def chartTemplateName,def gitBitbucketUrl) {
       // récupération du modèle chart Helm sur le repo GIT et stockage dans le dossier avec le nom du modèle 
       checkout([$class: 'GitSCM', branches: [[name: '*/master']], 
       doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${chartTemplateName}"]], submoduleCfg: [], userRemoteConfigs: 
-      [[credentialsId: 'jenkins-bitbucket-common-creds', url: 'https://bitbucket.org/si2m/chart_nodejs']]])
+      [[credentialsId: 'jenkins-bitbucket-common-creds', url: "${gitBitbucketUrl}${chartTemplateName}"]]])
     }
 }
