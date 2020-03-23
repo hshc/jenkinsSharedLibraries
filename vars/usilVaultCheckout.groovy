@@ -13,9 +13,9 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
         writeFile file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}", text: vaultValue
         def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
         String nomService = mydata.keySet()
-        ansiColor('vga') { echo "Nom du Service : ${nomService}" }
+        echo "\033[1;31m[Info] Nom du Service : ${nomService}\033[0m"
         if (nomService.indexOf('_') > 0) {
-          ansiColor('vga') { echo "Problème de nommage du service qui ne peut pas inclure _ dans le nom" }
+          echo "\033[1;31m[Error] Problème de nommage du service qui ne peut pas inclure _ dans le nom  \033[0m"
           currentBuild.result = 'FAILURE'
           }
       }
