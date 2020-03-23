@@ -11,13 +11,13 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
         sh "rm -f ${vaultKeyPath}${vaultKey}"
         // écriture du fichier à partie de la clé lue sur Vault
         writeFile file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}", text: vaultValue
-        // vérification du fichier + vérification du nommage du service
         def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
         String nomService = mydata.keySet()
-         echo "Nom du Service : ${nomService}"
-        // test sur la valuer _ cette règle pourrait être compléter par une regex pour vérifier tous les caratères non compatibles
+        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
+         echo "\033[1;31m[Info] Nom du Service : ${nomService}\033[0m" }
+
         if (nomService.indexOf('_') > 0) {
-          echo "Problème de nommage du service qui ne peut pas inclure _ dans le nom"
+          echo "\033[1;31m[Error] Problème de nommage du service qui ne peut pas inclure _ dans le nom  \033[0m"
           currentBuild.result = 'FAILURE'
           }
       }
