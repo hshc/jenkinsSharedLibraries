@@ -13,10 +13,10 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
         writeFile file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}", text: vaultValue
         def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
         println mydata
-        def nomServiceKO = mydata."${gitProjectName}".keySet()
+        def nomServiceKO = mydata.keySet()
         println "nomServiceKO : ${nomServiceKO}"
-        def nomServiceOK = mydata."${gitProjectName.replaceAll('_','-')}".keySet()
-        println "nomServiceOK : ${nomServiceOK}"
+     //   def nomServiceOK = mydata."${gitProjectName.replaceAll('_','-')}".keySet()
+      //  println "nomServiceOK : ${nomServiceOK}"
     }
   }
 }
