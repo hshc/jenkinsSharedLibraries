@@ -6,8 +6,14 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 
  
  // il peut être inétressant de stocker le fichier template
- // "helm template ${gitProjectName} --set modelTemplate.image.repository="${dockerRegistryRepoAppli}" --set modelTemplate.environment="${codeEnv}" --set modelTemplate.name=${gitProjectName}"
-
+ // "helm template ${gitProjectName} 
+ //     --set modelTemplate.image.repository="${dockerRegistryRepoAppli}" 
+ //      --set modelTemplate.environment="${codeEnv}" 
+ //      --set modelTemplate.name=${gitProjectName} 
+ //      --set serviceAccountName="sifront" 
+ //      --set secretName="${codeEnv}-mycloud-secret" 
+ //      --set modelTemplate.version=latest"
+ 
  // la ligne de commande pour installer 
  // "helm install ${gitProjectName} --namespace ${gitProjectName} --set modelTemplate.image.repository="${dockerRegistryRepoAppli}" --set modelTemplate.environment="${codeEnv}" --set modelTemplate.name=${gitProjectName}"
 
