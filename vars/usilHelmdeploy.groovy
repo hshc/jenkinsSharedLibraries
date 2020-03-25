@@ -16,7 +16,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
        "> ${gitProjectName}.yaml"
  kubeApply = "kubectl apply --namespace ${gitProjectName}.substring(0,2) -f ${gitProjectName}.yaml"
  sh "$helmTemplate"
- sh "$helmTemplate"
+ sh "$kubeApply"
  
  // la ligne de commande pour installer 
  // "helm install ${gitProjectName} --namespace ${gitProjectName} --set modelTemplate.image.repository="${dockerRegistryRepoAppli}" --set modelTemplate.environment="${codeEnv}" --set modelTemplate.name=${gitProjectName}"
