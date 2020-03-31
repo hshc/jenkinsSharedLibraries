@@ -1,6 +1,5 @@
-def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
+def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def gitProjectName) {
 // récupération de la conf dédié à l'environnement Kub
-trigramme = ${gitProjectName}.substring(0,2)
 switch("${codeEnv}") { 
    case "e2": 
        nomEnv="rect"
@@ -19,8 +18,8 @@ helmTemplate = "helm template ${gitProjectName} " +
        "--set secretName=${nomEnv}-mycloud-secret " + 
        "--set modelTemplate.version=latest " + 
        "> ${gitProjectName}.yaml"
-kubeApply = "kubectl apply --namespace ${trigramme} -f ${gitProjectName}.yaml"
-sh "k config set-context cluster--n ${trigramme}"
+kubeApply = "kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
+sh "k config set-context cluster--n ${trigrammeAppli}"
 echo "HelmTemplate commande:  $helmTemplate"
 sh "$helmTemplate"
 echo "KubeApply commande: $helmTemplate"
