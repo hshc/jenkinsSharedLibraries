@@ -21,7 +21,7 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
               "--set modelTemplate.version=latest " + 
               "> ${gitProjectName}.yaml"
        kubeApply = "kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
-       sh ("k config set-context cluster--n ${trigrammeAppli}")
+       sh ("kubectl config set-context cluster--n ${trigrammeAppli}")
        echo "HelmTemplate commande:  $helmTemplate"
        sh ("$helmTemplate")
        echo "KubeApply commande: $kubeApply"
