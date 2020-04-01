@@ -21,10 +21,16 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
               "--set modelTemplate.version=latest " + 
               "> ${gitProjectName}.yaml"
        kubeApply = "kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
+       wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
+         echo "\033[1;32m[Info] kubectl config set-context cluster--n ${trigrammeAppli}\033[0m" }
        sh ("kubectl config set-context cluster--n ${trigrammeAppli}")
-       echo "HelmTemplate commande:  $helmTemplate"
+
+       wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
+         echo "\033[1;32m[Info] HelmTemplate commande:  $helmTemplate\033[0m" }
        sh ("$helmTemplate")
-       echo "KubeApply commande: $kubeApply"
+
+       wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
+         echo "\033[1;32m[Info] KubeApply commande: $kubeApply\033[0m" }
        // sh ("$kubeApply")
 
        // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
