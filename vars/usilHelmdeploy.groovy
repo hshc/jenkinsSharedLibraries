@@ -1,18 +1,16 @@
 def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def gitProjectName) {
 
 stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
-       // récupération de la conf dédié à l'environnement Kub
+       // récupération de la conf dédié à l'environnement Kube
        switch("${codeEnv}") { 
        case "e2": 
               nomEnv="rect"
        default:
               nomEnv="int"
        } 
-       // Lancement de l'image docker Helm / kub 
 
-       
-       // il peut être inétressant de stocker le fichier template
-       helmTemplate = "~/helm template ${gitProjectName} " + 
+       // Initialisation des variables commande
+       helmTemplate = "./helm template ${gitProjectName} " + 
               "--set modelTemplate.image.repository=${dockerRegistryRepoAppli} " + 
               "--set modelTemplate.environment=${codeEnv} " +
               "--set modelTemplate.name=${gitProjectName} " +
@@ -20,20 +18,17 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set modelTemplate.version=latest " + 
               "> ${gitProjectName}.yaml"
+       kubeApply = "./kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
+       kubeConfig = "./kubectl config set-context cluster--n ${trigrammeAppli}"
 
-       wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-         echo "\033[1;32m[Info] HelmTemplate commande:  $helmTemplate\033[0m" }
-       sh ("$helmTemplate")
+       // Lancement des commandes
+       usilColorLog("debug", "kubeConfig commande: ${kubeConfig}")
+       sh ("${kubeConfig}")
 
-       kubeApply = "kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
-       wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-         echo "\033[1;32m[Info] kubectl config set-context cluster--n ${trigrammeAppli}\033[0m" }
-       sh ("kubectl config set-context cluster--n ${trigrammeAppli}")
+       usilColorLog("Info", "HelmTemplate commande:  ${helmTemplate}")
+       sh ("${helmTemplate}")
 
-
-
-       wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-         echo "\033[1;32m[Info] KubeApply commande: $kubeApply\033[0m" }
+       usilColorLog("warning", "KubeApply commande: ${kubeApply}")
        // sh ("$kubeApply")
 
        // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
