@@ -4,7 +4,7 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
        // récupération de la conf dédié à l'environnement Kube
        switch("${codeEnv}") { 
        case "e2": 
-              nomEnv="rect"
+              nomEnv="rect"; break;
        default:
               nomEnv="int"
        } 
@@ -22,13 +22,16 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
 
        // Lancement des commandes
-       usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
+       ansiColor('xterm') {
+            echo "HelmTemplate commande:  ${helmTemplate}"
+        }
+       //usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
        sh ("${helmTemplate}")
 
-       usilColorLog("debug", "kubeConfig commande: ${kubeConfig}")
+       //usilColorLog("debug", "kubeConfig commande: ${kubeConfig}")
        sh ("${kubeConfig}")
 
-       usilColorLog("warning", "KubeApply commande: ${kubeApply}")
+       //usilColorLog("warning", "KubeApply commande: ${kubeApply}")
        // sh ("$kubeApply")
 
        // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
