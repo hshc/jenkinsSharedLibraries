@@ -9,20 +9,20 @@ string level=levelLog.toUpperCase()
 
 switch(level) { 
     case "DEBUG":
-        debut="\\033[1;94m[Debug]    \\033[0m "; break;
+        color="94"; break;
     case "INFO": 
-        debut="\\033[1;34m[Info]    \\033[0m "; break;
+        color="34"; break;
     case "WARNING":
-        debut="\\033[1;35m[Warning]    \\033[0m "; break;
+        color="35"; break;
     case "SUCCESS":
-        debut="\\033[1;32m[Success] \\033[0m "; break;
+        color="32"; break;
     case "ERROR":
-        debut="\\033[1;31m[Error]   \\033[0m "; break;
+        color="31"; break;
     default:
-        debut=""
+        color="30"
 } 
 
 wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
-    echo "${debut}${message}" }
+    echo "\033[1;${color}m[${level}]    \033[0m ${message}" }
 }
 
