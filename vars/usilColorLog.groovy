@@ -10,14 +10,19 @@ echo "${level}"
 switch(level) { 
     case "DEBUG":
         debut="\\033[1;94m[Debug]    \\033[0m "
+        echo "case debug"
     case "INFO": 
         debut="\\033[1;34m[Info]    \\033[0m "
+        echo "case info"
     case "WARNING":
         debut="\\033[1;35m[Warning]    \\033[0m "
+        echo "case warning"
     case "SUCCESS":
         debut="\\033[1;32m[Success] \\033[0m "
+        echo "case success"
     case "ERROR":
         debut="\\033[1;31m[Error]   \\033[0m "
+        echo "case error"
     default:
         debut=""
 } 
