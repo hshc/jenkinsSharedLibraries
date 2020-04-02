@@ -18,15 +18,15 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set modelTemplate.version=latest " + 
               "> ${gitProjectName}.yaml"
-       kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
        kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
+       kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
 
        // Lancement des commandes
+       usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
+       sh ("${helmTemplate}")
+
        usilColorLog("debug", "kubeConfig commande: ${kubeConfig}")
        sh ("${kubeConfig}")
-
-       usilColorLog("Info", "HelmTemplate commande:  ${helmTemplate}")
-       sh ("${helmTemplate}")
 
        usilColorLog("warning", "KubeApply commande: ${kubeApply}")
        // sh ("$kubeApply")
