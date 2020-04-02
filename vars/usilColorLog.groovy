@@ -5,7 +5,7 @@ def call (def levelLog, def message) {
 //	0 Black, 1 Red, 2 Green, 3 Yellow, 4 Blue, 5 Magenta, 6 Cyan, 7 White
 
 // Récupération du niveau de log à afficher:
-level = ${levelLog}.toUpperCase()
+assert level="${levelLog}.toUpperCase()"
 echo "${level}"
 switch("${level}") { 
     case "DEBUG":
