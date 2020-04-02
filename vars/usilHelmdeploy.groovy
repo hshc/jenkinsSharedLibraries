@@ -12,7 +12,7 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
 
        
        // il peut être inétressant de stocker le fichier template
-       helmTemplate = "helm template ${gitProjectName} " + 
+       helmTemplate = "./helm template ${gitProjectName} " + 
               "--set modelTemplate.image.repository=${dockerRegistryRepoAppli} " + 
               "--set modelTemplate.environment=${codeEnv} " +
               "--set modelTemplate.name=${gitProjectName} " +
@@ -20,14 +20,17 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set modelTemplate.version=latest " + 
               "> ${gitProjectName}.yaml"
+              
+       wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
+         echo "\033[1;32m[Info] HelmTemplate commande:  $helmTemplate\033[0m" }
+       sh ("$helmTemplate")
+
        kubeApply = "kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
          echo "\033[1;32m[Info] kubectl config set-context cluster--n ${trigrammeAppli}\033[0m" }
        sh ("kubectl config set-context cluster--n ${trigrammeAppli}")
 
-       wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-         echo "\033[1;32m[Info] HelmTemplate commande:  $helmTemplate\033[0m" }
-       sh ("$helmTemplate")
+
 
        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
          echo "\033[1;32m[Info] KubeApply commande: $kubeApply\033[0m" }
