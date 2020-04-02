@@ -6,15 +6,15 @@ def call (def levelLog, def message) {
 
 // Récupération du niveau de log à afficher:
 switch("${levelLog}.toUpperCase()") { 
-    case "DEBUG"
+    case "DEBUG":
         debut="\033[1;94m[Debug]    \033[0m "
     case "INFO": 
         debut="\033[1;34m[Info]    \033[0m "
-    case "WARNING"
+    case "WARNING":
         debut="\033[1;35m[Warning]    \033[0m "
-    case "SUCCESS"
+    case "SUCCESS":
         debut="\033[1;32m[Success] \033[0m "
-    case "ERROR"
+    case "ERROR":
         debut="\033[1;31m[Error]   \033[0m "
     default:
         debut=""
