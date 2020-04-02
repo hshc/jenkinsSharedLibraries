@@ -10,7 +10,7 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
        } 
 
        // Initialisation des variables commande
-       helmTemplate = "./helm template ${gitProjectName} " + 
+       helmTemplate = "~/helm template ${gitProjectName} " + 
               "--set modelTemplate.image.repository=${dockerRegistryRepoAppli} " + 
               "--set modelTemplate.environment=${codeEnv} " +
               "--set modelTemplate.name=${gitProjectName} " +
@@ -18,8 +18,8 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set modelTemplate.version=latest " + 
               "> ${gitProjectName}.yaml"
-       kubeApply = "./kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
-       kubeConfig = "./kubectl config set-context cluster--n ${trigrammeAppli}"
+       kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${gitProjectName}.yaml"
+       kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
 
        // Lancement des commandes
        usilColorLog("debug", "kubeConfig commande: ${kubeConfig}")
