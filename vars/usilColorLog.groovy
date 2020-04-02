@@ -9,20 +9,20 @@ string level=levelLog.toUpperCase()
 echo "${level}"
 switch(level) { 
     case "DEBUG":
-        debut="\\033[1;94m[Debug]    \\033[0m "
-        echo "case debug"
+        debut="\\033[1;94m[Debug]    \\033[0m ";
+        echo "case debug";  break;
     case "INFO": 
-        debut="\\033[1;34m[Info]    \\033[0m "
-        echo "case info"
+        debut="\\033[1;34m[Info]    \\033[0m ";
+        echo "case info"; break;
     case "WARNING":
-        debut="\\033[1;35m[Warning]    \\033[0m "
-        echo "case warning"
+        debut="\\033[1;35m[Warning]    \\033[0m ";
+        echo "case warning"; break;
     case "SUCCESS":
-        debut="\\033[1;32m[Success] \\033[0m "
-        echo "case success"
+        debut="\\033[1;32m[Success] \\033[0m ";
+        echo "case success"; break;
     case "ERROR":
-        debut="\\033[1;31m[Error]   \\033[0m "
-        echo "case error"
+        debut="\\033[1;31m[Error]   \\033[0m ";
+        echo "case error";  break;
     default:
         debut=""
 } 
