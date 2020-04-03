@@ -14,7 +14,7 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
                      'name': gitProjectName,
                      'type': 'application',
                      'appVersion': '1.0.2']
-        writeYaml file: 'Chart.yaml', data: cmap
+        writeYaml file: "${gitProjectName}/Chart.yaml", data: cmap
 
        // Initialisation des variables commande
        helmTemplate = "~/helm template ${gitProjectName} " + 
