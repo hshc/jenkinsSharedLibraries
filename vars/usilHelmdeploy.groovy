@@ -13,7 +13,8 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
        def cmap = ['apiVersion': 'v2',
                      'name': gitProjectName,
                      'type': 'application',
-                     'appVersion': '1.0.2']
+                     'appVersion': '1.0.2', 
+                     'version': '1.0.0']
         writeYaml file: "${gitProjectName}/Chart.yaml", data: cmap
 
        // Initialisation des variables commande
