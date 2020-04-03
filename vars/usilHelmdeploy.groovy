@@ -16,8 +16,12 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
                      'appVersion': '1.0.2', 
                      'version': '1.0.0']
 
-       def testFile = new File("${gitProjectName}/Chart.yaml")
-       if (testFile.exists()) {sh ("rm -f ${gitProjectName}/Chart.yaml")}
+       if (fileExists("${gitProjectName}/Chart.yaml")) {
+              echo "Le fichier ${gitProjectName}/Chart.yaml existe, à supprimer"
+              sh ("rm -f ${gitProjectName}/Chart.yaml")
+       } else {
+              echo "Le fichier ${gitProjectName}/Chart.yaml n'existe pas, à créer"
+       }
        writeYaml file: "${gitProjectName}/Chart.yaml", data: cmap
 
        // Initialisation des variables commande
