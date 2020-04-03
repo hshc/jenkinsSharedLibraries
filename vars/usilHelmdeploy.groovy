@@ -15,7 +15,10 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
                      'type': 'application',
                      'appVersion': '1.0.2', 
                      'version': '1.0.0']
-        writeYaml file: "${gitProjectName}/Chart.yaml", data: cmap
+
+       def testFile = new File("${gitProjectName}/Chart.yaml")
+       if (testFile.exists()) {sh ("rm -f ${gitProjectName}/Chart.yaml")}
+       writeYaml file: "${gitProjectName}/Chart.yaml", data: cmap
 
        // Initialisation des variables commande
        helmTemplate = "~/helm template ${gitProjectName} " + 
