@@ -26,10 +26,10 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
 
        // Initialisation des variables commande
        gitProjectNameTiret = gitProjectName.replaceAll("_","-")
-       helmTemplate = "~/helm template ${gitProjectNameTiret} " + 
+       helmTemplate = "~/helm template ${gitProjectName} " + 
               "--set modelTemplate.image.repository=${dockerRegistryRepoAppli} " + 
               "--set modelTemplate.environment=${codeEnv} " +
-              "--set modelTemplate.name=${gitProjectName} " +
+              "--set modelTemplate.name=${gitProjectNameTiret} " +
               "--set serviceAccountName=\"sifront\" " +
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set modelTemplate.version=latest " + 
