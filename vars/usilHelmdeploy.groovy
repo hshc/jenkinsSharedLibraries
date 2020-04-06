@@ -25,7 +25,8 @@ stage("Déploiement kube: ${gitProjectName} environnement: ${codeEnv}"){
        writeYaml file: "${gitProjectName}/Chart.yaml", data: cmap
 
        // Initialisation des variables commande
-       helmTemplate = "~/helm template ${gitProjectName} " + 
+       gitProjectNameTiret = gitProjectName.replaceAll("_","-")
+       helmTemplate = "~/helm template ${gitProjectNameTiret} " + 
               "--set modelTemplate.image.repository=${dockerRegistryRepoAppli} " + 
               "--set modelTemplate.environment=${codeEnv} " +
               "--set modelTemplate.name=${gitProjectName} " +
