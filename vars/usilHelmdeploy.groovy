@@ -27,12 +27,12 @@ stage("Déploiement kube: ${helmProjectName} environnement: ${codeEnv}"){
        // Initialisation des variables commande
        helmProjectNameTiret = helmProjectName.replaceAll("-","_")
        helmTemplate = "~/helm template ${helmProjectName} " + 
-              "--set modelTemplate.image.repository=${dockerRegistryRepoAppli} " + 
-              "--set modelTemplate.environment=${codeEnv} " +
-              "--set modelTemplate.name=${helmProjectNameTiret} " +
+              "--set ${helmProjectName}.image.repository=${dockerRegistryRepoAppli} " + 
+              "--set ${helmProjectName}.environment=${codeEnv} " +
+              "--set ${helmProjectName}.name=${helmProjectNameTiret} " +
               "--set serviceAccountName=\"sifront\" " +
               "--set secretName=${nomEnv}-mycloud-secret " + 
-              "--set modelTemplate.version=latest " + 
+              "--set ${helmProjectName}.version=latest " + 
               "> ${helmProjectName}.yaml"
        kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmProjectName}.yaml"
