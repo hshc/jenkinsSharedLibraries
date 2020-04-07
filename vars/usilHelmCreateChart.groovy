@@ -1,8 +1,10 @@
 def call(def chartTemplateName,def helmProjectName) {
 stage("Create Chart Helm : ${helmProjectName} template: ${chartTemplateName}"){
+  println("helmProjectName : ${helmProjectName}")
   // on liste les fichiers présent dans le repertoire ${chartTemplateName}/templates
   def findTemplate = sh ( script : "find ${chartTemplateName}/templates -maxdepth 1 -type f -name *.yaml",returnStdout: true).trim()       
   // on créé une liste contenant la liste des fichiers avec leurs paths
+  println("findTemplate : ${findTemplate}")
   def listeFichierTemplate = findTemplate.readLines()
   // la fonction eachWithIndex nétant pas disponible une variable d'index est instancié 
   def index=0
