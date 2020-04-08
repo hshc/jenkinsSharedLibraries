@@ -1,6 +1,6 @@
-def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def helmServiceName*, def kubServiceName) {
+def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def helmServiceName, def kubServiceName) {
 
-stage("Déploiement kube: ${helmServiceName*} environnement: ${codeEnv}"){
+stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        // récupération de la conf dédié à l'environnement Kube
        switch("${codeEnv}") { 
        case "e2": 
@@ -11,32 +11,32 @@ stage("Déploiement kube: ${helmServiceName*} environnement: ${codeEnv}"){
 
        // Génération du chart.yaml
        def cmap = ['apiVersion': 'v2',
-                     'name': helmServiceName*,
+                     'name': helmServiceName,
                      'type': 'application',
                      'appVersion': '1.0.2', 
                      'version': '1.0.0']
 
-       if (fileExists("${helmServiceName*}/Chart.yaml")) {
-              echo "Le fichier ${helmServiceName*}/Chart.yaml existe, à supprimer"
-              sh ("rm -f ${helmServiceName*}/Chart.yaml")
+       if (fileExists("${helmServiceName}/Chart.yaml")) {
+              echo "Le fichier ${helmServiceName}/Chart.yaml existe, à supprimer"
+              sh ("rm -f ${helmServiceName}/Chart.yaml")
        } else {
-              echo "Le fichier ${helmServiceName*}/Chart.yaml n'existe pas, à créer"
+              echo "Le fichier ${helmServiceName}/Chart.yaml n'existe pas, à créer"
        }
-       writeYaml file: "${helmServiceName*}/Chart.yaml", data: cmap
+       writeYaml file: "${helmServiceName}/Chart.yaml", data: cmap
 
        // Initialisation des variables commande
-      # helmServiceName*Tiret = helmServiceName*.replaceAll("-","_")
+      # helmServiceNameTiret = helmServiceName.replaceAll("-","_")
 
-       helmTemplate = "~/helm template ${helmServiceName*} " + 
-              "--set ${helmServiceName*}.image.repository=${dockerRegistryRepoAppli} " + 
-              "--set ${helmServiceName*}.environment=${codeEnv} " +
-              "--set ${helmServiceName*}.name=${kubServiceName} " +
+       helmTemplate = "~/helm template ${helmServiceName} " + 
+              "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
+              "--set ${helmServiceName}.environment=${codeEnv} " +
+              "--set ${helmServiceName}.name=${kubServiceName} " +
               "--set serviceAccountName=\"sifront\" " +
               "--set secretName=${nomEnv}-mycloud-secret " + 
-              "--set ${helmServiceName*}.version=latest " + 
-              "> ${helmServiceName*}.yaml"
+              "--set ${helmServiceName}.version=latest " + 
+              "> ${helmServiceName}.yaml"
        kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
-       kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName*}.yaml"
+       kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
        // Lancement des commandes
        ansiColor('xterm') {
@@ -52,7 +52,7 @@ stage("Déploiement kube: ${helmServiceName*} environnement: ${codeEnv}"){
        // sh ("$kubeApply")
 
        // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
-       // deploymentStatus = sh "kubectl rollout status ${helmServiceName*}"
+       // deploymentStatus = sh "kubectl rollout status ${helmServiceName}"
        // echo "log ${nomContainer} ${dockerLog}"
 }
 }
