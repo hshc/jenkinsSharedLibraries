@@ -25,7 +25,6 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        writeYaml file: "${helmServiceName}/Chart.yaml", data: cmap
 
        // Initialisation des variables commande
-      # helmServiceNameTiret = helmServiceName.replaceAll("-","_")
 
        helmTemplate = "~/helm template ${helmServiceName} " + 
               "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
