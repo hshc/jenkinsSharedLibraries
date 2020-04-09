@@ -39,18 +39,11 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        kubeConfigUse = "~/kubectl config use-context cluster-anteprod-${trigrammeAppli} --namespace ${trigrammeAppli}"
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
-       // Affichage des commandes
-       usilColorLog("debug",       "kubeConfigUse commande: ${kubeConfigUse}")
-       usilColorLog("info",        "HelmTemplate commande:  ${helmTemplate}")
-       usilColorLog("warning",     "KubeApply commande: ${kubeApply}")
-       usilColorLog("error",       "kubeConfigView commande: ${kubeConfigView}")
-       usilColorLog("success",     "kubeConfigView commande: ${kubeConfigView}")
-       usilColorLog("default",     "kubeConfigView commande: ${kubeConfigView}")
-
        // Lancement des commandes
        usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
        sh ("${helmTemplate}")
 
+       sh ("kubectl config set-context cluster-anteprod-${trigrammeAppli} --cluster=cluster-anteprod --user=sifront-${trigrammeAppli} --namespace=${trigrammeAppli}")
        usilColorLog("info", "kubeConfigView commande: ${kubeConfigView}")
        sh ("${kubeConfigView}")
 
