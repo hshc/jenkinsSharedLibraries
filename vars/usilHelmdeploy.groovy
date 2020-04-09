@@ -34,8 +34,6 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set ${helmServiceName}.version=latest " + 
               "> ${helmServiceName}.yaml"
-       // kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
-       kubeConfigView = "~/kubectl config view"
        kubeConfigUse = "~/kubectl config use-context cluster-anteprod-${trigrammeAppli} --namespace ${trigrammeAppli}"
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
@@ -43,15 +41,16 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
        sh ("${helmTemplate}")
 
-       sh ("~/kubectl config set-context cluster-anteprod-${trigrammeAppli} --cluster=cluster-anteprod --user=sifront-${trigrammeAppli} --namespace=${trigrammeAppli}")
-       usilColorLog("info", "kubeConfigView commande: ${kubeConfigView}")
-       sh ("${kubeConfigView}")
+       // kubeConfigView = "~/kubectl config view" 
+       // sh ("~/kubectl config set-context cluster-anteprod-${trigrammeAppli} --cluster=cluster-anteprod --user=sifront-${trigrammeAppli} --namespace=${trigrammeAppli}")
+       // usilColorLog("info", "kubeConfigView commande: ${kubeConfigView}")
+       // sh ("${kubeConfigView}")
 
        usilColorLog("info", "kubeConfigUse commande: ${kubeConfigUse}")
        sh ("${kubeConfigUse}")
 
        usilColorLog("info", "KubeApply commande: ${kubeApply}")
-       // sh ("$kubeApply")
+       sh ("$kubeApply")
 
        // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
        // deploymentStatus = sh "kubectl rollout status ${helmServiceName}"
