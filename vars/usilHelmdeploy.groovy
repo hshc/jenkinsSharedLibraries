@@ -44,7 +44,7 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        // kubeConfigView = "~/kubectl config view" 
        // sh ("~/kubectl config set-context cluster-anteprod-${trigrammeAppli} --cluster=cluster-anteprod --user=sifront-${trigrammeAppli} --namespace=${trigrammeAppli}")
        // usilColorLog("info", "kubeConfigView commande: ${kubeConfigView}")
-       // sh ("${kubeConfigView}")
+        sh ("${kubeConfigView}")
 
        usilColorLog("info", "kubeConfigUse commande: ${kubeConfigUse}")
        sh ("${kubeConfigUse}")
