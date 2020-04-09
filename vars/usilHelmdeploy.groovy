@@ -35,17 +35,29 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
               "--set ${helmServiceName}.version=latest " + 
               "> ${helmServiceName}.yaml"
        // kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
-       kubeConfig = "~/kubectl config use-context cluster-anteprod-${trigrammeAppli} --namespace ${trigrammeAppli}"
+       kubeConfigView = "~/kubectl config view"
+       kubeConfigUse = "~/kubectl config use-context cluster-anteprod-${trigrammeAppli} --namespace ${trigrammeAppli}"
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
+
+       // Affichage des commandes
+       usilColorLog("debug",       "kubeConfigUse commande: ${kubeConfigUse}")
+       usilColorLog("info",        "HelmTemplate commande:  ${helmTemplate}")
+       usilColorLog("warning",     "KubeApply commande: ${kubeApply}")
+       usilColorLog("error",       "kubeConfigView commande: ${kubeConfigView}")
+       usilColorLog("success",     "kubeConfigView commande: ${kubeConfigView}")
+       usilColorLog("default",     "kubeConfigView commande: ${kubeConfigView}")
 
        // Lancement des commandes
        usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
        sh ("${helmTemplate}")
 
-       usilColorLog("debug", "kubeConfig commande: ${kubeConfig}")
-       sh ("${kubeConfig}")
+       usilColorLog("info", "kubeConfigView commande: ${kubeConfigView}")
+       sh ("${kubeConfigView}")
 
-       usilColorLog("warning", "KubeApply commande: ${kubeApply}")
+       usilColorLog("info", "kubeConfigUse commande: ${kubeConfigUse}")
+       sh ("${kubeConfigUse}")
+
+       usilColorLog("info", "KubeApply commande: ${kubeApply}")
        // sh ("$kubeApply")
 
        // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
