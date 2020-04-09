@@ -34,20 +34,18 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set ${helmServiceName}.version=latest " + 
               "> ${helmServiceName}.yaml"
-       kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
+       // kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
+       kubeConfig = "~/kubectl config use-context --current --namespace ${trigrammeAppli}"
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
        // Lancement des commandes
-       ansiColor('xterm') {
-            echo "HelmTemplate commande:  ${helmTemplate}"
-        }
-       //usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
+       usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
        sh ("${helmTemplate}")
 
-       //usilColorLog("debug", "kubeConfig commande: ${kubeConfig}")
+       usilColorLog("debug", "kubeConfig commande: ${kubeConfig}")
        sh ("${kubeConfig}")
 
-       //usilColorLog("warning", "KubeApply commande: ${kubeApply}")
+       usilColorLog("warning", "KubeApply commande: ${kubeApply}")
        // sh ("$kubeApply")
 
        // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
