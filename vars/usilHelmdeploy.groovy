@@ -34,7 +34,8 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set ${helmServiceName}.version=latest " + 
               "> ${helmServiceName}.yaml"
-       kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
+       // kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
+       kubeConfig = "~/kubectl config set-context cluster--n pca"
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
        // Lancement des commandes
