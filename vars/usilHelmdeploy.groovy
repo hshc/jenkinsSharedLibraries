@@ -35,7 +35,7 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
               "--set ${helmServiceName}.version=latest " + 
               "> ${helmServiceName}.yaml"
        // kubeConfig = "~/kubectl config set-context cluster--n ${trigrammeAppli}"
-       kubeConfig = "~/kubectl config use-context --current --namespace ${trigrammeAppli}"
+       kubeConfig = "~/kubectl config use-context ${trigrammeAppli} --namespace ${trigrammeAppli}"
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
        // Lancement des commandes
