@@ -6,7 +6,7 @@ def call (def levelLog, def message) {
 
 // Récupération du niveau de log à afficher:
 string level=levelLog.toUpperCase()
-levelAffich = "[&nbsp;${level}]    "
+levelAffich = "[ ${level} ]    "
 
 switch(level) { 
     case "DEBUG":
@@ -25,6 +25,6 @@ switch(level) {
 } 
 
 wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
-    echo "\033[1;${color}m${levelAffich}    \033[0m ${message}" }
+    echo "\033[1;${color}m${levelAffich}\033[0m ${message}" }
 }
 
