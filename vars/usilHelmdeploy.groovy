@@ -42,7 +42,7 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
 
        logExec("kubeConfigUse", kubeConfigUse)
 
-       logExec("kubeApply", helmTkubeApplyemplate)
+       logExec("kubeApply", kubeApply)
 
        // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
        // deploymentStatus = sh "kubectl rollout status ${helmServiceName}"
