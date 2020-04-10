@@ -27,4 +27,3 @@ switch(level) {
 wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
     echo "\033[1;${color}m${levelAffich}\033[0m ${message}" }
 }
-

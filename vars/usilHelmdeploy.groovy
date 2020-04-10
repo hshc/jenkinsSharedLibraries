@@ -39,14 +39,10 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
 
        // Lancement des commandes
        logExec("helmTemplate", helmTemplate)
-       //usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
-       //sh ("${helmTemplate}")
 
-       usilColorLog("info", "kubeConfigUse commande: ${kubeConfigUse}")
-       sh ("${kubeConfigUse}")
+       logExec("kubeConfigUse", kubeConfigUse)
 
-       usilColorLog("info", "KubeApply commande: ${kubeApply}")
-       sh ("$kubeApply")
+       logExec("kubeApply", helmTkubeApplyemplate)
 
        // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
        // deploymentStatus = sh "kubectl rollout status ${helmServiceName}"
