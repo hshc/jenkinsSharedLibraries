@@ -38,7 +38,7 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
        // Lancement des commandes
-       logExec(helmTemplate)
+       logExec("helmTemplate", helmTemplate)
        //usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
        //sh ("${helmTemplate}")
 
@@ -53,7 +53,7 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        // echo "log ${nomContainer} ${dockerLog}"
 }
 }
-def logExec(def commande) {
-    usilColorLog("info", commande.getName() + " commande: ${commande}")
+def logExec(def name, def commande) {
+    usilColorLog("info", "${name} commande: ${commande}")
     sh ("${commande}")
 }
