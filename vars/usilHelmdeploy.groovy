@@ -38,13 +38,9 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
        // Lancement des commandes
-       usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
-       sh ("${helmTemplate}")
-
-       // sh ("~/kubectl config set-context cluster-anteprod-${trigrammeAppli} --cluster=cluster-anteprod --user=sifront-tbg --namespace=${trigrammeAppli}")
-       // kubeConfigView = "~/kubectl config view" 
-       // usilColorLog("info", "kubeConfigView commande: ${kubeConfigView}")
-       // sh ("${kubeConfigView}")
+       logExec(helmTemplate)
+       //usilColorLog("info", "HelmTemplate commande:  ${helmTemplate}")
+       //sh ("${helmTemplate}")
 
        usilColorLog("info", "kubeConfigUse commande: ${kubeConfigUse}")
        sh ("${kubeConfigUse}")
@@ -56,4 +52,8 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        // deploymentStatus = sh "kubectl rollout status ${helmServiceName}"
        // echo "log ${nomContainer} ${dockerLog}"
 }
+}
+def logExec(def commande) {
+    usilColorLog("info", commande.getName() + " commande: ${commande}")
+    sh ("${commande}")
 }
