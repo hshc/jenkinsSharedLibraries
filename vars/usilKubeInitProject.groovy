@@ -112,9 +112,9 @@ def roleBinding (def trigrammeAppli) {
 // - name: "ACC"
 //   active: true
 
-def serviceAccount1 (String trigrammeAppli) {
+def serviceAccount1 (def trigrammeAppli) {
 
-    String configYaml = '''\
+    def configYaml = '''\
     ---
     apiVersion: v1
     kind: ServiceAccount
@@ -133,6 +133,6 @@ def serviceAccount1 (String trigrammeAppli) {
         echo "Le fichier serviceAccount.yaml n'existe pas, à créer"
     }
     def yamlFile = new File("serviceAccount.yaml")
-    yamlFile.write(configYaml.replaceall("trigrammeAppli",trigrammeAppli))
+    yamlFile.write(configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}"))
 
 }
