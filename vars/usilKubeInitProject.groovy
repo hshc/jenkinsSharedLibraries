@@ -27,14 +27,14 @@ def logExec(def name, def commande) {
 }
 def serviceAccount (def trigrammeAppli) {
     // Génération du serviceAccount.yaml
-       def cmap = ['apiVersion': 'v1',
-                    'kind': 'ServiceAccount', 
-                    'metadata' {
-                        'name' trigrammeAppli + '-service-account'
-                        'namespace' trigrammeAppli
-                        'selfLink' '/api/v1/namespaces/api/serviceaccounts/sifront'
+       def cmap = [apiVersion 'v1'
+                    kind 'ServiceAccount', 
+                    metadata {
+                        name trigrammeAppli+'-service-account'
+                        namespace trigrammeAppli
+                        selfLink '/api/v1/namespaces/api/serviceaccounts/sifront'
                     }, 
-                    'secrets' 'name' 'sifront-token-mxb4l'
+                    secrets 'name' 'sifront-token-mxb4l'
                 ]
 
        if (fileExists("serviceAccount.yaml")) {
@@ -48,24 +48,24 @@ def serviceAccount (def trigrammeAppli) {
 }
 def roleBinding (def trigrammeAppli) {
     // Génération du roleBinding.yaml
-       def cmap = ['apiVersion': 'rbac.authorization.k8s.io/v1',
-                    'name' trigrammeAppli + '-psp-rolebinding'
-                    'kind' 'RoleBinding', 
-                    'metadata' {
-                        'name' trigrammeAppli + '-psp-rolebinding'
-                        'namespace' trigrammeAppli
-                        'selfLink' '/apis/rbac.authorization.k8s.io/v1/namespaces/api/rolebindings/api-psp-rolebinding'
+       def cmap = [apiVersion 'rbac.authorization.k8s.io/v1'
+                    name trigrammeAppli+'-psp-rolebinding'
+                    kind 'RoleBinding' 
+                    metadata {
+                        name trigrammeAppli+'-psp-rolebinding'
+                        namespace trigrammeAppli
+                        selfLink '/apis/rbac.authorization.k8s.io/v1/namespaces/api/rolebindings/api-psp-rolebinding'
                     }
-                    'roleRef' {
-                        'name' 'api-psp-rolebinding', 
-                        'namespace' trigrammeAppli, 
-                        'name' 'mh-psp-role'
+                    roleRef {
+                        name 'api-psp-rolebinding', 
+                        namespace trigrammeAppli, 
+                        name 'mh-psp-role'
                     }
                     subjects(['ServiceAccount']) { sub ->
-                        'kind' sub
-                        'name' 'sifront',
-                        'namespace' trigrammeAppli
-    }
+                        kind sub
+                        name 'sifront',
+                        namespace trigrammeAppli
+                    }
                 ]
 
        if (fileExists("roleBinding.yaml")) {
