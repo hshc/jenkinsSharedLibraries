@@ -1,4 +1,4 @@
-def call(def trigrammeAppli,def helmServiceName, def kubServiceName) {
+def call(def trigrammeAppli) {
 
 stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
 
