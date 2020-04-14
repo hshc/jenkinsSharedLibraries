@@ -12,7 +12,7 @@ stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
 
     // Lancement des commandes
     logExec("kubeCreateNS", kubeCreateNS)
-    serviceAccount(trigrammeAppli)
+    serviceAccount1(trigrammeAppli)
     logExec("kubeCreateSAccount", kubeCreateSAccount)
     roleBinding(trigrammeAppli)
     logExec("kubeCreateRBinding", kubeCreateRBinding)
@@ -111,3 +111,28 @@ def roleBinding (def trigrammeAppli) {
 //   active: true
 // - name: "ACC"
 //   active: true
+
+def serviceAccount1 (def trigrammeAppli) {
+
+    def configYaml = '''\
+    ---
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+    name: trigrammeAppli
+    namespace: trigrammeAppli
+    selfLink: /api/v1/namespaces/api/serviceaccounts/sifront
+    secrets:
+    - name: sifront-token-mxb4l
+    '''
+
+    if (fileExists("serviceAccount.yaml")) {
+        echo "Le fichier serviceAccount.yaml existe, à supprimer"
+        sh ("rm -f serviceAccount.yaml")
+    } else {
+        echo "Le fichier serviceAccount.yaml n'existe pas, à créer"
+    }
+    def yamlFile = new File("serviceAccount.yaml")
+    yamlFile.write(configYaml.replaceall("trigrammeAppli",trigrammeAppli))
+
+}
