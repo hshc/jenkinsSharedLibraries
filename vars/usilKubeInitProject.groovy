@@ -112,9 +112,9 @@ def roleBinding (def trigrammeAppli) {
 // - name: "ACC"
 //   active: true
 
-def serviceAccount1 (def trigrammeAppli) {
+def serviceAccount1 (string trigrammeAppli) {
 
-    def configYaml = '''\
+    string configYaml = '''\
     ---
     apiVersion: v1
     kind: ServiceAccount
