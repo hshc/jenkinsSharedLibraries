@@ -33,7 +33,7 @@ def serviceAccount (def trigrammeAppli) {
                         'name' trigrammeAppli + '-service-account'
                         'namespace' trigrammeAppli
                         'selfLink' '/api/v1/namespaces/api/serviceaccounts/sifront'
-                    }
+                    }, 
                     'secrets' 'name' 'sifront-token-mxb4l'
                 ]
 
