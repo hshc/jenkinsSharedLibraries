@@ -133,6 +133,8 @@ def serviceAccount1 (def trigrammeAppli) {
         echo "Le fichier serviceAccount.yaml n'existe pas, à créer"
     }
     def yamlFile = new File("serviceAccount.yaml")
-    yamlFile.write(configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}"))
+    def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}"
+    echo configYamlTRI
+    yamlFile.write(configYamlTRI))
 
 }
