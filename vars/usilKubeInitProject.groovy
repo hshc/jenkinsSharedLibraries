@@ -33,9 +33,9 @@ def serviceAccount (def trigrammeAppli) {
     apiVersion: v1
     kind: ServiceAccount
     metadata:
-    name: trigrammeAppli
-    namespace: trigrammeAppli
-    selfLink: /api/v1/namespaces/api/serviceaccounts/sifront
+      name: trigrammeAppli
+      namespace: trigrammeAppli
+      selfLink: /api/v1/namespaces/api/serviceaccounts/sifront
     secrets:
     - name: sifront-token-mxb4l
     '''
