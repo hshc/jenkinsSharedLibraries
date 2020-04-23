@@ -25,7 +25,7 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        writeYaml file: "${helmServiceName}/Chart.yaml", data: cmap
 
        // Initialisation des variables commande
-       // kubeRbac = "~/kubectl apply -f ${helmServiceName}/template/rbac-config.yaml"
+       kubeRbac = "~/kubectl apply -f ${helmServiceName}/template/rbac-config.yaml"
        helmTemplate = "~/helm template ${helmServiceName} " + 
               "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
               "--set ${helmServiceName}.environment=${codeEnv} " +
@@ -39,7 +39,7 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
        // Lancement des commandes
-       // logExec("kuberbac", kubeRbac)
+       logExec("kuberbac", kubeRbac)
 
        logExec("helmTemplate", helmTemplate)
 
@@ -47,9 +47,11 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
 
        logExec("kubeApply", kubeApply)
 
-       // podLog = sh (script : "kubectl logs -l app=${nomContainer} --tail 1", returnStdout: true)
-       // deploymentStatus = sh "kubectl rollout status ${helmServiceName}"
-       // echo "log ${nomContainer} ${dockerLog}"
+       podLog = sh (script : "~/kubectl logs -l app=${kubServiceName} --tail 1", returnStdout: true)
+       deploymentStatus = sh "~/kubectl rollout status deployment.v1.apps/${kubServiceName}"
+       usilColorLog("info", "Ci dessous la log du pod ${kubServiceName} déployé:")
+       usilColorLog("log", "podLog")
+       usilColorLog("log", "deploymentStatus")
 }
 }
 def logExec(def name, def commande) {
