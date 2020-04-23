@@ -30,8 +30,8 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
               "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
               "--set ${helmServiceName}.environment=${codeEnv} " +
               "--set ${helmServiceName}.name=${kubServiceName} " +
-              "--set serviceAccountName=${trigrammeAppli}-service-account" + 
-              "--set trigrammeAppli=${trigrammeAppli}" +
+              "--set serviceAccountName=${trigrammeAppli}-service-account " + 
+              "--set trigrammeAppli=${trigrammeAppli} " +
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set ${helmServiceName}.version=latest " + 
               "> ${helmServiceName}.yaml"
