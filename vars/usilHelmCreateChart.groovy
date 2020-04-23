@@ -6,7 +6,7 @@ stage("Create Chart Helm : ${helmServiceName} template: ${chartTemplateName}"){
   // on créé une liste contenant la liste des fichiers avec leurs paths
   println("findTemplate : ${findTemplate}")
   def listeFichierTemplate = findTemplate.readLines()
-  println listeFichierTemplate
+  println "listeFichierTemplate : ${listeFichierTemplate}"
   // la fonction eachWithIndex nétant pas disponible une variable d'index est instancié 
   def index=0
   // fonctionne qui par la liste des fichiers
