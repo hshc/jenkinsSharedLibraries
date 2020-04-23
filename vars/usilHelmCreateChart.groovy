@@ -6,6 +6,7 @@ stage("Create Chart Helm : ${helmServiceName} template: ${chartTemplateName}"){
   // on créé une liste contenant la liste des fichiers avec leurs paths
   println("findTemplate : ${findTemplate}")
   def listeFichierTemplate = findTemplate.readLines()
+  echo listeFichierTemplate
   // la fonction eachWithIndex nétant pas disponible une variable d'index est instancié 
   def index=0
   // fonctionne qui par la liste des fichiers
@@ -14,6 +15,7 @@ stage("Create Chart Helm : ${helmServiceName} template: ${chartTemplateName}"){
     contenuTemplateYaml = readFile it
     // on personnalise le contenu des variables du template modelTemplate par le nom du service (helmServiceName)
     contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', helmServiceName )
+    echo listeFichierTemplate
     // on supprime le path 
     def templateCible=listeFichierTemplate[index].replaceAll("${chartTemplateName}/templates/",'')
     println "Préparation pour le service ${helmServiceName} du composant Helm : ${helmServiceName}_${templateCible}"
