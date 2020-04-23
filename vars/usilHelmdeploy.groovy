@@ -25,7 +25,6 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        writeYaml file: "${helmServiceName}/Chart.yaml", data: cmap
 
        // Initialisation des variables commande
-       kubeRbac = "~/kubectl apply -f ${helmServiceName}/template/rbac-config.yaml"
        helmTemplate = "~/helm template ${helmServiceName} " + 
               "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
               "--set ${helmServiceName}.environment=${codeEnv} " +
@@ -39,8 +38,6 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
        // Lancement des commandes
-       logExec("kuberbac", kubeRbac)
-
        logExec("helmTemplate", helmTemplate)
 
        logExec("kubeConfigUse", kubeConfigUse)
