@@ -26,13 +26,13 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
 
        // Initialisation des variables commande
        helmTemplate = "~/helm template ${kubServiceName} " + 
-              "--set ${kubServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
-              "--set ${kubServiceName}.environment=${codeEnv} " +
-              "--set ${kubServiceName}.name=${kubServiceName} " +
+              "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
+              "--set ${helmServiceName}.environment=${codeEnv} " +
+              "--set ${helmServiceName}.name=${kubServiceName} " +
               "--set serviceAccountName=${trigrammeAppli}-service-account " + 
               "--set trigrammeAppli=${trigrammeAppli} " +
               "--set secretName=${nomEnv}-mycloud-secret " + 
-              "--set ${kubServiceName}.version=latest " + 
+              "--set ${helmServiceName}.version=latest " + 
               "> ${kubServiceName}.yaml"
        kubeConfigUse = "~/kubectl config use-context cluster-anteprod-${trigrammeAppli} --namespace ${trigrammeAppli}"
 

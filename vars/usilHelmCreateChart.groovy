@@ -13,7 +13,7 @@ stage("Create Chart Helm : ${helmServiceName} template: ${chartTemplateName}"){
     // lecture de du fichier récupéré sur la closure it dont le contenu est stocké dans contenuTemplateYaml
     contenuTemplateYaml = readFile it
     // on personnalise le contenu des variables du template modelTemplate par le nom du service (helmServiceName)
-    contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', kubServiceName )
+    contenuTemplateYaml = contenuTemplateYaml.replaceAll( 'modelTemplate', helmServiceName )
     // on supprime le path 
     def templateCible=listeFichierTemplate[index].replaceAll("${chartTemplateName}/templates/",'')
     println "Préparation pour le service ${kubServiceName} du composant Helm : ${kubServiceName}_${templateCible}"
