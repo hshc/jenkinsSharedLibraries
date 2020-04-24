@@ -36,6 +36,9 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
               "--set ${helmServiceName}.version=latest " + 
               "> ${helmServiceName}.yaml"
        kubeConfigUse = "~/kubectl config use-context cluster-anteprod-${trigrammeAppli} --namespace ${trigrammeAppli}"
+
+       KubeVerifContext= "~/kubectl config get-contexts"
+
        kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${helmServiceName}.yaml"
 
        // Lancement des commandes
@@ -44,6 +47,8 @@ stage("Déploiement kube: ${helmServiceName} environnement: ${codeEnv}"){
        logExec("helmTemplate", helmTemplate)
 
        logExec("kubeConfigUse", kubeConfigUse)
+
+       logExec("KubeVerifContext", KubeVerifContext)
 
        logExec("kubeApply", kubeApply)
 
