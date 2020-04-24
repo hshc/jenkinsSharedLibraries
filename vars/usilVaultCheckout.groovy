@@ -13,12 +13,9 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
         writeFile file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}", text: vaultValue
         def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
         String nomService = mydata.keySet()
-        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-         echo "\033[1;32m[Info] Nom du Service : ${nomService}\033[0m" }
+        usilColorLog("info", "Nom du Service : ${nomService}")
         if (nomService.indexOf('_') > 0) {
-          wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-            echo "\033[1;31m[Error] Problème de nommage du service qui ne peut pas inclure _ dans le nom  \033[0m"
-            }
+          usilColorLog("error", "Problème de nommage du service qui ne peut pas inclure _ dans le nom: ${nomService}")
           currentBuild.result = 'FAILURE'
           }
       }
