@@ -40,7 +40,7 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
        KubeVerifContext= "~/kubectl config get-contexts"
 
        //kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${kubServiceName}.yaml"
-       helmInstall = "~/helm install ${kubServiceName} ${kubServiceName} " + 
+       helmInstall = "~/helm install --skip-crds ${kubServiceName} ${kubServiceName} " + 
               "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
               "--set ${helmServiceName}.environment=${codeEnv} " +
               "--set ${helmServiceName}.name=${kubServiceName} " +
