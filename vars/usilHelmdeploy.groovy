@@ -34,11 +34,21 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
               "--set secretName=${nomEnv}-mycloud-secret " + 
               "--set ${helmServiceName}.version=latest " + 
               "> ${kubServiceName}.yaml"
+             
        kubeConfigUse = "~/kubectl config use-context cluster-anteprod-${trigrammeAppli} --namespace ${trigrammeAppli}"
 
        KubeVerifContext= "~/kubectl config get-contexts"
 
-       kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${kubServiceName}.yaml"
+       //kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${kubServiceName}.yaml"
+       kubeApply = "~/helm install ${kubServiceName} ${kubServiceName} " + 
+              "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
+              "--set ${helmServiceName}.environment=${codeEnv} " +
+              "--set ${helmServiceName}.name=${kubServiceName} " +
+              "--set serviceAccountName=${trigrammeAppli}-service-account " + 
+              "--set trigrammeAppli=${trigrammeAppli} " +
+              "--set secretName=${nomEnv}-mycloud-secret " + 
+              "--set ${helmServiceName}.version=latest " + 
+              "> ${kubServiceName}.yaml"
 
        // Lancement des commandes
        logExec("helmTemplate", helmTemplate)
