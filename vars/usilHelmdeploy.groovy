@@ -59,10 +59,10 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
        //logExec("kubeApply", kubeApply)
        logExec("helmInstall", helmInstall)
 
-       podLog = sh (script : "~/kubectl logs -l app=${kubServiceName} --tail 1", returnStdout: true)
+       //podLog = sh (script : "~/kubectl logs -l app=${kubServiceName} --tail 1", returnStdout: true)
        deploymentStatus = sh "~/kubectl rollout status deployment.v1.apps/${kubServiceName}"
-       usilColorLog("info", "Ci dessous la log du pod ${kubServiceName} déployé:")
-       usilColorLog("log", "podLog")
+       //usilColorLog("info", "Ci dessous la log du pod ${kubServiceName} déployé:")
+       //usilColorLog("log", "podLog")
        usilColorLog("log", "deploymentStatus")
 }
 }
