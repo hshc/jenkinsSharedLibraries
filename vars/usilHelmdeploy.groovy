@@ -35,29 +35,29 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
               "--set ${helmServiceName}.version=latest " + 
               "> ${kubServiceName}.yaml"
              
-       //kubeConfigUse = "~/kubectl config use-context cluster-anteprod-${trigrammeAppli} --namespace ${trigrammeAppli}"
+       kubeConfigUse = "~/kubectl config use-context cluster-anteprod-api --namespace ${trigrammeAppli}"
 
        KubeVerifContext= "~/kubectl config get-contexts"
 
        //kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${kubServiceName}.yaml"
-       kubeApply = "~/helm install ${kubServiceName} ${kubServiceName} " + 
+       helmInstall = "~/helm install ${kubServiceName} ${kubServiceName} " + 
               "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
               "--set ${helmServiceName}.environment=${codeEnv} " +
               "--set ${helmServiceName}.name=${kubServiceName} " +
               "--set serviceAccountName=${trigrammeAppli}-service-account " + 
               "--set trigrammeAppli=${trigrammeAppli} " +
               "--set secretName=${nomEnv}-mycloud-secret " + 
-              "--set ${helmServiceName}.version=latest " + 
-              "> ${kubServiceName}.yaml"
+              "--set ${helmServiceName}.version=latest "
 
        // Lancement des commandes
        logExec("helmTemplate", helmTemplate)
 
-       //logExec("kubeConfigUse", kubeConfigUse)
+       logExec("kubeConfigUse", kubeConfigUse)
 
        logExec("KubeVerifContext", KubeVerifContext)
 
-       logExec("kubeApply", kubeApply)
+       //logExec("kubeApply", kubeApply)
+       logExec("helmInstall", helmInstall)
 
        podLog = sh (script : "~/kubectl logs -l app=${kubServiceName} --tail 1", returnStdout: true)
        deploymentStatus = sh "~/kubectl rollout status deployment.v1.apps/${kubServiceName}"
