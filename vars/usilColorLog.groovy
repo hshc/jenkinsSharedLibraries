@@ -27,5 +27,5 @@ switch(level) {
 } 
 
 wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-    echo "\033[1;${color}m${levelAffich} ${message} \033[0m" }
+    echo "\033[47;1;${color}m${levelAffich} ${message} \033[0m" }
 }
