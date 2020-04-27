@@ -63,8 +63,8 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
        
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
 
-       deploymentKubDeployment = sh (script : "~/kubect get deployment dyn-f7-frontend-app", returnStdout: true)
-       deploymentKubStatus = sh (script : "~/kubect get deployment dyn-f7-frontend-app -o=jsonpath={.status}", returnStdout: true)
+       deploymentKubDeployment = sh (script : "~/kubectl get deployment dyn-f7-frontend-app", returnStdout: true)
+       deploymentKubStatus = sh (script : "~/kubectl get deployment dyn-f7-frontend-app -o=jsonpath={.status}", returnStdout: true)
 
        podLog = sh (script : "~/kubectl logs -l app=${kubServiceName}", returnStdout: true)
 
