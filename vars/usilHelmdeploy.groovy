@@ -70,13 +70,23 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        deploymentKubDeployment = sh (script : "~/kubectl get deployment ${kubServiceName}", returnStdout: true)
        deploymentKubStatus = sh (script : "~/kubectl get deployment ${kubServiceName} -o=jsonpath={.status}", returnStdout: true)
        podLog = sh (script : "~/kubectl logs -l app=${kubServiceName}", returnStdout: true)
-       deploymentHetlmTest = sh (script : "~/helm test ${kubServiceName}", returnStdout: true)
+       //deploymentHetlmTest = sh (script : "~/helm test ${kubServiceName}", returnStdout: true)
 
        usilColorLog("log", "${deploymentHelmStatus}")
        usilColorLog("log", "${deploymentKubDeployment}")
        usilColorLog("log", "${deploymentKubStatus}")
        usilColorLog("log", "${podLog}")
-       usilColorLog("log", "${deploymentHetlmTest}")
+       //usilColorLog("log", "${deploymentHetlmTest}")
+       if (deploymentKubDeployment.contains("${kubServiceName}   0/1")) {
+              usilColorLog("error", "le déploiement a rencontré des problèmes")
+              currentBuild.result = 'FAILURE';
+              sh "exit 1"
+              return '404';
+      } else {
+             usilColorLog("success", "le déploiement est ok)
+             currentBuild.result = 'SUCCESS';
+             sh "exit 0"
+      }
 }
 }
 def logExec(def name, def commande) {
