@@ -60,7 +60,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
 
        // logExec("kubeApply", kubeApply)
        logExec("helmInstall", helmInstall)
-       if (!tempsAtteDepl.isNumber()) { tempsAtteDepl=15 }
+       if (!tempsAtteDepl.toString().isNumber()) { tempsAtteDepl=15 }
        sleep(time:tempsAtteDepl,unit:"SECONDS")
        
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
