@@ -4,7 +4,7 @@ stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
 
     // Initialisation des variables commande
     kubeCreateNS = "~/kubectl create namespace ${trigrammeAppli}"
-    kubeConfigSet = "~/kubectl config set-context cluster-anteprod-api " +
+    kubeConfigSet = "~/kubectl config set-context cluster-anteprod-${trigrammeAppli} " +
                     "--cluster=cluster-anteprod --user=sifront-api --namespace=${trigrammeAppli}"
     kubeConfigView = "~/kubectl config view"
 
