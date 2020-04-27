@@ -1,4 +1,4 @@
-def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def helmServiceName, def kubServiceName) {
+def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def helmServiceName, def kubServiceName def tempsAtteDepl) {
 
 stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        usilColorLog("stage", "Déploiement kube: ${kubServiceName} env: ${codeEnv}")
@@ -60,7 +60,8 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
 
        // logExec("kubeApply", kubeApply)
        logExec("helmInstall", helmInstall)
-       sleep(time:10,unit:"SECONDS")
+       if (!tempsAtteDepl.isNumber()) { tempsAtteDepl=15 }
+       sleep(time:tempsAtteDepl,unit:"SECONDS")
        
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
 
