@@ -1,4 +1,4 @@
-def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def helmServiceName, def kubServiceName def tempsAtteDepl) {
+def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def helmServiceName, def kubServiceName, def tempsAtteDepl) {
 
 stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        usilColorLog("stage", "Déploiement kube: ${kubServiceName} env: ${codeEnv}")
