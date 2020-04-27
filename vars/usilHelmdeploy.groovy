@@ -35,13 +35,13 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
               "--set ${helmServiceName}.version=latest " + 
               "> ${kubServiceName}.yaml"
              
-       kubeConfigUse = "~/kubectl config use-context cluster-anteprod-api --namespace ${trigrammeAppli}"
+       kubeConfigUse = "~/kubectl config use-context cluster-anteprod-${trigrammeAppli}"
 
        KubeVerifContext= "~/kubectl config get-contexts"
 
        //kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${kubServiceName}.yaml"
        //helmInstall = "~/helm install --skip-crds ${kubServiceName} ${kubServiceName} " + 
-       helmInstall = "~/helm install --skip-crds ${kubServiceName} ${kubServiceName} --namespace ${trigrammeAppli} " + 
+       helmInstall = "~/helm install --skip-crds ${kubServiceName} ${kubServiceName} " + 
               "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
               "--set ${helmServiceName}.environment=${codeEnv} " +
               "--set ${helmServiceName}.name=${kubServiceName} " +
