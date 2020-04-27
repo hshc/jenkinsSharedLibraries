@@ -14,8 +14,8 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
         def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
         String nomService = mydata.keySet()
         usilColorLog("info", "Nom du Service : ${nomService}")
-        if (nomService.indexOf('_') > 0) {
-          usilColorLog("error", "Problème de nommage du service qui ne peut pas inclure _ dans le nom: ${nomService}")
+        if (nomService.indexOf('-') > 0) {
+          usilColorLog("error", "Problème de nommage du service qui ne peut pas inclure - dans le nom: ${nomService}")
           currentBuild.result = 'FAILURE'
           }
       }
