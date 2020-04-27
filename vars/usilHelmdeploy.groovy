@@ -60,7 +60,10 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
 
        // logExec("kubeApply", kubeApply)
        logExec("helmInstall", helmInstall)
-       if (!tempsAtteDepl.toString().isNumber()) { tempsAtteDepl=15 }
+       if (!tempsAtteDepl.toString().isNumber()) { 
+              usilColorLog("warning", "Le temps d'attente en entrée de la méthode n'est pas numérique ${tempsAtteDepl}")
+              tempsAtteDepl=15
+        }
        sleep(time:tempsAtteDepl,unit:"SECONDS")
        
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
