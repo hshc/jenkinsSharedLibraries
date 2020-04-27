@@ -1,7 +1,7 @@
 def call(def trigrammeAppli) {
 
 stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
-
+    usilColorLog("stage", "Initialisation d'un projet kube: ${trigrammeAppli}")
     // Initialisation des variables commande
     kubeCreateNS = "~/kubectl create namespace ${trigrammeAppli}"
     kubeConfigSet = "~/kubectl config set-context cluster-anteprod-${trigrammeAppli} " +

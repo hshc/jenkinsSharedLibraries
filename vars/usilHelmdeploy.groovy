@@ -1,6 +1,7 @@
 def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def helmServiceName, def kubServiceName) {
 
-stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
+stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
+       usilColorLog("stage", "Déploiement kube: ${kubServiceName} env: ${codeEnv}")
        // récupération de la conf dédié à l'environnement Kube
        switch("${codeEnv}") { 
        case "e2": 

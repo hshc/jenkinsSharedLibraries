@@ -19,6 +19,8 @@ switch(level) {
         color="32"; break;
     case "ERROR":
         color="31"; break;
+    case "STAGE":
+        color="36"; break;
     default:
         levelAffich = ""
         color="30"
