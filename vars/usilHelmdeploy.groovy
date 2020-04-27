@@ -61,7 +61,10 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
        logExec("helmInstall", helmInstall)
         sleep(time:10,unit:"SECONDS")
        
-       deploymentHelmStatus = sh (script : "~/helm history ${kubServiceName}", returnStdout: true)
+       deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
+
+       deploymentKubDeployment = sh (script : "~/kubect get deployment dyn-f7-frontend-app", returnStdout: true)
+       deploymentKubStatus = sh (script : "~/kubect get deployment dyn-f7-frontend-app -o=jsonpath={.status}", returnStdout: true)
 
        podLog = sh (script : "~/kubectl logs -l app=${kubServiceName}", returnStdout: true)
 
@@ -69,6 +72,8 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
        // usilColorLog("info", "Ci dessous la log du pod ${kubServiceName} déployé:")
 
        usilColorLog("log", "${deploymentHelmStatus}")
+       usilColorLog("log", "${deploymentKubDeployment}")
+       usilColorLog("log", "${deploymentKubStatus}")
        usilColorLog("log", "${podLog}")
 }
 }
