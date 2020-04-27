@@ -28,4 +28,5 @@ switch(level) {
 
 wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
     echo "\033[47;1;${color}m${levelAffich} ${message} \033[0m" }
+    // 47: fond blanc; 1: bold; color: couleur du texte
 }
