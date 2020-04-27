@@ -59,12 +59,12 @@ stage("Déploiement kube: ${kubServiceName} environnement: ${codeEnv}"){
 
        // logExec("kubeApply", kubeApply)
        logExec("helmInstall", helmInstall)
-        sleep(time:10,unit:"SECONDS")
+       sleep(time:10,unit:"SECONDS")
        
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
 
-       deploymentKubDeployment = sh (script : "~/kubectl get deployment dyn-f7-frontend-app", returnStdout: true)
-       deploymentKubStatus = sh (script : "~/kubectl get deployment dyn-f7-frontend-app -o=jsonpath={.status}", returnStdout: true)
+       deploymentKubDeployment = sh (script : "~/kubectl get deployment ${kubServiceName}", returnStdout: true)
+       deploymentKubStatus = sh (script : "~/kubectl get deployment ${kubServiceName} -o=jsonpath={.status}", returnStdout: true)
 
        podLog = sh (script : "~/kubectl logs -l app=${kubServiceName}", returnStdout: true)
 
