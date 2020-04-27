@@ -83,7 +83,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
               sh "exit 1"
               return '404';
       } else {
-             usilColorLog("success", "le déploiement est ok)
+             usilColorLog("success", "le déploiement est ok")
              currentBuild.result = 'SUCCESS';
              sh "exit 0"
       }
