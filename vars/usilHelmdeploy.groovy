@@ -66,20 +66,24 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
               }
        }
        stage("Vérification du déploiement kube: ${kubServiceName} env: ${codeEnv}"){
-       sleep(time:tempsAtteDepl,unit:"SECONDS")
+       deploiementRollout = sh (script : "~/kubectl rollout status deployment ${kubServiceName} --timeout=10s", returnStdout: true)
+       // commande pour afficher le status du déploiement
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
        deploymentKubDeployment = sh (script : "~/kubectl get deployment ${kubServiceName}", returnStdout: true)
+       deploymentKubStatusAvailable = sh (script : "~/kubectl get deployment dyn-f7-frontend-app -o=jsonpath={.status.availableReplicas)", returnStdout: true)
+       deploymentKubStatusUnavailable = sh (script : "~/kubectl get deployment dyn-f7-frontend-app -o=jsonpath={.status.unavailableReplicas)", returnStdout: true)
        deploymentKubStatus = sh (script : "~/kubectl get deployment ${kubServiceName} -o=jsonpath={.status}", returnStdout: true)
        podLog = sh (script : "~/kubectl logs -l app=${kubServiceName}", returnStdout: true)
        //deploymentHetlmTest = sh (script : "~/helm test ${kubServiceName}", returnStdout: true)
 
+       usilColorLog("log", "${deploiementRollout}")
        usilColorLog("log", "${deploymentHelmStatus}")
        usilColorLog("log", "${deploymentKubDeployment}")
        usilColorLog("log", "${deploymentKubStatus}")
        usilColorLog("log", "${podLog}")
        //usilColorLog("log", "${deploymentHetlmTest}")
 
-       if (deploymentKubDeployment ==~ /^0\/.*$/)
+       if (deploymentKubStatusAvailable < 1) && (deploymentKubStatusUnavailable > 0)
 	 	{
               usilColorLog("error", "le déploiement a rencontré des problèmes")
 		echo '[FAILURE] Erreur de deploiement du service ou conteneur'
