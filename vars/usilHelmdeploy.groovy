@@ -83,7 +83,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        usilColorLog("log", "${podLog}")
        //usilColorLog("log", "${deploymentHetlmTest}")
 
-       if (deploymentKubStatusAvailable < 1) && (deploymentKubStatusUnavailable > 0)
+       if (deploymentKubStatusAvailable < 1 && deploymentKubStatusUnavailable > 0)
 	 	{
               usilColorLog("error", "le déploiement a rencontré des problèmes")
 		echo '[FAILURE] Erreur de deploiement du service ou conteneur'
