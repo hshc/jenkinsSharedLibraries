@@ -90,8 +90,8 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        usilColorLog("log", "${deploymentKubStatus}")
        usilColorLog("log", "${podLog}")
        //usilColorLog("log", "${deploymentHetlmTest}")
-       echo deploymentKubStatusAvailable.getClass()
-       echo deploymentKubStatusUnavailable.getClass()
+       println deploymentKubStatusAvailable.getClass()
+       println deploymentKubStatusUnavailable.getClass()
        
        if (deploymentKubStatusAvailable < 1 && deploymentKubStatusUnavailable > 0)
 	 	{
