@@ -63,9 +63,10 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        if (!tempsAtteDepl.toString().isNumber()) { 
               usilColorLog("warning", "Le temps d'attente en entrée de la méthode n'est pas numérique: < ${tempsAtteDepl} >")
               tempsAtteDepl=15
-        }
+              }
+       }
+       stage("Vérification du déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        sleep(time:tempsAtteDepl,unit:"SECONDS")
-       
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
        deploymentKubDeployment = sh (script : "~/kubectl get deployment ${kubServiceName}", returnStdout: true)
        deploymentKubStatus = sh (script : "~/kubectl get deployment ${kubServiceName} -o=jsonpath={.status}", returnStdout: true)
@@ -77,17 +78,18 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        usilColorLog("log", "${deploymentKubStatus}")
        usilColorLog("log", "${podLog}")
        //usilColorLog("log", "${deploymentHetlmTest}")
-       if (deploymentKubDeployment.contains("${kubServiceName}   0/1")) {
+
+       if (deploymentKubDeployment ==~ /^0\/.*$/)
+	 	{
               usilColorLog("error", "le déploiement a rencontré des problèmes")
-              currentBuild.result = 'FAILURE';
+		echo '[FAILURE] Erreur de deploiement du service ou conteneur'
+              currentBuild.result = 'FAILURE'
               sh "exit 1"
-              return '404';
-      } else {
-             usilColorLog("success", "le déploiement est ok")
-             currentBuild.result = 'SUCCESS';
-             sh "exit 0"
-      }
-}
+		}
+       else {
+              usilColorLog("success", "le déploiement est ok")
+              }
+       }
 }
 def logExec(def name, def commande) {
     usilColorLog("info", "${name} commande: ${commande}")
