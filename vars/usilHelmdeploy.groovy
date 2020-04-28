@@ -44,6 +44,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
 
        //kubeApply = "~/kubectl apply --namespace ${trigrammeAppli} -f ${kubServiceName}.yaml"
        //helmInstall = "~/helm install --skip-crds ${kubServiceName} ${kubServiceName} " + 
+       sh "~/helm delete ${kubServiceName} || exit 0"
        helmInstall = "~/helm upgrade --install ${kubServiceName} ${kubServiceName} " + 
               "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
               "--set ${helmServiceName}.environment=${codeEnv} " +
