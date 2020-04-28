@@ -58,14 +58,16 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
 
        logExec("KubeVerifContext", KubeVerifContext)
 
-       // logExec("kubeApply", kubeApply)
        logExec("helmInstall", helmInstall)
+
+       stage("Vérification du déploiement kube: ${kubServiceName} env: ${codeEnv}"){
+       usilColorLog("stage", "Vérification du déploiement kube: ${kubServiceName} env: ${codeEnv}")
+
        if (!tempsAtteDepl.toString().isNumber()) { 
               usilColorLog("warning", "Le temps d'attente en entrée de la méthode n'est pas numérique: < ${tempsAtteDepl} >")
               tempsAtteDepl=15
               }
        }
-       stage("Vérification du déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        deploiementRollout = sh (script : "~/kubectl rollout status deployment ${kubServiceName} --timeout=10s", returnStdout: true)
        // commande pour afficher le status du déploiement
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
@@ -75,6 +77,10 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        deploymentKubStatus = sh (script : "~/kubectl get deployment ${kubServiceName} -o=jsonpath={.status}", returnStdout: true)
        podLog = sh (script : "~/kubectl logs -l app=${kubServiceName}", returnStdout: true)
        //deploymentHetlmTest = sh (script : "~/helm test ${kubServiceName}", returnStdout: true)
+
+       deploymentKubStatusConditions = sh (script : "~/kubectl get deployment ${kubServiceName} -o=jsonpath={.status.conditions}", returnStdout: true)
+       usilColorLog("log", "Message: ${deploymentKubStatusConditions[0].message} reason: ${deploymentKubStatusConditions[0].reason}")
+
 
        usilColorLog("log", "${deploiementRollout}")
        usilColorLog("log", "${deploymentHelmStatus}")
