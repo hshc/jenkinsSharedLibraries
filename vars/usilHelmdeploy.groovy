@@ -81,7 +81,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        //deploymentHetlmTest = sh (script : "~/helm test ${kubServiceName}", returnStdout: true)
 
        deploymentKubStatusConditions = sh (script : "~/kubectl get deployment ${kubServiceName} -o=jsonpath={.status.conditions}", returnStdout: true)
-       usilColorLog("log", "Message: ${deploymentKubStatusConditions[0].message} reason: ${deploymentKubStatusConditions[0].reason}")
+      // usilColorLog("log", "Message: ${deploymentKubStatusConditions[0].message} reason: ${deploymentKubStatusConditions[0].reason}")
 
 
        usilColorLog("log", "${deploiementRollout}")
@@ -91,7 +91,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        usilColorLog("log", "${podLog}")
        //usilColorLog("log", "${deploymentHetlmTest}")
 
-       if (deploymentKubStatusAvailable < 1 && deploymentKubStatusUnavailable > 0)
+/*       if (deploymentKubStatusAvailable < 1 && deploymentKubStatusUnavailable > 0)
 	 	{
               usilColorLog("error", "le déploiement a rencontré des problèmes")
 		echo '[FAILURE] Erreur de deploiement du service ou conteneur'
@@ -101,6 +101,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        else {
               usilColorLog("success", "le déploiement est ok")
               }
+*/
        }
 }
 def logExec(def name, def commande) {
