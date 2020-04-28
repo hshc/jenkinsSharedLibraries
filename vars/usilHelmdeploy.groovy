@@ -70,8 +70,8 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        // commande pour afficher le status du déploiement
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
        deploymentKubDeployment = sh (script : "~/kubectl get deployment ${kubServiceName}", returnStdout: true)
-       deploymentKubStatusAvailable = sh (script : "~/kubectl get deployment dyn-f7-frontend-app -o=jsonpath={.status.availableReplicas)", returnStdout: true)
-       deploymentKubStatusUnavailable = sh (script : "~/kubectl get deployment dyn-f7-frontend-app -o=jsonpath={.status.unavailableReplicas)", returnStdout: true)
+       deploymentKubStatusAvailable = sh (script : "~/kubectl get deployment dyn-f7-frontend-app -o=jsonpath={.status.availableReplicas", returnStdout: true)
+       deploymentKubStatusUnavailable = sh (script : "~/kubectl get deployment dyn-f7-frontend-app -o=jsonpath={.status.unavailableReplicas", returnStdout: true)
        deploymentKubStatus = sh (script : "~/kubectl get deployment ${kubServiceName} -o=jsonpath={.status}", returnStdout: true)
        podLog = sh (script : "~/kubectl logs -l app=${kubServiceName}", returnStdout: true)
        //deploymentHetlmTest = sh (script : "~/helm test ${kubServiceName}", returnStdout: true)
