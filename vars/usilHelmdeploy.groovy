@@ -81,7 +81,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        //deploymentHetlmTest = sh (script : "~/helm test ${kubServiceName}", returnStdout: true)
 
        deploymentKubStatusConditions = sh (script : "~/kubectl get deployment ${kubServiceName} -o=jsonpath={.status.conditions}", returnStdout: true)
-      // usilColorLog("log", "Message: ${deploymentKubStatusConditions[0].message} reason: ${deploymentKubStatusConditions[0].reason}")
+       //usilColorLog("log", "Message: ${deploymentKubStatusConditions[0].message} reason: ${deploymentKubStatusConditions[0].reason}")
 
 
        usilColorLog("log", "${deploiementRollout}")
@@ -90,8 +90,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        usilColorLog("log", "${deploymentKubStatus}")
        usilColorLog("log", "${podLog}")
        //usilColorLog("log", "${deploymentHetlmTest}")
-       println deploymentKubStatusAvailable.getClass()
-       println deploymentKubStatusUnavailable.getClass()
+      
        
        if (deploymentKubStatusAvailable < "1" && deploymentKubStatusUnavailable > "0")
 	 	{
