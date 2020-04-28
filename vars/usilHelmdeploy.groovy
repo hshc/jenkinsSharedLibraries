@@ -68,7 +68,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
               tempsAtteDepl=15
               }
        }
-       deploiementRollout = sh (script : "~/kubectl rollout status deployment ${kubServiceName} --timeout=10s", returnStdout: true)
+       deploiementRollout = sh (script : "~/kubectl rollout status deployment ${kubServiceName} --timeout=30s || exit 0", returnStdout: true)
        // commande pour afficher le status du déploiement
        deploymentHelmStatus = sh (script : "~/helm history --max 5 ${kubServiceName}", returnStdout: true)
        deploymentKubDeployment = sh (script : "~/kubectl get deployment ${kubServiceName}", returnStdout: true)
