@@ -18,8 +18,11 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
       secretValues: [[envVar: 'vaultValue', vaultKey: "${vaultKey}"]]]]) {
         // véirification si le path contient un / à la fin si oui on ne fait sinon on l'ajoute
         vaultKeyPath += vaultKeyPath?.endsWith('/') ? '' : '/'
+        println "vaultKeyPath : ${vaultKeyPath}"
         sh "rm -f ${vaultKeyPath}${vaultKey}"
         // écriture du fichier à partie de la clé lue sur Vault
+        println "vaultValue : ${vaultValue}"
+
         writeFile file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}", text: vaultValue
         if (gitTag == '') {
           def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
