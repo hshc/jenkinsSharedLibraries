@@ -27,6 +27,19 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        }
        writeYaml file: "${kubServiceName}/Chart.yaml", data: cmap
 
+       // validation du fichier value.yaml et vérifier que dans le nom du service il n'y a pas de - ou _ dans la valeur de l'attribut du service 
+
+    //    if (gitTag == '') {
+    //      def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
+    //      String nomService = mydata.keySet()
+    //     usilColorLog("info", "Nom du Service : ${nomService}")
+    //      if (nomService.indexOf('-') > 0) {
+     //       usilColorLog("error", "Problème de nommage du service qui ne peut pas inclure - dans le nom: ${nomService}")
+    //        currentBuild.result = 'FAILURE'
+     //       }
+     //     }
+
+
        // Initialisation des variables commande
        helmTemplate = "~/helm template ${kubServiceName} " + 
               "--set ${helmServiceName}.image.repository=${dockerRegistryRepoAppli} " + 
