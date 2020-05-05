@@ -24,15 +24,15 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
         println "vaultValue : ${vaultValue}"
         println "write : ${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
         writeFile file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}", text: vaultValue
-        if (gitTag == '') {
-          def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
-          String nomService = mydata.keySet()
-          usilColorLog("info", "Nom du Service : ${nomService}")
-          if (nomService.indexOf('-') > 0) {
-            usilColorLog("error", "Problème de nommage du service qui ne peut pas inclure - dans le nom: ${nomService}")
-            currentBuild.result = 'FAILURE'
-            }
-          }
+    //    if (gitTag == '') {
+    //      def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
+    //      String nomService = mydata.keySet()
+    //     usilColorLog("info", "Nom du Service : ${nomService}")
+    //      if (nomService.indexOf('-') > 0) {
+     //       usilColorLog("error", "Problème de nommage du service qui ne peut pas inclure - dans le nom: ${nomService}")
+    //        currentBuild.result = 'FAILURE'
+     //       }
+     //     }
       }
   }
 }
