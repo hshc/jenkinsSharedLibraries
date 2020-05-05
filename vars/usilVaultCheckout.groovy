@@ -22,7 +22,7 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
         sh "rm -f ${vaultKeyPath}${vaultKey}"
         // écriture du fichier à partie de la clé lue sur Vault
         println "vaultValue : ${vaultValue}"
-
+        println "write : ${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
         writeFile file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}", text: vaultValue
         if (gitTag == '') {
           def mydata = readYaml file: "${env.WORKSPACE}/${vaultKeyPath}${vaultKey}"
