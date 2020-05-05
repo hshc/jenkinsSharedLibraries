@@ -3,9 +3,16 @@
 def call(def vaultUrl, def vaultId,def codeEnv,def trigrammeAppli, def gitProjectName, def gitTag, def vaultKeyPath, def vaultKey='values.yaml' ) {
 stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
       usilColorLog("stage", "Récupération env Vault env:${codeEnv} version:${gitTag}")
+      if (gitTag == '')
+        {
+          def vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}"
+        }
+      else {
+         def vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}/${gitTag}"
+      }
       // Utilisation du plugin Vault pour aller récupérer la valeur dans kv/TRIGRAMME/trigramme_codeappli_description/tag la clé par défaut est value.yaml
       withVault(configuration: [timeout: 60, vaultCredentialId: vaultId, vaultUrl: vaultUrl], 
-      vaultSecrets: [[path: "kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}/${gitTag}", 
+      vaultSecrets: [[path: "${vaultPath}", 
       secretValues: [[envVar: 'vaultValue', vaultKey: "${vaultKey}"]]]]) {
         // véirification si le path contient un / à la fin si oui on ne fait sinon on l'ajoute
         vaultKeyPath += vaultKeyPath?.endsWith('/') ? '' : '/'
