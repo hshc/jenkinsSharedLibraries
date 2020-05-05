@@ -5,9 +5,11 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
       usilColorLog("stage", "Récupération env Vault env:${codeEnv} version:${gitTag}")
       if (gitTag == '')
         {
+          println "if"
           def vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}"
         }
       else {
+        println "else"
          def vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}/${gitTag}"
       }
       println vaultPath
