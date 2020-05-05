@@ -13,7 +13,7 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
       }
       println vaultPath
       // Utilisation du plugin Vault pour aller récupérer la valeur dans kv/TRIGRAMME/trigramme_codeappli_description/tag la clé par défaut est value.yaml
-      withVault(configuration: [timeout: 60, vaultCredentialId: vaultId, vaultUrl: vaultUrl], 
+      withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: vaultId, vaultUrl: vaultUrl], 
       vaultSecrets: [[path: "${vaultPath}", 
       secretValues: [[envVar: 'vaultValue', vaultKey: "${vaultKey}"]]]]) {
         // véirification si le path contient un / à la fin si oui on ne fait sinon on l'ajoute
