@@ -6,7 +6,7 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
       def vaultPath=''   
    //  if (gitTag == '')
    //     {
-          vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}"+(gitTag=="") ? "" : "/${gitTag}"
+          vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}" + (gitTag== '') ? '' : "/${gitTag}"
     //    }
    //   else {
    //       vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}/${gitTag}"
