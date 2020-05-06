@@ -3,10 +3,13 @@
 def call(def vaultUrl, def vaultId,def codeEnv,def trigrammeAppli, def gitProjectName, def gitTag, def vaultKeyPath, def vaultKey='values.yaml' ) {
 stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
       usilColorLog("stage", "Récupération env Vault env:${codeEnv} version:${gitTag}")
-      def vaultPath=''   
+   //   def vaultPath=''   
    //  if (gitTag == '')
    //     {
-          vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}" + (gitTag== '') ? '' : "/${gitTag}"
+      def pathGitTag = (gitTag == '') ? '' : "/${gitTag}"
+      println "pathGitTag : ${pathGitTag}"
+      def vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}"
+      //${pathGitTag}" 
     //    }
    //   else {
    //       vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}/${gitTag}"
