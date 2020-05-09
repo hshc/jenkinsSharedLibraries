@@ -6,7 +6,7 @@ stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
     kubeCreateNS = "~/kubectl create namespace ${trigrammeAppli}"
     kubeCreateSAccount = "~/kubectl apply -f serviceAccount.yaml"
     kubeCreateRBinding = "~/kubectl apply -f roleBinding.yaml"
-    kubeCreateRBinding = "~/kubectl apply -f role.yaml"
+    kubeCreateRole = "~/kubectl apply -f role.yaml"
     kubeConfigSet = "~/kubectl config set-context cluster-anteprod-${trigrammeAppli} " +
                     "--cluster=cluster-anteprod --user=sifront-api --namespace=${trigrammeAppli}"
     kubeConfigView = "~/kubectl config view"
