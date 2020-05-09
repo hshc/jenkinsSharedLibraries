@@ -40,13 +40,13 @@ def serviceAccount (def trigrammeAppli) {
     '''
 
     if (fileExists("serviceAccount.yaml")) {
-        echo "Le fichier serviceAccount.yaml existe, à supprimer"
+        usilColorLog("debug", "Le fichier serviceAccount.yaml existe, à supprimer")
         sh ("rm -f serviceAccount.yaml")
     } else {
-        echo "Le fichier serviceAccount.yaml n'existe pas, à créer"
+        usilColorLog("debug", "Le fichier serviceAccount.yaml n'existe pas, à créer")
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
-    echo "${configYamlTRI}"
+    usilColorLog("debug", "${configYamlTRI}")
     //def yamlFile = new File("serviceAccount.yaml")
     //yamlFile.write(configYamlTRI)
 
@@ -72,13 +72,13 @@ def roleBinding (def trigrammeAppli) {
     '''
 
     if (fileExists("roleBinding.yaml")) {
-        echo "Le fichier roleBinding.yaml existe, à supprimer"
+        usilColorLog("debug",  "Le fichier roleBinding.yaml existe, à supprimer")
         sh ("rm -f roleBinding.yaml")
     } else {
-        echo "Le fichier roleBinding.yaml n'existe pas, à créer"
+        usilColorLog("debug", "Le fichier roleBinding.yaml n'existe pas, à créer")
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
-    echo "${configYamlTRI}"
+    usilColorLog("debug", "${configYamlTRI}")
     //def yamlFile = new File("roleBinding.yaml")
     //yamlFile.write(configYamlTRI)
 }
@@ -104,13 +104,13 @@ def role (def trigrammeAppli) {
     '''
 
     if (fileExists("role.yaml")) {
-        echo "Le fichier role.yaml existe, à supprimer"
+        usilColorLog("debug", "Le fichier role.yaml existe, à supprimer")
         sh ("rm -f role.yaml")
     } else {
-        echo "Le fichier role.yaml n'existe pas, à créer"
+        usilColorLog("debug", "Le fichier role.yaml n'existe pas, à créer")
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
-    echo "${configYamlTRI}"
+    usilColorLog("debug", "${configYamlTRI}")
     //def yamlFile = new File("role.yaml")
     //yamlFile.write(configYamlTRI)
 }
