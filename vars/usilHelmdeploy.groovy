@@ -16,7 +16,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        def cmap = ['apiVersion': 'v2',
                      'name': kubServiceName,
                      'type': 'application',
-                     'appVersion': '1.0.2', 
+                     'appVersion': env.gitTag, // enlever le "v" de la version!!!
                      'version': '1.0.0']
 
        if (fileExists("${kubServiceName}/Chart.yaml")) {

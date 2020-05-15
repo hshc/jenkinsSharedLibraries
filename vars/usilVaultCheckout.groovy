@@ -5,7 +5,7 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
       usilColorLog("stage", "Récupération env Vault env:${codeEnv} version:${gitTag}")
       def pathGitTag = (gitTag == "") ? "" : "/${gitTag}"
       def vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}${pathGitTag}"
-      // Utilisation du plugin Vault pour aller récupérer la valeur dans kv/TRIGRAMME/trigramme_codeappli_description/tag la clé par défaut est value.yaml
+      // Utilisation du plugin Vault pour aller récupérer la valeur dans kv/TRIGRAMME/trigramme_codeappli_description/tag la clé par défaut est values.yaml
       withVault(configuration: [skipSslVerification: true, timeout: 60, vaultCredentialId: vaultId, vaultUrl: vaultUrl], 
       vaultSecrets: [[path: "${vaultPath}", 
       secretValues: [[envVar: 'vaultValue', vaultKey: "${vaultKey}"]]]]) {
