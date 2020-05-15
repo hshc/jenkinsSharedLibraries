@@ -15,12 +15,12 @@ stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
 
     // Lancement des commandes
     logExec("kubeCreateNS", kubeCreateNS)
+    serviceAccount(trigrammeAppli)
+    logExec("kubeCreateSAccount", kubeCreateSAccount)
     secretIntg(trigrammeAppli)
     logExec("kubeCreateSecretIntg", kubeCreateSecretIntg)
     secretRecf(trigrammeAppli)
     logExec("kubeCreateSecretRecf", kubeCreateSecretRecf)
-    serviceAccount(trigrammeAppli)
-    logExec("kubeCreateSAccount", kubeCreateSAccount)
     roleBinding(trigrammeAppli) 
     logExec("kubeCreateRBinding", kubeCreateRBinding)
     role(trigrammeAppli)
