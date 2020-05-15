@@ -1,7 +1,15 @@
 // la fonction reçoie en entrée l'URL Vault, l'ID Vault, le code environnement, le trigramme applicatif, 
 // nom du repo git, le tag git, le path ou est stocké le fichier récupéré sur Vault, la clé vaultKey par défaut prend la valeur value.yaml, 
-def call(def vaultUrl, def vaultId,def codeEnv,def trigrammeAppli, def gitProjectName, def gitTag, def vaultKeyPath, def vaultKey='values.yaml' ) {
-stage("Récupération env Vault env:${codeEnv} version:${gitTag}"){
+def call(def codeEnv,def trigrammeAppli, def gitProjectName, def gitTag, def vaultKeyPath, def vaultKey='values.yaml' ) {
+stage("Récupération env Vault env:${codeEnv} version:${gitTag} fichier:${vaultKey}"){
+      if (vaultKeyPath == 'e1' || vaultKeyPath == 'e0') {
+        vaultUrl="https://keymaster.si2m.tec"
+        vaultId="jenkins-vault-prod"
+      }
+      else {
+        vaultUrl="https://recf-keymaster.si2m.tec"
+        vaultId="jenkins-vault-recf"
+      }
       usilColorLog("stage", "Récupération env Vault env:${codeEnv} version:${gitTag}")
       def pathGitTag = (gitTag == "") ? "" : "/${gitTag}"
       def vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}${pathGitTag}"
