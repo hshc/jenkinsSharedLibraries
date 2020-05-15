@@ -32,7 +32,7 @@ stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
 }
 def logExec(def name, def commande) {
     usilColorLog("info", "${name} commande: ${commande}")
-    //sh ("${commande}")
+    sh ("${commande}")
 }
 
 def serviceAccount (def trigrammeAppli) {
@@ -53,8 +53,8 @@ def serviceAccount (def trigrammeAppli) {
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    //def yamlFile = new File("serviceAccount.yaml")
-    //yamlFile.write(configYamlTRI)
+    def yamlFile = new File("serviceAccount.yaml")
+    yamlFile.write(configYamlTRI)
 
 }
 
@@ -85,8 +85,8 @@ def roleBinding (def trigrammeAppli) {
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    //def yamlFile = new File("roleBinding.yaml")
-    //yamlFile.write(configYamlTRI)
+    def yamlFile = new File("roleBinding.yaml")
+    yamlFile.write(configYamlTRI)
 }
 
 def role (def trigrammeAppli) {
@@ -117,8 +117,8 @@ def role (def trigrammeAppli) {
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    //def yamlFile = new File("role.yaml")
-    //yamlFile.write(configYamlTRI)
+    def yamlFile = new File("role.yaml")
+    yamlFile.write(configYamlTRI)
 }
 
 def secretIntg (def trigrammeAppli) {
@@ -227,8 +227,8 @@ metadata:
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    //def yamlFile = new File("secret-intg.yaml")
-    //yamlFile.write(configYamlTRI)
+    def yamlFile = new File("secret-intg.yaml")
+    yamlFile.write(configYamlTRI)
 }
 
 def secretRecf (def trigrammeAppli) {
@@ -337,6 +337,6 @@ metadata:
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    //def yamlFile = new File("secret-recf.yaml")
-    //yamlFile.write(configYamlTRI)
+    def yamlFile = new File("secret-recf.yaml")
+    yamlFile.write(configYamlTRI)
 }
