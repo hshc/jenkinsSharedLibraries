@@ -231,7 +231,7 @@ metadata:
     //yamlFile.write(configYamlTRI)
 }
 
-def secretIntg (def trigrammeAppli) {
+def secretRecf (def trigrammeAppli) {
     // Génération du secret-recf.yaml
     def configYaml = '''\
     ---
