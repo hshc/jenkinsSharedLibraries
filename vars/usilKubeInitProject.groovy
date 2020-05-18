@@ -37,6 +37,21 @@ def logExec(def name, def commande) {
 
 def serviceAccount (def trigrammeAppli) {
 
+// Génération du chart.yaml
+       def cmap = ['apiVersion': 'v2',
+                     'name': toto,
+                     'type': 'application',
+                     'appVersion': env.gitTag, // enlever le "v" de la version!!!
+                     'version': '1.0.0']
+
+       if (fileExists("Chart.yaml")) {
+              echo "Le fichier Chart.yaml existe, à supprimer"
+              sh ("rm -f Chart.yaml")
+       } else {
+              echo "Le fichier Chart.yaml n'existe pas, à créer"
+       }
+       writeYaml file: "Chart.yaml", data: cmap
+       
     def configYaml = '''\
     ---
     apiVersion: v1
