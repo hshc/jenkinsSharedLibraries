@@ -4,8 +4,8 @@ stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
     usilColorLog("stage", "Initialisation d'un projet kube: ${trigrammeAppli}")
     // Initialisation des variables commande
     kubeCreateNS = "~/kubectl create namespace ${trigrammeAppli}"
-    kubeCreateSecretIntg = "~/kubectl create secrets -f secret-intg.yaml"
-    kubeCreateSecretRecf = "~/kubectl create secrets -f secret-recf.yaml"
+    kubeCreateSecretIntg = "~/kubectl create secret -f secret-intg.yaml"
+    kubeCreateSecretRecf = "~/kubectl create secret -f secret-recf.yaml"
     kubeCreateSAccount = "~/kubectl apply -f serviceAccount.yaml"
     kubeCreateRBinding = "~/kubectl apply -f roleBinding.yaml"
     kubeCreateRole = "~/kubectl apply -f role.yaml"
