@@ -37,12 +37,12 @@ def logExec(def name, def commande) {
 
 def serviceAccount (def trigrammeAppli) {
  
-    def configYaml = '''\
-    ---
-    apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-      name: trigrammeAppli-service-account
+    def configYaml = '''
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: trigrammeAppli-service-account
     '''
 
     if (fileExists("serviceAccount.yaml")) {
@@ -60,22 +60,21 @@ def serviceAccount (def trigrammeAppli) {
 
 def roleBinding (def trigrammeAppli) {
     // Génération du roleBinding.yaml
-    def configYaml = '''\
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: RoleBinding
-    metadata:
-      name: trigrammeAppli-psp-rolebinding
-      namespace: trigrammeAppli
-    roleRef:
-      apiGroup: rbac.authorization.k8s.io
-      kind: Role
-      name: mh-psp-role
-    subjects:
-    - kind: ServiceAccount
-      name: trigrammeAppli-service-account
-      namespace: trigrammeAppli
-    '''
+    def configYaml = '''
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: trigrammeAppli-psp-rolebinding
+  namespace: trigrammeAppli
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+kind: Role
+  name: mh-psp-role
+subjects:
+- kind: ServiceAccount
+  name: trigrammeAppli-service-account
+  namespace: trigrammeAppli'''
 
     if (fileExists("roleBinding.yaml")) {
         usilColorLog("debug",  "Le fichier roleBinding.yaml existe, à supprimer")
@@ -85,29 +84,27 @@ def roleBinding (def trigrammeAppli) {
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    def yamlFile = new File("roleBinding.yaml")
-    yamlFile.write(configYamlTRI)
+    writeFile file: "roleBinding.yaml", text: configYamlTRI
 }
 
 def role (def trigrammeAppli) {
     // Génération du role.yaml
     def configYaml = '''
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: Role
-    metadata:
-      name: mh-psp-role
-      namespace: trigrammeAppli
-    rules:
-    - apiGroups:
-      - policy
-      resourceNames:
-      - mh-restricted
-      resources:
-      - podsecuritypolicies
-      verbs:
-      - use
-    '''
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: mh-psp-role
+  namespace: trigrammeAppli
+rules:
+- apiGroups:
+  - policy
+    resourceNames:
+    - mh-restricted
+    resources:
+    - podsecuritypolicies
+    verbs:
+    - use'''
 
     if (fileExists("role.yaml")) {
         usilColorLog("debug", "Le fichier role.yaml existe, à supprimer")
@@ -117,14 +114,13 @@ def role (def trigrammeAppli) {
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    def yamlFile = new File("role.yaml")
-    yamlFile.write(configYamlTRI)
+    writeFile file: "role.yaml", text: configYamlTRI
 }
 
 def secretIntg (def trigrammeAppli) {
     // Génération du secret-intg.yaml
-    def configYaml = '''\
-    ---
+    def configYaml = '''
+---
 apiVersion: v1
 data:
   tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlIcURDQ0JaQ2dBd0lCQWdJVEVRQUJQSnB4YjNQY0trMm9jd0FBQUFFOG1qQU5CZ2txaGtpRzl3MEJBUXNGDQ
@@ -216,8 +212,7 @@ EJHa3lrK3BBWUZldTRPNHYKWFZlbUMvaGZnL0w0ZDNBb3RIbklGUWk5Ci0tLS0tRU5EIFBSSVZBVEUgS
 kind: Secret
 metadata:
   name: int-mycloud-secret
-  namespace: trigrammeAppli
-    '''
+  namespace: trigrammeAppli'''
 
     if (fileExists("secret-intg.yaml")) {
         usilColorLog("debug", "Le fichier secret-intg.yaml existe, à supprimer")
@@ -227,14 +222,13 @@ metadata:
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    def yamlFile = new File("secret-intg.yaml")
-    yamlFile.write(configYamlTRI)
+    writeFile file: "secret-intg.yaml", text: configYamlTRI
 }
 
 def secretRecf (def trigrammeAppli) {
     // Génération du secret-recf.yaml
-    def configYaml = '''\
-    ---
+    def configYaml = '''
+---
 apiVersion: v1
 data:
   tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlIcWpDQ0JaS2dBd0lCQWdJVEVRQUJQSnp3bk5ZbmhjZ1d2d0FBQUFFOG5EQU5CZ2txaGtpRzl3MEJBUXNGDQ
@@ -326,8 +320,7 @@ kVhV2FJNVFUODhoYm9LYndhWWYvdTY1VmFoSDd6TmZUQjI2YWhVR2swDQp6c2RpSDY3RDBSdGVrc2hic
 kind: Secret
 metadata:
   name: recf-mycloud-secret
-  namespace: trigrammeAppli
-    '''
+  namespace: trigrammeAppli'''
 
     if (fileExists("secret-recf.yaml")) {
         usilColorLog("debug", "Le fichier secret-recf.yaml existe, à supprimer")
@@ -337,6 +330,5 @@ metadata:
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    def yamlFile = new File("secret-recf.yaml")
-    yamlFile.write(configYamlTRI)
+    writeFile file: "secret-recf.yaml", text: configYamlTRI
 }
