@@ -36,20 +36,7 @@ def logExec(def name, def commande) {
 }
 
 def serviceAccount (def trigrammeAppli) {
-    def file1 = new File('groovy1.txt')
-    def file2 = new File('groovy2.txt')
-
  
-    // Writing to the files with the write method:
-    file1.write 'Working with files the Groovy way is easy.\n'
- 
-    // Using the leftShift operator:
-    file1 << 'See how easy it is to add text to a file.\n'
- 
-    // Using the text property:
-    file2.text = '''We can even use the text property of
-    a file to set a complete block of text at once.'''
-    
     def configYaml = '''\
     ---
     apiVersion: v1
@@ -66,8 +53,9 @@ def serviceAccount (def trigrammeAppli) {
     }
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    def yamlFile = new File("serviceAccount.yaml")
-    yamlFile.text = configYamlTRI
+    //def yamlFile = new File("serviceAccount.yaml")
+    //yamlFile.text = configYamlTRI
+    writeFile file: "serviceAccount.yaml", text: configYamlTRI
 }
 
 def roleBinding (def trigrammeAppli) {
