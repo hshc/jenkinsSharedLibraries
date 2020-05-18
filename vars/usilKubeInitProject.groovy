@@ -55,7 +55,7 @@ def serviceAccount (def trigrammeAppli) {
     usilColorLog("debug", "${configYamlTRI}")
     def yamlFile = new File("serviceAccount.yaml")
     yamlFile.write(configYamlTRI)
-
+    usilColorLog("debug", "je suis passé là")
 }
 
 def roleBinding (def trigrammeAppli) {
