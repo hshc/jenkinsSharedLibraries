@@ -69,7 +69,7 @@ metadata:
   namespace: trigrammeAppli
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-kind: Role
+  kind: Role
   name: mh-psp-role
 subjects:
 - kind: ServiceAccount
