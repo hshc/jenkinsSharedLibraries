@@ -14,7 +14,7 @@ stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
     kubeConfigView = "~/kubectl config view"
 
     // Lancement des commandes
-    logExec("kubeCreateNS", kubeCreateNS)
+    //logExec("kubeCreateNS", kubeCreateNS)
     serviceAccount(trigrammeAppli)
     logExec("kubeCreateSAccount", kubeCreateSAccount)
     secretIntg(trigrammeAppli)
