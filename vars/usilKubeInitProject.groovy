@@ -39,7 +39,7 @@ def serviceAccount (def trigrammeAppli) {
 
 // Génération du chart.yaml
        def cmap = ['apiVersion': 'v2',
-                     'name': toto,
+                     'name': 'toto',
                      'type': 'application',
                      'appVersion': env.gitTag, // enlever le "v" de la version!!!
                      'version': '1.0.0']
