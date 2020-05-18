@@ -99,12 +99,12 @@ metadata:
 rules:
 - apiGroups:
   - policy
-    resourceNames:
-    - mh-restricted
-    resources:
-    - podsecuritypolicies
-    verbs:
-    - use'''
+  resourceNames:
+  - mh-restricted
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use'''
 
     if (fileExists("role.yaml")) {
         usilColorLog("debug", "Le fichier role.yaml existe, à supprimer")
