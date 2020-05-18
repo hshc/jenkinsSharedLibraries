@@ -90,7 +90,7 @@ def roleBinding (def trigrammeAppli) {
 
 def role (def trigrammeAppli) {
     // Génération du role.yaml
-    def configYaml = '''\
+    def configYaml = '''
     ---
     apiVersion: rbac.authorization.k8s.io/v1
     kind: Role
