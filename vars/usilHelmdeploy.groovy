@@ -17,7 +17,7 @@ stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
                      'name': kubServiceName,
                      'type': 'application',
                      'appVersion': env.gitTag, // enlever le "v" de la version!!!
-                     'version': '1.0.0']
+                     'version': '1.1.0']
 
        if (fileExists("${kubServiceName}/Chart.yaml")) {
               echo "Le fichier ${kubServiceName}/Chart.yaml existe, à supprimer"
