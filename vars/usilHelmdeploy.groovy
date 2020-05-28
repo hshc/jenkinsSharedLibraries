@@ -1,6 +1,13 @@
 def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def helmServiceName, def kubServiceName, def tempsAtteDepl) {
 
 stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
+       // Validation du déploiement sur cet environnement
+       try {         
+              usilCheckDeploiement("${codeEnv}")
+       } catch (Exception e) {
+              return false
+       }
+       
        def deploymentKubStatusAvailable="";
        def deploymentKubStatusUnavailable="";
        usilColorLog("stage", "Déploiement kube: ${kubServiceName} env: ${codeEnv}")
