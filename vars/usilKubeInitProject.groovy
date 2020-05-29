@@ -61,16 +61,9 @@ metadata:
 name: trigrammeAppli-service-account
     '''
 
-    if (fileExists("init/serviceAccount.yaml")) {
-        usilColorLog("debug", "Le fichier init/serviceAccount.yaml existe, à supprimer")
-        sh ("rm -f init/serviceAccount.yaml")
-    } else {
-        usilColorLog("debug", "Le fichier init/serviceAccount.yaml n'existe pas, à créer")
-    }
+    usilColorLog("debug", "Création du fichier init/serviceAccount.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    def yamlFile = new File("init/serviceAccount.yaml")
-    yamlFile.write(configYamlTRI)
     writeFile file: "serviceAccount.yaml", text: configYamlTRI
 }
 
@@ -92,12 +85,7 @@ subjects:
 name: trigrammeAppli-service-account
 namespace: trigrammeAppli'''
 
-    if (fileExists("init/roleBinding.yaml")) {
-        usilColorLog("debug",  "Le fichier roleBinding.yaml existe, à supprimer")
-        sh ("rm -f init/roleBinding.yaml")
-    } else {
-        usilColorLog("debug", "Le fichier roleBinding.yaml n'existe pas, à créer")
-    }
+    usilColorLog("debug", "Création du fichier roleBinding.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
     writeFile file: "roleBinding.yaml", text: configYamlTRI
@@ -122,12 +110,7 @@ resources:
 verbs:
 - use'''
 
-    if (fileExists("init/role.yaml")) {
-        usilColorLog("debug", "Le fichier init/role.yaml existe, à supprimer")
-        sh ("rm -f init/role.yaml")
-    } else {
-        usilColorLog("debug", "Le fichier init/role.yaml n'existe pas, à créer")
-    }
+    usilColorLog("debug", "Création du fichier init/role.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
     writeFile file: "role.yaml", text: configYamlTRI
@@ -146,12 +129,7 @@ metadata:
 name: int-mycloud-secret
 namespace: trigrammeAppli'''
 
-    if (fileExists("init/secret-intg.yaml")) {
-        usilColorLog("debug", "Le fichier init/secret-intg.yaml existe, à supprimer")
-        sh ("rm -f init/secret-intg.yaml")
-    } else {
-        usilColorLog("debug", "Le fichier init/secret-intg.yaml n'existe pas, à créer")
-    }
+    usilColorLog("debug", "Création du fichier init/secret-intg.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
     writeFile file: "secret-intg.yaml", text: configYamlTRI
@@ -170,12 +148,7 @@ metadata:
 name: recf-mycloud-secret
 namespace: trigrammeAppli'''
 
-    if (fileExists("init/secret-recf.yaml")) {
-        usilColorLog("debug", "Le fichier init/secret-recf.yaml existe, à supprimer")
-        sh ("rm -f init/secret-recf.yaml")
-    } else {
-        usilColorLog("debug", "Le fichier init/secret-recf.yaml n'existe pas, à créer")
-    }
+    usilColorLog("debug", "Création du fichier init/secret-recf.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
     writeFile file: "secret-recf.yaml", text: configYamlTRI
