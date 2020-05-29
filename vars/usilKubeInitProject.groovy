@@ -139,6 +139,12 @@ metadata:
 name: int-mycloud-secret
 namespace: trigrammeAppli'''
 
+    if (fileExists("init")) {
+        usilColorLog("debug", "Le répertoire init existe, à supprimer")
+        sh ("rm -Rf init")
+    } 
+    sh ("mkdir init")
+
     if (fileExists("init/secret-intg.yaml")) {
         usilColorLog("debug", "Le fichier init/secret-intg.yaml existe, à supprimer")
         sh ("rm -f init/secret-intg.yaml")
