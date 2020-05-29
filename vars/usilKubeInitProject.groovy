@@ -3,8 +3,7 @@ def call(def trigrammeAppli) {
 stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
 
     usilColorLog("stage", "Initialisation d'un projet kube: ${trigrammeAppli}")
-    namespaceStatus = sh (script : "~/kubectl get namespace ${trigrammeAppli} --no-headers --output=go-template={{.metadata.name}} 2>/dev/null", returnStdout: true)
-    
+    namespaceStatus = sh (script : "~/kubectl get namespace ${trigrammeAppli} --no-headers --output=go-template={{.metadata.name}} 2>/dev/null || true", returnStdout: true)
 
     if (namespaceStatus == trigrammeAppli) {
         usilColorLog("info", "Projet déjà initié")
