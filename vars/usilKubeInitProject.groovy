@@ -1,8 +1,15 @@
 def call(def trigrammeAppli) {
 
 stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
-
     usilColorLog("stage", "Initialisation d'un projet kube: ${trigrammeAppli}")
+
+    if (fileExists("init")) {
+        usilColorLog("debug", "Le répertoire init existe, à supprimer")
+        sh ("rm -Rf init")
+    } 
+    usilColorLog("debug", "Le répertoire init va être créé")
+    sh ("mkdir init")
+
     namespaceStatus = sh (script : "~/kubectl get namespace ${trigrammeAppli} --no-headers --output=go-template={{.metadata.name}} 2>/dev/null || true", returnStdout: true)
 
     if (namespaceStatus == trigrammeAppli) {
@@ -138,12 +145,6 @@ kind: Secret
 metadata:
 name: int-mycloud-secret
 namespace: trigrammeAppli'''
-
-    if (fileExists("init")) {
-        usilColorLog("debug", "Le répertoire init existe, à supprimer")
-        sh ("rm -Rf init")
-    } 
-    sh ("mkdir init")
 
     if (fileExists("init/secret-intg.yaml")) {
         usilColorLog("debug", "Le fichier init/secret-intg.yaml existe, à supprimer")
