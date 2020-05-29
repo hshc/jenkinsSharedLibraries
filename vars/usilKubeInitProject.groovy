@@ -3,20 +3,21 @@ def call(def trigrammeAppli) {
 stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
     usilColorLog("stage", "Initialisation d'un projet kube: ${trigrammeAppli}")
 
-    if (fileExists("init")) {
-        usilColorLog("debug", "Le répertoire init existe, à supprimer")
-        sh ("rm -Rf init")
-    } 
-    usilColorLog("debug", "Le répertoire init va être créé")
-    sh ("mkdir init")
-
     namespaceStatus = sh (script : "~/kubectl get namespace ${trigrammeAppli} --no-headers --output=go-template={{.metadata.name}} 2>/dev/null || true", returnStdout: true)
 
     if (namespaceStatus == trigrammeAppli) {
         usilColorLog("info", "Projet déjà initié")
         sh "exit 0"
     }
-    else {  
+    else {
+
+        if (fileExists("init")) {
+            usilColorLog("debug", "Le répertoire init existe, à supprimer")
+            sh ("rm -Rf init")
+        } 
+        usilColorLog("debug", "Le répertoire init va être créé")
+        sh ("mkdir init")
+
         // Initialisation des variables commande
         kubeCreateNS = "~/kubectl create namespace ${trigrammeAppli}"
         kubeCreateSecretIntg = "~/kubectl apply -f init/secret-intg.yaml"
