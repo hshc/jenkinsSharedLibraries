@@ -19,11 +19,11 @@ stage("Initialisation d'un projet kube: ${trigrammeAppli} "){
     else {  
         // Initialisation des variables commande
         kubeCreateNS = "~/kubectl create namespace ${trigrammeAppli}"
-        kubeCreateSecretIntg = "~/kubectl apply -f secret-intg.yaml"
-        kubeCreateSecretRecf = "~/kubectl apply -f secret-recf.yaml"
-        kubeCreateSAccount = "~/kubectl apply -f serviceAccount.yaml"
-        kubeCreateRBinding = "~/kubectl apply -f roleBinding.yaml"
-        kubeCreateRole = "~/kubectl apply -f role.yaml"
+        kubeCreateSecretIntg = "~/kubectl apply -f init/secret-intg.yaml"
+        kubeCreateSecretRecf = "~/kubectl apply -f init/secret-recf.yaml"
+        kubeCreateSAccount = "~/kubectl apply -f init/serviceAccount.yaml"
+        kubeCreateRBinding = "~/kubectl apply -f init/roleBinding.yaml"
+        kubeCreateRole = "~/kubectl apply -f init/role.yaml"
         kubeConfigSet = "~/kubectl config set-context cluster-anteprod-${trigrammeAppli} " +
                         "--cluster=cluster-anteprod --user=sifront-api --namespace=${trigrammeAppli}"
         kubeConfigView = "~/kubectl config view"
@@ -64,7 +64,7 @@ metadata:
     usilColorLog("debug", "Création du fichier init/serviceAccount.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    writeFile file: "serviceAccount.yaml", text: configYamlTRI
+    writeFile file: "init/serviceAccount.yaml", text: configYamlTRI
 }
 
 def roleBinding (def trigrammeAppli) {
@@ -88,7 +88,7 @@ subjects:
     usilColorLog("debug", "Création du fichier roleBinding.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    writeFile file: "roleBinding.yaml", text: configYamlTRI
+    writeFile file: "init/roleBinding.yaml", text: configYamlTRI
 }
 
 def role (def trigrammeAppli) {
@@ -113,7 +113,7 @@ rules:
     usilColorLog("debug", "Création du fichier init/role.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    writeFile file: "role.yaml", text: configYamlTRI
+    writeFile file: "init/role.yaml", text: configYamlTRI
 }
 
 def secretIntg (def trigrammeAppli) {
@@ -132,7 +132,7 @@ metadata:
     usilColorLog("debug", "Création du fichier init/secret-intg.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    writeFile file: "secret-intg.yaml", text: configYamlTRI
+    writeFile file: "init/secret-intg.yaml", text: configYamlTRI
 }
 
 def secretRecf (def trigrammeAppli) {
@@ -151,5 +151,5 @@ metadata:
     usilColorLog("debug", "Création du fichier init/secret-recf.yaml")
     def configYamlTRI = configYaml.replaceAll("trigrammeAppli","${trigrammeAppli}")
     usilColorLog("debug", "${configYamlTRI}")
-    writeFile file: "secret-recf.yaml", text: configYamlTRI
+    writeFile file: "init/secret-recf.yaml", text: configYamlTRI
 }
