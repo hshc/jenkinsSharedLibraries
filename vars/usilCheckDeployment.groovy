@@ -7,14 +7,18 @@ def call(def codeEnv) {
                 ENV_TO_TEST = "dev"
                 CODE_ENV_TO_TEST = "e4"
                 usilColorLog("warning", "Pas de validation, déploiement autorisé pour le moment pour cet environnement")
-                retrun true; 
+                currentBuild.result = 'SUCCESS'
+                sh "exit 0"
+                return true; 
                 break;
             case "e2": 
                 ENV_TO_DEPLOY = "recf"
                 ENV_TO_TEST = "intg"
                 CODE_ENV_TO_TEST = "e3";
                 usilColorLog("warning", "Pas de validation, déploiement autorisé pour le moment pour cet environnement")
-                retrun true;
+                currentBuild.result = 'SUCCESS'
+                sh "exit 0"
+                return true;
                 break;
             case "el": 
                 ENV_TO_DEPLOY = "rec4"
@@ -23,7 +27,7 @@ def call(def codeEnv) {
                 usilColorLog("error", "Validation éffectuée, déploiement non autorisé pour cet environnement")
                 currentBuild.result = 'FAILURE'
                 sh "exit 1"
-                retrun false;
+                return false;
                 break;
             case "er": 
                 ENV_TO_DEPLOY = "int2"
@@ -32,7 +36,7 @@ def call(def codeEnv) {
                 usilColorLog("error", "Validation éffectuée, déploiement non autorisé pour cet environnement")
                 currentBuild.result = 'FAILURE'
                 sh "exit 1"
-                retrun false;
+                return false;
                 break;
             case "e1": 
                 ENV_TO_DEPLOY = "pprod"
@@ -41,7 +45,7 @@ def call(def codeEnv) {
                 usilColorLog("error", "Validation éffectuée, déploiement non autorisé pour cet environnement")
                 currentBuild.result = 'FAILURE'
                 sh "exit 1"
-                retrun false;
+                return false;
                 break;
             case "e0": 
                 ENV_TO_DEPLOY = "prod"
@@ -50,13 +54,13 @@ def call(def codeEnv) {
                 usilColorLog("error", "Validation éffectuée, déploiement non autorisé pour cet environnement")
                 currentBuild.result = 'FAILURE'
                 sh "exit 1"
-                retrun false;
+                return false;
                 break;
             default:
                 usilColorLog("error", "Validation éffectuée, déploiement non autorisé pour cet environnement inconnu de l\'USIL3")
                 currentBuild.result = 'FAILURE'
                 sh "exit 1"
-                retrun false;
+                return false;
        } 
     }
 }
