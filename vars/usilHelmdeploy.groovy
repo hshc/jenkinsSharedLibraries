@@ -3,7 +3,9 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def trigrammeAppli,def helmServ
 stage("Déploiement kube: ${kubServiceName} env: ${codeEnv}"){
        // Validation du déploiement sur cet environnement
        try {         
-              usilCheckDeployment("${codeEnv}")
+              if (usilCheckDeployment("${codeEnv}")) {
+                     
+              }
        } catch (Exception e) {
               return false
        }
