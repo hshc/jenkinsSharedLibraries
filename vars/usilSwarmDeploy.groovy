@@ -39,12 +39,13 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 			 sleep(time:60,unit:"SECONDS")
 			 def checkService = sh(returnStdout: true, script: "docker stack services '${gitProjectName}'_'${codeEnv}' --format '{{.Replicas}}'").trim()
 			 echo "Deploiement de la stack ${gitProjectName}_${codeEnv}: ${checkService}"
+			 dockerId = sh(returnStdout: true, script: "docker ps -f name=${gitProjectName}_${codeEnv} --format '{{.ID}}'").trim()
+			 sh "docker logs ${dockerId}"
 			 if (checkService ==~ /^0\/.*$/)
 			 	{
 				echo '[FAILURE] Erreur de deploiement du service ou conteneur'
-        		currentBuild.result = 'FAILURE'
+				currentBuild.result = 'FAILURE'
 				}
-			
 	    	}
     }
 }
