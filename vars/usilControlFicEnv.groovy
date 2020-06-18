@@ -1,56 +1,69 @@
 def call() {
         stage('Check du fichier .env ') {
         usilColorLog("stage", "Stage de control du fichier .env")
-        String[] parametreEnv = ["VDOCKER", "VLOCAL", 
-                                    "VLOCAL_CERTIF", "VDOCKER_CERTIF", 
-                                    "DOCKER_REPLICAS", "DOCKER_LIMIT_CPU", "DOCKER_LIMIT_RAM",
-                                    "URL", "PORT"]
+        // Initialisation
+        String[] parametreEnv = ["VOL_CONTAINER", "VVOL_GLUSTERLOCAL", 
+                                    "VOL_CONTAINER_CERTIF", "VOL_GLUSTER_CERTIF", 
+                                    "NB_REPLICAS", "LIMIT_CPU", "LIMIT_RAM",
+                                    "URL_EXTERNAL", "PORT_INTERNAL"]
         def codeRetour = 0
+        def paramMap = [:]
         // lecture du fichier .env
-        // A faire 
+        String[] lignesEnv = new file("${env.WORKSPACE}/.env").text
+        File fileEnv = new File("${env.WORKSPACE}/.env").eachLine { 
+        def line, noOfLines = 0, paramLine;
+        fileEnv.withReader { reader ->
+            while ((line = reader.readLine()) != null) {
+                usilColorLog("debug", "Ligne ${noOfLines}: ${line}") 
+                paramLine = line.split("=")
+                paramMap[paramLine[0]] = paramLine[1]
+                noOfLines++
+            }
+        }
+        // Controles
         if (controlNbChamps(parametreEnv) == false) {
             codeRetour = 1
             usilColorLog("error", "Les paramètres du fichier .env sont invalides")
         } else {
             usilColorLog("info", "Les paramètres du fichier .env sont valides")
         }
-        if (controlVolume(parametreEnv[0], parametreEnv[1]) ==1 {
+        if (controlVolume(parametreEnv[0], parametreEnv[1]) == false) {
             codeRetour = 1
             usilColorLog("error", "Les paramètres des volumes sont invalides")
         } else {
             usilColorLog("info", "Les parparamètresametres des volumes sont valides")
         }
-        controlVolume(parametreEnv[2], parametreEnv[3]) {
+        if (controlVolume(parametreEnv[2], parametreEnv[3]) == false) {
             codeRetour = 1
             usilColorLog("error", "Les paramètres des volumes certificats sont invalides")
         } else {
             usilColorLog("info", "Les paramètres des volumes certificats sont valides")
         }
-        controlNumMinMax(parametreEnv[4], 1 , 3, null) {
+        if (controlNumMinMax(parametreEnv[4], 1 , 3, null) == false) {
             codeRetour = 1
             usilColorLog("error", "Le nombre de replica est invalide")
         } else {
             usilColorLog("info", "Le nombre de replica est valide")
         }
-        controlNumMinMax(parametreEnv[5], 0.05, 1, null) {
+        if (controlNumMinMax(parametreEnv[5], 0.05, 1, null) == false) {
             codeRetour = 1
             usilColorLog("error", "La limite CPU est invalide")
         } else {
             usilColorLog("info", "La limite CPU est valide")
         }
-        controlNumMinMax(parametreEnv[6], 1, 8, "g") {
+        if (controlNumMinMax(parametreEnv[6], 1, 8, "g") == false) {
             codeRetour = 1
             usilColorLog("error", "La limite RAM est invalide")
         } else {
             usilColorLog("info", "La limite RAM est valide")
         }
-        controlURL(parametreEnv[7]) {
+        if (controlURL(parametreEnv[7]) == false) {
             codeRetour = 1
             usilColorLog("error", "Le format de l'URL est invalide")
         } else {
             usilColorLog("info", "Le format de l'URL est valide")
         }
-        controlNumMinMax(parametreEnv[8], 0, 9999, null) {
+        if (controlNumMinMax(parametreEnv[8], 0, 9999, null) == false) {
             codeRetour = 1
             usilColorLog("error", "Le port est invalide")
         } else {
