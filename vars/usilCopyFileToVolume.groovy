@@ -18,7 +18,7 @@ def call(def codeEnv,def gitProjectName,def sourcePath,def destinationPath) {
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
             dockerId = sh(returnStdout: true, script: "docker ps -f name=${gitProjectName}_${codeEnv} --format '{{.ID}}'").trim()
-            sh "docker cp ${sourcePath} ${dockerId}:${destinationPath}"
+            sh "docker cp -a ${sourcePath} ${dockerId}:${destinationPath}"
             }
     }
 }
