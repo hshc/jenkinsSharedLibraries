@@ -11,7 +11,7 @@ def call() {
         // lecture du fichier .env
         //String[] lignesEnv = new file("${env.WORKSPACE}/.env").text
         def line, noOfLines = 0, paramLine;
-        File fileEnv = new File("${env.WORKSPACE}/.env") 
+        def fileEnv = new File("${env.WORKSPACE}/.env") 
         fileEnv.withReader { reader ->
         while ((line = reader.readLine()) != null) {
             usilColorLog("debug", "Ligne ${noOfLines}: ${line}") 
