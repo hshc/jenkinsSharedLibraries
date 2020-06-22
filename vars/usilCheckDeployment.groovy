@@ -2,6 +2,15 @@ def call(def codeEnv) {
     stage('Validation du déploiement en ' + "${codeEnv}") {
         usilColorLog("stage", "Validation du déploiement en ${codeEnv}")
         switch("${codeEnv}") { 
+            case "e4": 
+                ENV_TO_DEPLOY = "dev"
+                ENV_TO_TEST = ""
+                CODE_ENV_TO_TEST = ""
+                usilColorLog("warning", "Pas de validation, déploiement autorisé pour le moment pour cet environnement")
+                currentBuild.result = 'SUCCESS'
+                sh "exit 0"
+                return true; 
+                break;
             case "e3": 
                 ENV_TO_DEPLOY = "intg"
                 ENV_TO_TEST = "dev"

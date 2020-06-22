@@ -9,16 +9,15 @@ def call() {
         def codeRetour = 0
         def paramMap = [:]
         // lecture du fichier .env
-        String[] lignesEnv = new file("${env.WORKSPACE}/.env").text
-        File fileEnv = new File("${env.WORKSPACE}/.env").eachLine { 
+        //String[] lignesEnv = new file("${env.WORKSPACE}/.env").text
         def line, noOfLines = 0, paramLine;
+        File fileEnv = new File("${env.WORKSPACE}/.env") 
         fileEnv.withReader { reader ->
-            while ((line = reader.readLine()) != null) {
-                usilColorLog("debug", "Ligne ${noOfLines}: ${line}") 
-                paramLine = line.split("=")
-                paramMap[paramLine[0]] = paramLine[1]
-                noOfLines++
-            }
+        while ((line = reader.readLine()) != null) {
+            usilColorLog("debug", "Ligne ${noOfLines}: ${line}") 
+            paramLine = line.split("=")
+            paramMap[paramLine[0]] = paramLine[1]
+            noOfLines++
         }
         // Controles
         if (controlNbChamps(parametreEnv) == false) {
@@ -27,13 +26,13 @@ def call() {
         } else {
             usilColorLog("info", "Les paramètres du fichier .env sont valides")
         }
-        if (controlVolume(parametreEnv[0], parametreEnv[1]) == false) {
+        if (controlVolume(parametreEnv[0], parametreEnv[1], paramMap) == false) {
             codeRetour = 1
             usilColorLog("error", "Les paramètres des volumes sont invalides")
         } else {
             usilColorLog("info", "Les parparamètresametres des volumes sont valides")
         }
-        if (controlVolume(parametreEnv[2], parametreEnv[3]) == false) {
+        if (controlVolume(parametreEnv[2], parametreEnv[3], paramMap) == false) {
             codeRetour = 1
             usilColorLog("error", "Les paramètres des volumes certificats sont invalides")
         } else {
@@ -79,8 +78,21 @@ def controlNbChamps(String[] nbChamps) {
     return true
 }
 
-def controlVolume(def docker, def local) {
-    // A faire 
+def controlVolume(def docker, def local, def paramMap) {
+    def paramDocker, paramLocal
+    // Récupération des values des 2 infos volume
+    paramMap.each { key, value ->
+        if (assert key == docker) {
+            paramDocker = value
+        }
+        if (assert key == local) {
+            paramLocal = value
+        }
+    }
+    if (assert paramDocker != null && assert paramLocal != null) {
+
+    }
+
     return true
 }
 
