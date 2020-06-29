@@ -8,7 +8,6 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag} fichier:${vault
       }
       else {
         vaultUrl="https://recf-keymaster.si2m.tec"
-        //vaultId="jenkins-vault-recf"
         vaultId="jenkins-vault-recf"
       }
       usilColorLog("stage", "Récupération env Vault env:${codeEnv} version:${gitTag}")
