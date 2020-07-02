@@ -2,6 +2,7 @@
 // nom du repo git, le tag git, le path ou est stocké le fichier récupéré sur Vault, la clé vaultKey par défaut prend la valeur value.yaml, 
 def call(def codeEnv,def trigrammeAppli, def gitProjectName, def gitTag, def vaultKeyPath, def vaultKey='values.yaml' ) {
 stage("Récupération env Vault env:${codeEnv} version:${gitTag} fichier:${vaultKey}"){
+      usilColorLog("stage", "Récupération env Vault env:${codeEnv} version:${gitTag} fichier:${vaultKey}")
       if (vaultKeyPath == 'e1' || vaultKeyPath == 'e0') {
         vaultUrl="https://keymaster.si2m.tec"
         vaultId="jenkins-vault-prod"
@@ -10,7 +11,6 @@ stage("Récupération env Vault env:${codeEnv} version:${gitTag} fichier:${vault
         vaultUrl="https://recf-keymaster.si2m.tec"
         vaultId="jenkins-vault-recf"
       }
-      usilColorLog("stage", "Récupération env Vault env:${codeEnv} version:${gitTag}")
       def pathGitTag = (gitTag == "") ? "" : "/${gitTag}"
       def vaultPath="kv/${trigrammeAppli.toUpperCase()}/${gitProjectName.toLowerCase()}/${codeEnv}${pathGitTag}"
       // Utilisation du plugin Vault pour aller récupérer la valeur dans kv/TRIGRAMME/trigramme_codeappli_description/tag la clé par défaut est values.yaml
