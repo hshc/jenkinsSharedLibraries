@@ -18,7 +18,7 @@ def call(def codeEnv,def dockerRegistryRepoAppli,def gitProjectName) {
 	    withEnv(['DOCKER_TLS_VERIFY=1',"DOCKER_CERT_PATH=${dockerCertPath}","DOCKER_HOST=${dockerUcp}"])
 	    	{
 			 def vipLabel=false
-			 def mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose-generique.yaml"
+			 def mydata = readYaml file: "${env.WORKSPACE}/${codeEnv}/docker-compose.yml"
 			 def nomService = mydata.services.keySet()			 
 			 def arrayLabels=mydata.services.get(nomService[0]).deploy.labels as String[]		 
 			for (labelUcp in mydata.services.get(nomService[0]).deploy.labels) {
