@@ -8,7 +8,7 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 				sh "mvn test ${mvnOptionnalArgs} -Duser.home=/var/maven"
 			}
 			stage('Sonar') {
-				withSonarQubeEnv('SONARQUBE_USIL3') {
+				withSonarQubeEnv('SONARQUBE_USIL79') {
 					sh "mvn sonar:sonar -Dsonar.projectKey=${env.gitProjectName} -Duser.home=/var/maven/.m2 -s /usr/share/maven/ref/settings.xml"
 				}
 			}
