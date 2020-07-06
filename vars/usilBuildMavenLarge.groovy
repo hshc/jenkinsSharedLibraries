@@ -8,7 +8,7 @@ def call(def dockerRegistryUrl,def dockerImageName,def nexusRepo,def gitBranchNa
 				sh "mvn test ${mvnOptionnalArgs} -Duser.home=/var/maven"
 			}
 			stage('Sonar (Memory)') {
-				withSonarQubeEnv('SONARQUBE_USIL3') {
+				withSonarQubeEnv('SONARQUBE_USIL79') {
 					sh """
 					export MAVEN_BATCH_ECHO=on
 					echo '-Xmx4096m -Xms2048m -XX:MaxPermSize=256m' > .mvn/jvm.config
